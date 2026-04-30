@@ -158,6 +158,21 @@ function initTitleWrapAnimations() {
   document.querySelectorAll(".home-about__title-wrap").forEach(animateTitleWrap);
 }
 
+function initHeroMapLiquidGlass() {
+  const mapCard = document.querySelector(".home-hero__map");
+  if (!mapCard) return;
+
+  const supportsBackdropFilter =
+    CSS.supports("backdrop-filter", "blur(1px)") || CSS.supports("-webkit-backdrop-filter", "blur(1px)");
+  const hasFilterDefs =
+    document.getElementById("header-liquid-distort") &&
+    document.getElementById("header-liquid-distort-strong");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const shouldEnable = Boolean(supportsBackdropFilter && hasFilterDefs && !prefersReducedMotion);
+  mapCard.classList.toggle("is-liquid-ready", shouldEnable);
+}
+
 // ===== ADVANTAGES ANIMATION =====
 function initAdvantageAnimations() {
   const advantageBlock = document.querySelector(".advantage-block");
@@ -1029,6 +1044,7 @@ async function preloadImages() {
 // Ініціалізація
 function init() {
   initHero();
+  initHeroMapLiquidGlass();
   initHomeAboutPin();
   initTitleWrapAnimations();
   initAdvantageAnimations();

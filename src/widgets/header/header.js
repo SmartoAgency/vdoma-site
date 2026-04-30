@@ -154,6 +154,89 @@ function closeMenuWithPixels(menu) {
   }, MENU_PIXEL_DURATION + 20);
 }
 
+function initMobileHeaderLiquidGlass() {
+  const mobileHeaderBg = document.querySelector(".header-bg.mob-v");
+  if (!mobileHeaderBg) return;
+
+  const isMobileViewport = window.matchMedia("(max-width: 767px)");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const supportsBackdropFilter =
+    CSS.supports("backdrop-filter", "blur(1px)") || CSS.supports("-webkit-backdrop-filter", "blur(1px)");
+
+  const syncMobileClass = (matches) => {
+    mobileHeaderBg.classList.toggle("is-liquid-ready", matches && supportsBackdropFilter);
+  };
+
+  syncMobileClass(isMobileViewport.matches);
+
+  const onViewportChange = (event) => {
+    syncMobileClass(event.matches);
+  };
+
+  if (isMobileViewport.addEventListener) {
+    isMobileViewport.addEventListener("change", onViewportChange);
+  } else {
+    isMobileViewport.addListener(onViewportChange);
+  }
+
+  if (!supportsBackdropFilter || prefersReducedMotion) return;
+
+  const turbulence = document.getElementById("header-liquid-fe-turbulence");
+  const displacement = document.getElementById("header-liquid-fe-displacement");
+  const turbulenceStrong = document.getElementById("header-liquid-fe-turbulence-strong");
+  const displacementStrong = document.getElementById("header-liquid-fe-displacement-strong");
+  const offsetRed = document.getElementById("header-liquid-fe-offset-r");
+  const offsetBlue = document.getElementById("header-liquid-fe-offset-b");
+  if (!turbulence || !displacement || !turbulenceStrong || !displacementStrong) return;
+
+  const start = performance.now();
+  let previousScrollY = window.scrollY;
+  let velocity = 0;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const nextY = window.scrollY;
+      const delta = Math.abs(nextY - previousScrollY);
+      previousScrollY = nextY;
+      velocity = Math.min(1, delta / 18);
+    },
+    { passive: true },
+  );
+
+  const animate = (now) => {
+    const t = (now - start) * 0.001;
+    velocity *= 0.9;
+
+    const boost = 1 + velocity * 1.35;
+    const freqX = (0.0105 + Math.sin(t * 0.75) * 0.0023 * boost).toFixed(4);
+    const freqY = (0.024 + Math.cos(t * 0.62) * 0.0028 * boost).toFixed(4);
+    const scale = (24 + Math.sin(t * 0.9) * 3.8 + velocity * 7.5).toFixed(2);
+
+    const strongFreqX = (0.014 + Math.sin(t * 0.68 + 0.4) * 0.003 * boost).toFixed(4);
+    const strongFreqY = (0.032 + Math.cos(t * 0.58 - 0.3) * 0.0042 * boost).toFixed(4);
+    const strongScale = (34 + Math.sin(t * 0.84 + 0.7) * 5.6 + velocity * 11).toFixed(2);
+
+    const chromaShift = (0.82 + Math.sin(t * 1.2) * 0.22 + velocity * 0.55).toFixed(3);
+
+    turbulence.setAttribute("baseFrequency", `${freqX} ${freqY}`);
+    displacement.setAttribute("scale", scale);
+    turbulenceStrong.setAttribute("baseFrequency", `${strongFreqX} ${strongFreqY}`);
+    displacementStrong.setAttribute("scale", strongScale);
+
+    if (offsetRed && offsetBlue) {
+      offsetRed.setAttribute("dx", chromaShift);
+      offsetBlue.setAttribute("dx", (-Number(chromaShift)).toFixed(3));
+    }
+
+    window.requestAnimationFrame(animate);
+  };
+
+  window.requestAnimationFrame(animate);
+}
+
+initMobileHeaderLiquidGlass();
+
 if (innerWidth < 768) {
   let lastScroll = 0;
   const header = document.querySelector(".header");

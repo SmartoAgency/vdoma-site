@@ -9,7 +9,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   align-items: flex-end;
   justify-content: space-between;
   z-index: 1;
-  padding-top: 80px;
+  padding-top: 88px;
 
   @include tablet {
     padding-top: 20px;
@@ -110,6 +110,9 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     display: flex;
 
     align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
 
     background: rgba(244, 241, 234, 0.01);
     backdrop-filter: blur(20px);
@@ -119,6 +122,49 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 
     width: fit-content;
+
+    &.is-liquid-ready {
+      backdrop-filter: url("#header-liquid-distort") blur(10px) saturate(138%) contrast(110%);
+      -webkit-backdrop-filter: url("#header-liquid-distort") blur(10px) saturate(138%) contrast(110%);
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    &::before {
+      z-index: 1;
+      background: rgba(244, 241, 234, 0.01);
+      mask-image: linear-gradient(180deg, transparent 0 34%, rgba(0, 0, 0, 0.18) 50%, rgba(0, 0, 0, 0.88) 76%, #000 100%);
+      -webkit-mask-image: linear-gradient(180deg, transparent 0 34%, rgba(0, 0, 0, 0.18) 50%, rgba(0, 0, 0, 0.88) 76%, #000 100%);
+      backdrop-filter: blur(13px);
+      -webkit-backdrop-filter: blur(13px);
+    }
+
+    &.is-liquid-ready::before {
+      backdrop-filter: url("#header-liquid-distort-strong") blur(13px);
+      -webkit-backdrop-filter: url("#header-liquid-distort-strong") blur(13px);
+    }
+
+    &::after {
+      inset: 1px;
+      z-index: 0;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background:
+        radial-gradient(130% 95% at 8% 0%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 46%),
+        radial-gradient(90% 75% at 100% 100%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 70%),
+        linear-gradient(90deg, rgba(252, 86, 112, 0.08) 0%, rgba(255, 255, 255, 0) 12%, rgba(120, 168, 255, 0.1) 100%);
+    }
+
+    >* {
+      position: relative;
+      z-index: 2;
+    }
 
 
     @include tablet {
@@ -868,7 +914,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   .home-gallery__photos-wrap {
     padding: 60px 20px;
-    background-color: #d1d9e1be;
+    background-color: #d1d9e1ee;
     display: flex;
     flex-direction: column;
     gap: 60px;

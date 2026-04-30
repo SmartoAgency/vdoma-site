@@ -28,22 +28,79 @@
 
   }
 
-  &.menu-is-open {}
+}
+
+.header-liquid-filter-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
 .header-bg {
   pointer-events: all;
 
   &.mob-v {
-    border-bottom: 1px solid $accent-color;
-    background: rgba(244, 241, 234, 0.60);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    width: 100%;
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - 16px);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 12px;
+    margin: 8px;
+    border-radius: 1000px;
+    border: 1px solid rgba(244, 241, 234, 0.5);
+    background: rgba(244, 241, 234, 0.12);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.26),
+      0 10px 30px rgba(39, 41, 43, 0.12);
+    backdrop-filter: blur(8px) saturate(135%) contrast(108%);
+    -webkit-backdrop-filter: blur(8px) saturate(135%) contrast(108%);
+    margin-bottom: 0;
+
+    &.is-liquid-ready {
+      backdrop-filter: url("#header-liquid-distort") blur(2px) saturate(135%) contrast(108%);
+      -webkit-backdrop-filter: url("#header-liquid-distort") blur(2px) saturate(135%) contrast(108%);
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    &::before {
+      inset: 0;
+      background: rgba(244, 241, 234, 0.01);
+      z-index: 1;
+      mask-image: linear-gradient(180deg, transparent 0 30%, rgba(0, 0, 0, 0.22) 46%, rgba(0, 0, 0, 0.86) 72%, #000 100%);
+      -webkit-mask-image: linear-gradient(180deg, transparent 0 30%, rgba(0, 0, 0, 0.22) 46%, rgba(0, 0, 0, 0.86) 72%, #000 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    &.is-liquid-ready::before {
+      backdrop-filter: url("#header-liquid-distort-strong") blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    &::after {
+      inset: 1px;
+      background:
+        radial-gradient(130% 95% at 8% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 46%),
+        radial-gradient(90% 75% at 100% 100%, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 70%),
+        linear-gradient(90deg, rgba(252, 86, 112, 0.06) 0%, rgba(255, 255, 255, 0) 12%, rgba(120, 168, 255, 0.08) 100%);
+      z-index: 0;
+    }
+
+    >* {
+      position: relative;
+      z-index: 2;
+    }
 
     @include tablet {
       display: none;
@@ -64,6 +121,7 @@
       width: 60px;
       height: 60px;
       border: none;
+      border-radius: 12px;
 
       svg {
         width: 20px;
@@ -267,6 +325,9 @@
     /* Важливо: дозволяємо фону малюватися під бордером */
     background-origin: border-box;
     -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0) border-box;
+    mask:
       linear-gradient(#fff 0 0) padding-box,
       linear-gradient(#fff 0 0) border-box;
     /* Додали border-box сюди */
