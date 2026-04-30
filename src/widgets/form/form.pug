@@ -1,0 +1,38 @@
+mixin form(attr)
+	.form-wrapper(data-form-wrapper)
+		//- .form-close(data-close-form)
+		//- 	<svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+		//- 	<path d="M25 25L1 1M1 25L25 1L1 25Z" stroke-width="2"/>
+		//- 	</svg>
+		form(data-form=attr autocomplete="off" contact-form-js).form
+			//- .form-title.text-style-h-3.text-black Замовити дзвінок
+			//- .form-description.text-style-body Залишіть контактні дані і ми обов'язково зв'яжемося з вами
+			.inputs-wrapper
+				.form-field.form-field-input(data-field-input data-field-name data-status="field--inactive").first-offset
+					.form-field__required 
+						svg 
+							use(href="./icons.svg#Required")
+					//- .input-title Ім’я
+					input(type='text' name="name" placeholder="").form-field__input
+					.placeholder Ім’я
+					.input-message(data-input-message)
+				.form-field.form-field-input(data-field-input data-field-phone data-status="field--inactive")
+					.form-field__required 
+						svg 
+							use(href="./icons.svg#Required")
+					//- .input-title Телефон
+					input(type='text' name="phone" placeholder="" ).form-field__input
+					.placeholder Телефон
+					.input-message(data-input-message)
+				//- .form-field.disabled.form-field-input(data-field-input data-field-email data-status="field--inactive")
+				//- 	//- .input-title.text-style-h-4.text-gray Email:
+				//- 	input(type='text' name="email" placeholder="").form-field__input
+				//- 	.placeholder Email
+				//- 	.input-message(data-input-message)
+				
+				
+				
+
+			.form__button-wrapper
+				button( type="submit" data-btn-submit).general-btn
+					span.submit-btn__text(data-btn-submit-text) Надіслати повідомлення

@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: local('Gilroy Regular'), local('Gilroy-Regular'),
+    url('../../shared/fonts/Gilroy/Gilroy-Regular.ttf') format('ttf'),
+    url('../../shared/fonts/Gilroy/Gilroy-Regular.woff') format('woff'),
+    url('../../shared/fonts/Gilroy/Gilroy-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: local('Gilroy Medium'), local('Gilroy-Medium'),
+    url('../../shared/fonts/Gilroy/Gilroy-Medium.ttf') format('ttf'),
+    url('../../shared/fonts/Gilroy/Gilroy-Medium.woff') format('woff'),
+    url('../../shared/fonts/Gilroy/Gilroy-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: local('Gilroy Bold'), local('Gilroy-Bold'),
+    url('../../shared/fonts/Gilroy/Gilroy-Bold.ttf') format('ttf'),
+    url('../../shared/fonts/Gilroy/Gilroy-Bold.woff') format('woff'),
+    url('../../shared/fonts/Gilroy/Gilroy-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nasalization';
+  src: local('Nasalization'),
+    url('../../shared/fonts/Nasalization/Nasalization.otf') format('opentype');
+
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BuongiornoRastellinoCyrl';
+  src: local('BuongiornoRastellinoCyrl'),
+    url('../../shared/fonts/BuongiornoRastellinoCyrl/BuongiornoRastellinoCyrl.otf') format('opentype');
+
+  font-weight: 400;
+  font-style: normal;
+}

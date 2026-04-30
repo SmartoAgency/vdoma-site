@@ -1,0 +1,550 @@
+.overflow {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(16, 24, 32, 0.80);
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out 0.2s;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: all;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .form-wrap {
+    transition:
+      transform 0.3s ease-in-out 0.3s,
+      opacity 0.3s ease 0.3s;
+
+    @include tablet {
+      width: 688px;
+    }
+
+    .hidden & {
+      transform: scale(1.2);
+      opacity: 0;
+
+    }
+  }
+}
+
+.modal-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 24px);
+  background: $wc;
+  border: none;
+  transition:
+    transform 0.3s ease-in-out 0.3s,
+    opacity 0.3s ease 0.3s;
+  opacity: 1;
+  padding: 28px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .hidden & {
+
+    opacity: 0;
+  }
+
+  @include tablet {
+    padding: 40px;
+    width: 620px;
+  }
+
+  @include laptop {
+    padding: 40px vw(250);
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: auto;
+    right: 0;
+    transform: translate(0%, 0%);
+  }
+}
+
+.form-title {
+  @include super-title;
+  color: $accent-color;
+  text-align: start;
+  margin-bottom: 12px;
+  width: 100%;
+
+}
+
+.form-descr {
+  @include subtitle-text;
+  text-align: start;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.call-us__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #14293e;
+  transform: translate(-50%, -50%);
+  padding: 32px 16px;
+  transition:
+    transform 0.3s ease-in-out 0.3s,
+    opacity 0.3s ease 0.3s;
+  opacity: 1;
+
+  .hidden & {
+    transform: translate(-50%, -20%);
+    opacity: 0;
+  }
+
+  @include tablet {
+    padding: 72px 24px;
+  }
+
+  @include laptop {
+    padding: 100px 100px;
+  }
+
+  @include desktop {
+    padding: 100px 120px;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  z-index: 3;
+  // border-radius: 50%;
+  // background-color: $light-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  right: 12px;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  svg {
+    transition: transform 0.3s ease;
+    width: 24px;
+    height: 24px;
+  }
+
+  @include laptop {
+    top: 20px;
+    right: 20px;
+  }
+
+  @include desktop {
+    top: 40px;
+    right: 40px;
+  }
+}
+
+.call-us__title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 48px;
+
+  h2 {}
+
+  p {
+    @include general-text;
+
+    @include tablet {
+      width: 324px;
+    }
+
+    @include laptop {
+      width: 500px;
+    }
+
+    @include desktop {
+      width: 600px;
+    }
+  }
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+}
+
+.form-wrapper {
+  width: 100%;
+}
+
+.inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  margin-bottom: 60px;
+
+  @include tablet {
+    gap: 40px;
+  }
+
+
+}
+
+.input-title {
+  @include general-text;
+  color: $text-color;
+}
+
+.form-field {
+  position: relative;
+
+  &__checkbox-container {
+    display: flex;
+    flex-direction: column; // Щоб помилка була знизу
+    gap: 8px;
+    margin-top: 14px;
+    position: relative;
+
+    @include tablet {
+      margin-top: 10px;
+    }
+
+    &[data-status="field--error"] {
+      .form-field__checkbox-checkmark {
+        border-color: #ff0000;
+      }
+
+      .input-message {
+        display: block;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: self-start;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+
+      &:checked~.form-field__checkbox-checkmark {
+        background-color: transparent;
+
+        &::after {
+          display: block;
+        }
+      }
+    }
+
+    &-checkmark {
+      display: block;
+      min-width: 16px;
+      min-height: 16px;
+      border-radius: 2px;
+      border: 1px solid var(--white, #fff);
+      position: relative;
+      margin-top: 3px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 5px;
+        top: 2px;
+        width: 4px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+
+    &-text {
+      @include general-text; // Або ваш стиль тексту
+      color: $text-color;
+
+      a {
+        text-decoration: underline;
+        color: inherit;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  &__required {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $accent-color;
+
+      use {
+        fill: $accent-color;
+      }
+    }
+  }
+}
+
+.form-field[data-custom-select] {
+  position: relative;
+  cursor: pointer;
+
+  // Тіло випадаючого списку
+  .select-dropdown {
+    position: absolute;
+    top: 100%; // Одразу під тригером
+    left: 0;
+    width: 100%;
+    background: #1a2e44;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 999; // Дуже важливо, щоб список був поверх інших інпутів
+
+    // Початковий стан: приховано
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+
+    border-radius: 0 0 4px 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+  }
+
+  &:hover:not(.just-selected) {
+    .select-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .select-trigger {
+      border-bottom-color: #ffffff;
+
+      &__icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+
+    &__text {
+      @include general-text;
+      color: $text-color;
+    }
+
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        color: $text-color;
+      }
+    }
+  }
+
+  .select-item {
+    padding: 12px 20px;
+    color: white;
+    list-style: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      padding-left: 30px; // Гарний ефект при наведенні на пункт
+      color: $text-color;
+    }
+  }
+}
+
+.input-message {
+  position: absolute;
+  bottom: -16px;
+  // left: 50%;
+  // transform: translateX(-50%);
+  z-index: 2;
+  color: #8D162C;
+}
+
+.form-field__input {
+  @include general-text;
+  width: 100%;
+  padding: 16px 0;
+  color: $text-color;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(10, 15, 19, 0.20);
+  position: relative;
+
+  @include tablet {
+    padding: 20px 0;
+  }
+
+  &::placeholder {
+    @include general-text;
+    color: $text-color;
+
+  }
+
+  &:focus+.placeholder,
+  &:not(:placeholder-shown)+.placeholder {
+    top: 0;
+    font-size: 12px;
+  }
+
+
+}
+
+.placeholder {
+  @include general-text;
+  color: $text-color;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.text-input {
+  resize: none;
+}
+
+.form__button {
+  justify-self: flex-end;
+
+  width: fit-content;
+
+  &:hover .submit-btn__text {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.form__button-svg {
+  transform: scale(1.25);
+
+  @include laptop {
+    transform: translateY(50%) scale(1.25);
+  }
+}
+
+.form__button-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.submit-btn__text {}
+
+.iti__flag {
+  background-image: url("/src/widgets/form/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .iti__flag {
+    background-image: url("/src/widgets/form/img/flags@2x.png");
+  }
+}
+
+.input-message {
+  @include tiny-text;
+}
+
+.footer .iti--allow-dropdown input {
+  @include general-text;
+  color: #0f0f0f;
+  padding-right: 0;
+
+  @include laptop {
+    padding-right: 20px;
+  }
+}
+
+.iti__country-list {
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+}
+
+.iti__mobile {
+  .iti__country-list {
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+  }
+}
+
+.form-phone {
+  span {
+    color: #fff;
+    font-size: 20px;
+
+    @include tablet {
+      font-size: 40px;
+    }
+
+    @include laptop {
+      font-size: 2vw;
+    }
+  }
+}
+
+.form-field-textarea {
+  // height: 100%;
+}

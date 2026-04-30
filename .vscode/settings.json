@@ -1,0 +1,13 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "stylelint.validate": ["css", "scss"],
+  "[scss]": {
+    "editor.formatOnSave": true
+  },
+  "i18n-ally.localesPaths": ["D:/SmartOrange/vdoma-site"]
+}

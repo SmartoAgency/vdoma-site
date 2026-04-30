@@ -1,0 +1,267 @@
+.footer {
+  position: relative;
+  z-index: 3;
+  background-color: $accent-color-2;
+  overflow: hidden;
+  padding-top: 24px;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    padding-top: 40px;
+    padding-left: 80px;
+  }
+
+  @include laptop {
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(50%);
+      width: 1px;
+      background-image: linear-gradient(to top, rgba(105, 139, 164, 0.40) 50%, rgba(255, 255, 255, 0) 0%);
+      background-position: bottom;
+      background-size: 1px 20px;
+      /* 15px — це загальна довжина (риска + проміжок) */
+      background-repeat: repeat-y;
+
+      height: 100%;
+      z-index: 1;
+    }
+  }
+
+
+  .footer-title {
+    @include section-title;
+    color: white;
+    margin-bottom: 60px;
+
+    @include tablet {
+      margin-bottom: 40px;
+    }
+
+    @include laptop {
+      margin-bottom: vw(120);
+    }
+  }
+}
+
+.footer-content {
+  margin-bottom: 60px;
+  position: relative;
+
+
+
+  @include tablet {
+    margin-bottom: 80px;
+  }
+
+  @include laptop {
+    display: flex;
+    align-items: stretch;
+    gap: vw(80);
+    margin-bottom: vw(40);
+  }
+}
+
+
+.footer-contacts {
+  margin-bottom: 50px;
+
+  @include tablet {
+    margin-bottom: 70px;
+  }
+
+  @include laptop {
+    flex: 1;
+    margin-bottom: 0px;
+    width: calc(50% - 40px);
+  }
+
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 20px;
+      row-gap: 60px;
+
+    }
+
+    @include laptop {
+      column-gap: 0;
+      row-gap: vw(60);
+      justify-content: flex-end;
+    }
+  }
+
+  &__item {
+    @include tablet {
+      width: calc(50% - 10px);
+    }
+
+    @include laptop {
+      width: 50%;
+
+      &:last-child {
+        margin-top: -88px;
+      }
+    }
+
+    &-label {
+      @include general-text;
+      color: rgba(255, 255, 255, 0.40);
+
+      margin-bottom: 12px;
+
+      @include tablet {
+        margin-bottom: 20px;
+
+      }
+
+
+    }
+
+    &-link {
+      @include subtitle-text;
+      color: $wc;
+      text-decoration: underline;
+
+      @include laptop {
+        transition: all 0.5s ease;
+        padding-right: 40px;
+
+        &:hover {
+          text-shadow: 0 0 10px #8a8a8a, 0 0 20px #8a8a8a, 0 0 30px #8a8a8a;
+        }
+      }
+    }
+
+    .general-btn {
+      margin-top: 28px;
+
+      @include tablet {
+        margin-top: 40px;
+      }
+    }
+
+    &-link--second {
+      @include general-text;
+      color: $accent-color;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+  }
+
+}
+
+.footer__bottom-block {
+  border-top: 1px solid rgba(105, 139, 164, 0.40);
+
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  width: 100%;
+
+  @include tablet {
+    padding-top: 28px;
+  }
+
+  .footer__license {
+    @include general-text;
+    opacity: 0.4;
+    color: white;
+
+    span {
+      text-decoration: underline;
+      display: block;
+
+      @include tablet {
+        display: inline;
+      }
+    }
+  }
+
+}
+
+
+
+.socials-list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer .socials-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0.75px solid $text-color;
+  position: relative;
+  overflow: hidden;
+
+  @include tablet {
+    width: 64px;
+    height: 64px;
+  }
+
+  svg {
+    position: relative;
+    z-index: 3;
+    width: 16px;
+    height: 16px;
+    @include tablet {
+      width: 24px;
+      height: 24px;
+    }
+    path {
+      transition: all 0.4s ease-in-out;
+      fill: $text-color;
+    }
+
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $text-color;
+    z-index: 2;
+    transform: translateY(100%);
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      &::before {
+
+        transform: translateY(0); // Заповнення від центру до країв
+      }
+
+      svg {
+        path {
+          fill: $accent-color; // Колір стрілочки стає білим
+        }
+      }
+    }
+  }
+}

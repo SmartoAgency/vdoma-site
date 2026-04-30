@@ -1,0 +1,36 @@
+[data-ty-popup] {
+  // 
+  z-index: 1000;
+  transition: all 0.4s ease-in-out;
+
+  &.hidden {
+    transform: translate(-50%, 0%);
+    opacity: 0;
+    pointer-events: none;
+
+    @include laptop {
+      transform: translateX(100%);
+    }
+  }
+
+}
+
+.thank-you-popup__title {
+  @include super-title;
+  color: $accent-color;
+  margin-bottom: 12px;
+  text-align: center;
+
+}
+
+.thank-you-popup__subtitle {
+  @include subtitle-text;
+  color: $text-color;
+  text-align: center;
+}
+
+.thank-you-popup__icon {
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+}

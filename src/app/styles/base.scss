@@ -1,0 +1,57 @@
+@use "./vars.scss" as *;
+@use "./mixins.scss" as *;
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: $bg-color;
+  overflow-x: hidden;
+}
+
+main {
+  // height: 100%;
+}
+
+.container {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include tablet {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  @include laptop {
+    padding-right: vw(40);
+    padding-left: vw(40);
+  }
+
+  @include desktop {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  &--mobile {
+    margin-right: auto;
+    margin-left: auto;
+
+    @include tablet {
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+
+    @include laptop {
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
+#bingc-phone-button {
+  display: none !important;
+}

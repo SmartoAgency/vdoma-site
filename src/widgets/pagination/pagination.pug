@@ -1,0 +1,9 @@
+mixin pagination()
+  .pagination&attributes(attributes)
+    .pagination__utility 
+      +button-prev.pagination__prev 
+      .pagination-count
+        .pagination-count__current 01
+        .pagination-count__max з 00 сторінок
+      +button-next.pagination__next
+    button.pagination__more Завантажити ще
