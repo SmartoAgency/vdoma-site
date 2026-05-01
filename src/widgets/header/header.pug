@@ -105,6 +105,14 @@ mixin header
       p.flats-btn-subtext Вдома
       p.flats-btn-text ОБРАТИ КВАРТИРУ
 
+    button(type="button" aria-label="Повернутись догори" data-btn-up).scroll-top-btn
+      svg(width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg")
+        defs
+          linearGradient#scroll-top-btn-gradient(x1="3.5" y1="3" x2="16.5" y2="17" gradientUnits="userSpaceOnUse")
+            stop(offset="0" style="stop-color: var(--golden-start);")
+            stop(offset="1" style="stop-color: var(--golden-end);")
+        path(d="M10 3L3.5 9.5L4.9 10.9L9 6.8V17H11V6.8L15.1 10.9L16.5 9.5L10 3Z" fill="url(#scroll-top-btn-gradient)")
+      span ВГОРУ
 
 
     .overflow(data-call-us__overflow ).hidden

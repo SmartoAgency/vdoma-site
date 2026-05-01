@@ -686,7 +686,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   }
 
   @include laptop {
-    padding: vw(60) vw(40);
+    padding: 60px vw(40) vw(60);
     top: vw(100);
   }
 
@@ -719,6 +719,16 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
         height: 22px;
       }
     }
+
+    // @include laptop {
+    //   width: vw(80);
+    //   height: vw(80);
+
+    //   svg {
+    //     width: vw(24);
+    //     height: vw(22);
+    //   }
+    // }
   }
 
   &-img-wrap {

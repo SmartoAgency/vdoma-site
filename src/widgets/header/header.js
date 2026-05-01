@@ -235,7 +235,68 @@ function initMobileHeaderLiquidGlass() {
   window.requestAnimationFrame(animate);
 }
 
+function initScrollTopButton() {
+  const btn = document.querySelector("[data-btn-up]");
+  if (!btn) return;
+
+  const footer = document.querySelector(".footer");
+  const socialsList = footer ? footer.querySelector(".socials-list") : null;
+
+  let ticking = false;
+
+  const update = () => {
+    const showButton = window.scrollY > window.innerHeight;
+    btn.classList.toggle("is-visible", showButton);
+
+    if (!showButton) {
+      btn.classList.remove("is-docked");
+      btn.style.removeProperty("--btn-up-top");
+      return;
+    }
+
+    const bottomOffset = window.innerWidth >= 768 ? 24 : 16;
+    const minTopOffset = 12;
+    const defaultTop = window.innerHeight - bottomOffset - btn.offsetHeight;
+
+    const anchor = socialsList || footer;
+    if (!anchor) {
+      btn.classList.remove("is-docked");
+      btn.style.removeProperty("--btn-up-top");
+      return;
+    }
+
+    const anchorRect = anchor.getBoundingClientRect();
+    const anchorCenterY = anchorRect.top + anchorRect.height / 2;
+    const dockedTop = anchorCenterY - btn.offsetHeight / 2;
+
+    if (dockedTop < defaultTop) {
+      btn.classList.add("is-docked");
+      btn.style.setProperty("--btn-up-top", `${Math.max(minTopOffset, dockedTop)}px`);
+      return;
+    }
+
+    btn.classList.remove("is-docked");
+    btn.style.removeProperty("--btn-up-top");
+  };
+
+  const requestUpdate = () => {
+    if (ticking) return;
+
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      ticking = false;
+      update();
+    });
+  };
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+
+  requestUpdate();
+}
+
 initMobileHeaderLiquidGlass();
+initScrollTopButton();
 
 if (innerWidth < 768) {
   let lastScroll = 0;

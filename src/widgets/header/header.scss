@@ -376,6 +376,83 @@
   }
 }
 
+.scroll-top-btn {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-radius: 100px;
+  background: rgba(244, 241, 234, 0.01);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: $text-color;
+  --golden-start: #{$accent-color};
+  --golden-end: #{$text-color};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px) scale(0.92);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.25s ease-in-out;
+  z-index: 12;
+
+
+  @include tablet {
+    right: 24px;
+    bottom: 24px;
+    width: 62px;
+    height: 62px;
+  }
+
+  span {
+    @include tiny-text;
+    background: $golden-gradient;
+    background-size: 220% 100%;
+    background-position: 0% 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: golden-text-shimmer 2.8s ease-in-out infinite alternate;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0) scale(1);
+  }
+
+  &.is-docked {
+    top: var(--btn-up-top);
+    bottom: auto;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+
+      transform: translateY(-2px) scale(1.05);
+    }
+  }
+}
+
+@keyframes golden-text-shimmer {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
+}
+
 .nav-link {
   overflow: hidden;
   position: relative;
