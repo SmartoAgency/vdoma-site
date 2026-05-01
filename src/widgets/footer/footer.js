@@ -36,3 +36,50 @@ selectors.forEach((selector) => {
     );
   });
 });
+
+function initRunningLine() {
+  const track = document.querySelector(".running-line__track");
+  const container = document.querySelector(".running-line");
+
+  if (!track || !container || track.dataset.marqueeReady === "true") return;
+
+  const baseMarkup = track.innerHTML;
+  if (!baseMarkup.trim()) return;
+
+  // Build the first half long enough for smooth scrolling on wide screens.
+  let safety = 0;
+  while (track.scrollWidth < container.offsetWidth * 2 && safety < 12) {
+    track.insertAdjacentHTML("beforeend", baseMarkup);
+    safety += 1;
+  }
+
+  // Duplicate the full first half once so translateX(-50%) loops seamlessly.
+  const firstHalfMarkup = track.innerHTML;
+  track.insertAdjacentHTML("beforeend", firstHalfMarkup);
+
+  track.dataset.marqueeReady = "true";
+}
+
+const runningLineVideos = document.querySelectorAll(".running-line video");
+if (runningLineVideos.length) {
+  let pending = runningLineVideos.length;
+
+  const onVideoReady = () => {
+    pending -= 1;
+    if (pending <= 0) {
+      initRunningLine();
+    }
+  };
+
+  runningLineVideos.forEach((video) => {
+    if (video.readyState >= 1) {
+      onVideoReady();
+      return;
+    }
+
+    video.addEventListener("loadedmetadata", onVideoReady, { once: true });
+    video.addEventListener("error", onVideoReady, { once: true });
+  });
+} else {
+  initRunningLine();
+}
