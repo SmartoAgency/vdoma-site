@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Swiper from "swiper";
 import { Navigation, Autoplay, Scrollbar } from "swiper/modules";
 import "@shared/scripts/liquid-glass-animation/liquid-glass-animation";
+import { whenLoaderReveals } from "@shared/scripts/loader-sync.js";
 import "./home.scss";
 
 // Реєструємо плагін
@@ -28,13 +29,11 @@ function initHero() {
 
   gsap.set([title, subtitle, btn, mapCard], { opacity: 0, y: 30 });
 
-  gsap
-    .timeline()
+  const heroTl = gsap.timeline({ paused: true })
     .to(title, {
       opacity: 1,
       y: 0,
       duration: 0.8,
-      delay: 0.2,
       ease: "power2.out",
     })
     .to(
@@ -67,6 +66,8 @@ function initHero() {
       },
       "-=0.4",
     );
+
+  whenLoaderReveals().then(() => heroTl.play());
 
   ScrollTrigger.create({
     trigger: hero,
@@ -844,11 +845,16 @@ function initHomeProgress() {
     speed: 680,
     slideToClickedSlide: true,
     watchSlidesProgress: true,
+    simulateTouch: true,
+    allowTouchMove: true,
+    touchStartPreventDefault: false,
+    touchStartForcePreventDefault: false,
+    passiveListeners: false,
     scrollbar: {
       el: progressScrollbar,
       draggable: true,
       dragSize: 220,
-      snapOnRelease: true,
+      snapOnRelease: false,
     },
     breakpoints: {
       768: {
@@ -857,7 +863,7 @@ function initHomeProgress() {
           el: progressScrollbar,
           draggable: true,
           dragSize: 280,
-          snapOnRelease: true,
+          snapOnRelease: false,
         },
       },
       1200: {
@@ -866,7 +872,7 @@ function initHomeProgress() {
           el: progressScrollbar,
           draggable: true,
           dragSize: 340,
-          snapOnRelease: true,
+          snapOnRelease: false,
         },
       },
     },

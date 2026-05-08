@@ -1,0 +1,61 @@
+extends /../index.pug
+
+block variable
+  -
+    var title_page = 'gallery'
+    var id_page = 'id-page-gallery'
+
+block meta
+  title= title_page
+  meta(name='description', content='')
+
+block header
+  +header() 
+
+block content
+  section.gallery(data-gallery)
+    //- Дані галереї — на WP замінити на PHP-цикл по ACF/CPT
+    .gallery__data(hidden aria-hidden="true")
+      div(data-category-id="parks" data-category-label="Парки")
+        img(data-slide src="/src/shared/images/gallery/1.jpg" alt="Візуалізація паркового простору біля житлового комплексу")
+        img(data-slide src="/src/shared/images/gallery/2.jpg" alt="Прогулянкова зона та озеленення на території комплексу")
+      div(data-category-id="plans" data-category-label="Загальні плани")
+        img(data-slide src="/src/shared/images/gallery/3.jpg" alt="Загальний вигляд кварталу з міського простору")
+        img(data-slide src="/src/shared/images/gallery/4.jpg" alt="Архітектурна панорама комплексу з вулиці")
+      div(data-category-id="interiors" data-category-label="Інтер'єри")
+        img(data-slide src="/src/shared/images/gallery/5.jpg" alt="Інтер'єрна візуалізація простору комплексу")
+      div(data-category-id="commerce" data-category-label="Комерційні простори")
+        img(data-slide src="/src/shared/images/gallery/6.jpg" alt="Комерційний простір на першому рівні комплексу")
+    .gallery__bg.gallery__bg--current
+    .gallery__bg.gallery__bg--next
+    .gallery__veil
+    .gallery__inner
+      h1.gallery__title Галерея
+      .gallery__stage
+        canvas.gallery__canvas(aria-hidden="true")
+        img.gallery__fallback(src="/src/shared/images/gallery/1.jpg" alt="Галерея" loading="eager")
+      .gallery__chrome
+        .gallery__panel
+          nav.gallery__categories(aria-label="Категорії галереї")
+            ul.gallery__category-list
+          .gallery__footer
+            p.gallery__active-category(aria-live="polite")
+            .gallery__controls
+              button.gallery__nav.gallery__nav--prev(type="button" aria-label="Попереднє фото")
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M11.3846 20L4 12M4 12L11.3846 4M4 12L20 12" stroke="#27292B"/>
+                </svg>
+              .gallery__counter(aria-live="polite")
+                span.gallery__counter-current 01
+                span.gallery__counter-divider /
+                span.gallery__counter-total 06
+              button.gallery__nav.gallery__nav--next(type="button" aria-label="Наступне фото")
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12.6154 20L20 12M20 12L12.6154 4M20 12L4 12" stroke="#27292B"/>
+                </svg>
+  +footerSvg
+block footer
+  +footer()
+
+block scripts
+  script(type="module" src="/src/pages/gallery/gallery.js")

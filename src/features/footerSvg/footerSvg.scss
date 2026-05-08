@@ -1,0 +1,5 @@
+// SVG groups start hidden; GSAP sets opacity/scale on load and
+// animates them in on viewport entry — no per-group CSS delays needed.
+svg[data-footer-svg]>g {
+  will-change: transform, opacity;
+}

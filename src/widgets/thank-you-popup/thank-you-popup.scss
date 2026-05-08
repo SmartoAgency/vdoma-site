@@ -13,24 +13,32 @@
     }
   }
 
+  .general-btn {
+    width: 80%;
+    margin-left: auto;
+  }
+
 }
 
 .thank-you-popup__title {
   @include super-title;
-  color: $accent-color;
+  color: $text-color;
   margin-bottom: 12px;
-  text-align: center;
+  margin-right: auto;
+
 
 }
 
 .thank-you-popup__subtitle {
   @include subtitle-text;
   color: $text-color;
-  text-align: center;
+
 }
 
-.thank-you-popup__icon {
+.thank-you-popup__img {
   margin-top: 60px;
+  width: 80%;
+  margin-left: auto;
   margin-bottom: 60px;
 
 }

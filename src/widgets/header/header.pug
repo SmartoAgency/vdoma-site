@@ -117,12 +117,19 @@ mixin header
 
     .overflow(data-call-us__overflow ).hidden
       .modal-form(data-call-us-modal)
+        .form-gradient 
+        picture.form-pattern 
+          source(srcset="/src/shared/images/form-pattern-mob.png" media="(max-width: 1024px)")
+          source(srcset="/src/shared/images/form-pattern.png" media="(min-width: 1024px)")
+          img(src="/src/shared/images/form-pattern.png", alt="form-pattern")
+
+
         .close-btn(data-call-us-modal-close) 
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M8.2959 7.14258L11.6709 10.5176L15.0459 7.14258L16.1064 8.20312L12.7314 11.5781L16.1064 14.9531L15.0459 16.0137L11.6709 12.6387L8.2959 16.0137L7.23535 14.9531L10.6104 11.5781L7.23535 8.20312L8.2959 7.14258Z" fill="#0F4272"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M0.928711 2.34375L8.58496 10.001L0.928711 17.6592L2.34277 19.0732L9.99902 11.415L17.6562 19.0732L18.3643 18.3662L19.0713 17.6592L11.4131 10.001L19.0713 2.34375L18.3643 1.63672L17.6562 0.929688L9.99902 8.58691L2.34277 0.929688L0.928711 2.34375Z" fill="#27292B"/>
           </svg>
-        h3.form-title  Залишились запитання?
-        p.form-descr Ми готові дати відповідь!
+        h3.form-title  Зворотній <br> дзвінок
+        p.form-descr Ми допоможемо підібрати планування та відповімо на усі ваші запитання!
         +form
       +thank-you-popup
 
@@ -180,25 +187,22 @@ mixin header
           a(href="/3d").nav-link.menu-main-link
             span.real Обрати квартиру
             span.fake Обрати квартиру
-          a(href="/adv.html").nav-link.menu-main-link
+          a(href="/advantages.html").nav-link.menu-main-link
             span.real Переваги
             span.fake Переваги
           a(href="/gallery.html").nav-link.menu-main-link
             span.real Галерея
             span.fake Галерея
-          a(href="/location.html").nav-link.menu-main-link
-            span.real Локація
-            span.fake Локація
-          a(href="/construction.html").nav-link.menu-main-link
+          a(href="/progress.html").nav-link.menu-main-link
             span.real Будівництво
             span.fake Будівництво
-          a(href="/commercial.html").nav-link.menu-main-link
-            span.real Комерційна нерухомість
-            span.fake Комерційна нерухомість
+          //- a(href="/commercial.html").nav-link.menu-main-link
+          //-   span.real Комерційна нерухомість
+          //-   span.fake Комерційна нерухомість
           a(href="/news.html").nav-link.menu-main-link
             span.real Новини
             span.fake Новини
-          a(href="/contacts.html").nav-link.menu-main-link
+          a(href="#footer").nav-link.menu-main-link
             span.real Контакти
             span.fake Контакти
         .menu-contacts 

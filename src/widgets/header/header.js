@@ -334,10 +334,10 @@ document.body.addEventListener("click", function (evt) {
   const btnMenuTarget = evt.target.closest("[data-menu-button]");
   const btnMenuClose = evt.target.closest("[data-menu-close]");
   const menu = document.querySelector("[data-menu]");
-  const menuItem = evt.target.closest(".menu-item");
+  const menuItem = evt.target.closest(".menu-main-link");
   const submitBtn = evt.target.closest("[data-btn-submit]");
   const tyPopup = document.querySelector("[data-ty-popup]");
-  if (btnMenuTarget || menuItem) {
+  if (btnMenuTarget) {
     const isHidden = menu.classList.contains("hidden");
 
     if (isHidden) {
@@ -350,6 +350,12 @@ document.body.addEventListener("click", function (evt) {
       closeMenuWithPixels(menu);
     }
 
+    return;
+  }
+  if (menuItem && !menu.classList.contains("hidden")) {
+    window.dispatchEvent(new Event("start-scroll"));
+    header.classList.remove("menu-is-open");
+    closeMenuWithPixels(menu);
     return;
   }
   if (btnMenuClose || evt.target === menu) {

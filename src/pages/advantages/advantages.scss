@@ -1,0 +1,604 @@
+.hero-template {
+  position: relative;
+  min-height: calc(100svh - 80px);
+  overflow: hidden;
+  background-color: $bg-color;
+  padding: 90px 20px 60px;
+  background: linear-gradient(60deg, rgba(249, 243, 238, 1), rgba(227, 221, 217, 1));
+
+  @include tablet {
+    padding: 40px 40px 40px;
+  }
+
+  @include laptop {
+    padding: vw(142) vw(140) vw(50);
+    display: flex;
+    align-items: center;
+  }
+
+  .top-svg,
+  .bottom-svg {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .top-svg {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+
+    @include laptop {
+      width: vw(661);
+    }
+  }
+
+  .bottom-svg {
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: auto;
+
+    @include laptop {
+      width: vw(335);
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: block;
+  }
+
+  @include laptop {
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: vw(155);
+    }
+  }
+}
+
+.svg-decor__video {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+
+  @include tablet {
+    width: 70%;
+  }
+
+  @include laptop {
+    width: vw(612);
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .svg-decor__video-wrap {
+    position: relative;
+  }
+
+  .home-hero__video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mask-image: url('/src/shared/images/figure-video.png');
+    -webkit-mask-image: url('/src/shared/images/figure-video.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    z-index: 1;
+  }
+
+  .svg-frame {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .shadow-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: -6%;
+    z-index: 0;
+    position: relative;
+    pointer-events: none;
+  }
+}
+
+.title-wrap {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include tablet {
+    margin-top: 28px;
+  }
+
+  @include laptop {
+    margin-top: 0;
+    margin-bottom: vw(40);
+  }
+
+  h1 {
+    @include super-title;
+    color: $text-color;
+    margin: 0;
+
+    @include laptop {
+      max-width: vw(779);
+    }
+  }
+
+  .home-svg-to-write {
+    @include hand-text;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: $wc;
+    paint-order: stroke fill;
+    color: $accent-color;
+    margin: -35px 0 0;
+    transform: rotate(-12deg);
+    line-height: 0.9;
+    white-space: nowrap;
+
+    @include tablet {
+      margin-top: -55px;
+    }
+
+    @include laptop {
+      margin-top: calc(vw(-150) / 2);
+      -webkit-text-stroke-width: 4px;
+      
+    }
+  }
+}
+
+.btn-down {
+  position: absolute;
+  z-index: 3;
+  bottom: 32px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid $accent-color;
+  background: rgba(246, 244, 235, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  @include tablet {
+    display: flex;
+    margin-top: 18px;
+  }
+
+  @include laptop {
+    width: vw(72);
+    height: vw(72);
+    margin-top: 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $text-color;
+    z-index: 1;
+    transform: translateY(104%);
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+  }
+
+  svg {
+    position: absolute;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+    animation: about-arrow-drop 2s infinite;
+
+    @include laptop {
+      width: vw(28);
+      height: vw(28);
+    }
+
+    path {
+      transition: fill 0.3s ease;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 1s;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      &::before {
+        transform: translateY(0);
+      }
+
+      path {
+        fill: $accent-color;
+      }
+    }
+  }
+}
+
+@keyframes about-arrow-drop {
+  0% {
+    transform: translate(-50%, -200%);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  52% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translate(-50%, 80%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 80%);
+    opacity: 0;
+  }
+}
+
+.section-quote {
+  @include section-title;
+  background: linear-gradient(89deg, #27292b 0%, #bb9983 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.home-about__title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+  width: 100%;
+
+  @include tablet {
+    margin-bottom: 100px;
+  }
+
+  @include laptop {
+    margin-bottom: vw(100);
+  }
+
+  .section-quote {
+    @include tablet {
+      width: 600px;
+    }
+
+    @include laptop {
+      width: 60%;
+    }
+  }
+
+  .title-decor-svg {
+    width: 40px;
+    height: 36px;
+    margin-bottom: 20px;
+
+    @include tablet {
+      width: 60px;
+      height: 54px;
+      margin-bottom: 40px;
+    }
+  }
+
+  .home-svg-to-write {
+    @include hand-text;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: $wc;
+    paint-order: stroke fill;
+    color: $accent-color;
+    transform: rotate(-9deg);
+    margin-top: -35px;
+    will-change: transform, opacity, clip-path;
+    text-align: center;
+
+    @include tablet {
+      margin-top: -60px;
+    }
+
+    @include laptop {
+      margin-top: calc(vw(-200) / 2);
+    }
+  }
+}
+
+.advantage-section {
+  position: relative;
+  z-index: 4;
+  padding-bottom: 100px;
+  overflow: visible;
+  background-color: $wc;
+
+  @include tablet {
+    padding-bottom: 110px;
+  }
+
+  @include laptop {
+    padding-bottom: 86px;
+  }
+
+  .section-quote {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.advantage-block {
+  margin-top: 40px;
+  padding: 150px 20px;
+  background-color: $accent-color-2;
+  will-change: transform, border-radius;
+  backface-visibility: hidden;
+
+  @include tablet {
+    margin-top: 60px;
+    padding: 220px 20px;
+  }
+
+  @include laptop {
+    margin-top: vw(90);
+    padding: vw(240) vw(40);
+    display: flex;
+    gap: vw(40);
+  }
+
+  .advantage-main {
+    overflow: hidden;
+    border-radius: 40px;
+    padding: 20px;
+    width: 100%;
+    height: 420px;
+    position: relative;
+    margin-bottom: 40px;
+
+    @include tablet {
+      border-radius: 80px;
+      padding: 40px;
+      height: 645px;
+      margin-bottom: 80px;
+    }
+
+    @include laptop {
+      width: calc(50% - vw(40) / 2);
+      padding: vw(40) vw(50);
+      height: 892px;
+      max-height: 80vh;
+      position: sticky;
+      top: vw(100);
+      margin-bottom: 0;
+    }
+
+    .advantage-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(244, 241, 234, 0.6) 0%, #f4f1ea 100%);
+        z-index: 2;
+      }
+    }
+
+    &>img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+  }
+
+  .advantage-content {
+    position: relative;
+    z-index: 3;
+
+    h3 {
+      @include super-title;
+      color: $text-color;
+      margin-bottom: 12px;
+
+      @include tablet {
+        text-align: end;
+      }
+
+      @include laptop {
+        margin-bottom: vw(40);
+      }
+    }
+
+    p {
+      @include block-subtitle;
+      color: $text-color;
+      text-align: center;
+      text-transform: none;
+
+      @include tablet {
+        text-align: end;
+      }
+    }
+  }
+}
+
+.advantage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include tablet {
+    gap: 80px;
+  }
+
+  @include laptop {
+    gap: vw(80);
+    width: calc(50% - vw(40) / 2);
+  }
+}
+
+.advantage-item {
+  padding: 40px 20px;
+  position: sticky;
+  top: 60px;
+  background-color: $accent-color-2;
+  border-radius: 40px;
+  border: 1px solid $text-color;
+  transform-origin: 50% 0%;
+  will-change: transform, filter, opacity;
+
+  @include tablet {
+    padding: 60px 40px;
+    top: 100px;
+  }
+
+  @include laptop {
+    padding: 60px vw(40) vw(60);
+    top: vw(100);
+  }
+
+  &-decor {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background-color: $accent-color-2;
+    z-index: 1;
+    border-radius: 50%;
+    border: 1px solid $text-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    @include tablet {
+      width: 80px;
+      height: 80px;
+
+      svg {
+        width: 24px;
+        height: 22px;
+      }
+    }
+  }
+
+  &-img-wrap {
+    position: relative;
+    margin-bottom: 20px;
+
+    @include tablet {
+      margin-bottom: 60px;
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: 255 / 200;
+      border-radius: 40px;
+      object-fit: cover;
+
+      @include tablet {
+        aspect-ratio: 528 / 420;
+      }
+
+      @include laptop {
+        aspect-ratio: 724 / 504;
+      }
+    }
+
+    .home-svg-to-write {
+      @include hand-text;
+      color: $accent-color;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%) rotate(-9deg);
+    }
+  }
+
+  &-content {
+    @include laptop {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+  }
+
+  &-title {
+    @include section-title;
+    text-transform: none;
+    color: $text-color;
+
+    @include tablet {
+      text-transform: uppercase;
+    }
+
+    @include laptop {
+      font-size: vw(48);
+      width: 50%;
+    }
+  }
+
+  &-description {
+    @include general-text;
+    color: $text-color;
+
+    @include laptop {
+      width: 45%;
+    }
+  }
+}

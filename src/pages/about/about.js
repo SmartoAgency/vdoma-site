@@ -3,391 +3,489 @@ import Swiper from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { whenLoaderReveals } from "../../shared/scripts/loader-sync.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const swiperComfort = new Swiper(".swiper-comfort", {
-  modules: [Navigation, Pagination],
-  slidesPerView: 1.1,
-  spaceBetween: 20,
-  speed: 800,
-  // Навігація працює для обох наборів кнопок (моб і десктоп),
-  // якщо у них однакові дата-атрибути
-  navigation: {
-    nextEl: "[data-comfort-next]",
-    prevEl: "[data-comfort-prev]",
-  },
-  // Адаптивність
-  breakpoints: {
-    1024: {
-      slidesPerView: "auto",
-      direction: "vertical", // Стає вертикальним
-      autoHeight: false,
-      navigation: {
-        nextEl: "[data-comfort-laptop-next]",
-        prevEl: "[data-comfort-laptop-prev]",
-      }, // Важливо: для вертикального краще фіксована висота
-    },
-  },
-  on: {
-    init: function (swiper) {
-      updateText(swiper, true, ".about-comfort");
-    },
-    slideChange: function (swiper) {
-      updateText(swiper, false, ".about-comfort");
-    },
-  },
-});
+function initAboutHeroAnimation() {
+  const hero = document.querySelector(".hero-template");
+  if (!hero) return;
 
-function updateText(swiper, isInit, containerSelector) {
-  const activeSlide = swiper.slides[swiper.activeIndex];
-  const title = activeSlide.dataset.title;
-  const text = activeSlide.dataset.text;
-  const container = document.querySelector(containerSelector);
-  const titleEl = document.querySelector(`${containerSelector}__text-wrap h3`);
-  const descEl = document.querySelector(`${containerSelector}__text-wrap p`);
-  const counterEl = document.querySelector(`${containerSelector}__counter`);
+  const topSvg = hero.querySelector(".top-svg");
+  const bottomSvg = hero.querySelector(".bottom-svg");
+  const svgGroups = hero.querySelectorAll(".top-svg g, .bottom-svg g");
+  const videoWrap = hero.querySelector(".svg-decor__video");
+  const videoInner = hero.querySelector(".svg-decor__video-wrap");
+  const shadowImg = hero.querySelector(".shadow-img");
+  const title = hero.querySelector(".title-wrap h1");
+  const handText = hero.querySelector(".title-wrap .home-svg-to-write");
+  const downBtn = hero.querySelector(".btn-down");
 
-  // Оновлення лічильника
-  const current = (swiper.activeIndex + 1).toString().padStart(2, "0");
-  const total = swiper.slides.length.toString().padStart(2, "0");
-  counterEl.textContent = `${current} / ${total}`;
+  const edgeSvgs = [topSvg, bottomSvg].filter(Boolean);
+  if (edgeSvgs.length) {
+    gsap.set(edgeSvgs, { opacity: 0, scale: 1.08, transformOrigin: "50% 50%" });
+  }
 
-  if (isInit) {
-    titleEl.textContent = title;
-    descEl.textContent = text;
-  } else {
-    // Анімація GSAP
-    gsap
-      .timeline()
-      .to([titleEl, descEl], {
-        opacity: 0,
-        y: 15,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          titleEl.textContent = title;
-          descEl.textContent = text;
+  const targetGroupOpacity = Array.from(svgGroups, (group) => {
+    const attrOpacity = group.getAttribute("opacity");
+    if (attrOpacity !== null) {
+      const parsedAttr = Number.parseFloat(attrOpacity);
+      if (Number.isFinite(parsedAttr)) return parsedAttr;
+    }
+
+    const styleOpacity = group.style.opacity;
+    if (styleOpacity) {
+      const parsedStyle = Number.parseFloat(styleOpacity);
+      if (Number.isFinite(parsedStyle)) return parsedStyle;
+    }
+
+    const computed = Number.parseFloat(getComputedStyle(group).opacity);
+    return Number.isFinite(computed) ? computed : 1;
+  });
+
+  if (svgGroups.length) {
+    gsap.set(svgGroups, { opacity: 0 });
+  }
+
+  if (videoInner) {
+    gsap.set(videoInner, { opacity: 0, scale: 1.1, transformOrigin: "50% 55%" });
+  }
+
+  if (shadowImg) {
+    gsap.set(shadowImg, { opacity: 0, y: 18 });
+  }
+
+  if (title) {
+    gsap.set(title, { opacity: 0, y: 34, rotate: -2 });
+  }
+
+  if (handText) {
+    gsap.set(handText, {
+      opacity: 0,
+      y: 28,
+      clipPath: "inset(0 100% 0 0)",
+    });
+  }
+
+  if (downBtn) {
+    gsap.set(downBtn, { opacity: 0, y: 24 });
+  }
+
+  const endAt = 2;
+  const tl = gsap.timeline({
+    paused: true,
+    defaults: { ease: "power2.out" },
+  });
+
+  whenLoaderReveals().then(() => tl.play());
+
+  if (edgeSvgs.length) {
+    tl.to(
+      edgeSvgs,
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1.45,
+      },
+      endAt - 1.45,
+    );
+  }
+
+  if (svgGroups.length) {
+    tl.to(
+      svgGroups,
+      {
+        opacity: (index) => targetGroupOpacity[index],
+        duration: 1.2,
+        stagger: {
+          each: 0.02,
+          from: "start",
         },
-      })
-      .to([titleEl, descEl], {
+      },
+      endAt - 1.2,
+    );
+  }
+
+  if (videoInner) {
+    tl.to(
+      videoInner,
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        clearProps: "transform",
+      },
+      endAt - 1,
+    );
+  }
+
+  if (shadowImg) {
+    tl.to(
+      shadowImg,
+      {
         opacity: 1,
         y: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: "power2.out",
-      });
+        duration: 0.65,
+      },
+      endAt - 0.72,
+    );
+  }
+
+  if (title) {
+    tl.to(
+      title,
+      {
+        opacity: 1,
+        y: 0,
+        rotate: 0,
+        duration: 0.8,
+      },
+      endAt - 0.8,
+    );
+  }
+
+  if (handText) {
+    tl.to(
+      handText,
+      {
+        opacity: 1,
+        y: 0,
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.62,
+        clearProps: "clipPath",
+      },
+      endAt - 0.62,
+    );
+  }
+
+  if (downBtn) {
+    tl.to(
+      downBtn,
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.55,
+      },
+      endAt - 0.55,
+    );
   }
 }
 
-const swiperCommercial = new Swiper(".swiper-commercial", {
-  modules: [Navigation, Pagination],
-  slidesPerView: 1.1,
-  spaceBetween: 20,
-  speed: 800,
-  // Навігація працює для обох наборів кнопок (моб і десктоп),
-  // якщо у них однакові дата-атрибути
-  navigation: {
-    nextEl: "[data-commercial-next]",
-    prevEl: "[data-commercial-prev]",
-  },
-  // Адаптивність
-  breakpoints: {
-    1024: {
-      slidesPerView: "auto",
-      direction: "vertical", // Стає вертикальним
-      autoHeight: false,
-      navigation: {
-        nextEl: "[data-commercial-laptop-next]",
-        prevEl: "[data-commercial-laptop-prev]",
-      }, // Важливо: для вертикального краще фіксована висота
-    },
-  },
-  on: {
-    init: function (swiper) {
-      updateText(swiper, true, ".about-commercial");
-    },
-    slideChange: function (swiper) {
-      updateText(swiper, false, ".about-commercial");
-    },
-  },
-});
+initAboutHeroAnimation();
+initAboutComplexAnimations();
+initAboutKeyAnimation();
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Реєструємо ScrollTrigger, якщо він знадобиться для інших блоків
+function initAboutComplexAnimations() {
+  const section = document.querySelector(".about-complex");
+  if (!section) return;
 
-  const tl = gsap.timeline({
-    defaults: {
-      ease: "power2.out", // Плавне сповільнення в кінці
-      duration: 1.2,
-    },
-  });
+  const quote = section.querySelector(".section-quote");
+  const contentBlock = section.querySelector(".about-complex__content-block");
+  const img = section.querySelector(".about-complex__img");
 
-  // Робимо елементи видимими перед початком
-  tl.set(".header, .home-location__img-block, .home-location__block", {
-    visibility: "visible",
-  });
-
-  // 1. Анімація Header (зверху вниз)
-  tl.from(
-    ".header",
-    {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-    },
-    0,
-  ); // Починаємо в 0 секунд
-
-  // 2. Анімація головного зображення (зверху вниз + легкий scale)
-  tl.from(
-    ".home-location__img-block",
-    {
-      y: -50,
-      scale: 1.1,
-      opacity: 0,
-      duration: 1.5,
-    },
-    0.2,
-  ); // Починаємо з невеликою затримкою від старту
-
-  // 3. Анімація лівого блоку (Заголовок та кнопка "Гортай")
-  // Використовуємо stagger: 0.2 для послідовної появи
-  tl.from(
-    ".home-location__block > *",
-    {
-      y: 40,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.2,
-      clipPath: "inset(0% 0% 100% 0%)",
-    },
-    "-=0.8",
-  ); // Починаємо раніше, ніж закінчиться попередня анімація
-
-  // 4. Анімація правого блоку з текстом та декоративною іконкою
-  tl.from(
-    ".home-hero__text-block > *",
-    {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      clipPath: "inset(0% 0% 100% 0%)",
-    },
-    "-=0.6",
-  );
-
-  ScrollTrigger.create({
-    trigger: ".home-location",
-    start: "bottom bottom",
-    end: "bottom top",
-    pin: true, // "Приклеюємо" блок
-    pinSpacing: false, // Наступний блок ігнорує простір і наїжджає
-  });
-  gsap
-    .timeline({
+  // — entrance animations —
+  if (quote) {
+    gsap.set(quote, { opacity: 0, y: 40 });
+    gsap.to(quote, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power2.out",
       scrollTrigger: {
-        trigger: ".home-hero__bg",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
+        trigger: quote,
+        start: "top 82%",
+        once: true,
       },
-    })
-    .to(".home-location__img-block img", {
-      yPercent: -10, // Ефект паралаксу
-      ease: "none",
-    })
-    .to(
-      ".home-hero__bg",
+    });
+  }
+
+  if (contentBlock) {
+    gsap.set(contentBlock, { opacity: 0, y: 50 });
+    gsap.to(contentBlock, {
+      opacity: 1,
+      y: 0,
+      duration: 0.85,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: contentBlock,
+        start: "top 85%",
+        once: true,
+      },
+    });
+  }
+
+  // — parallax on image (overflow:hidden on section hides overshoot) —
+  if (img) {
+    gsap.fromTo(
+      img,
+      { yPercent: -20 },
       {
-        opacity: 1,
+        yPercent: 20,
         ease: "none",
-      },
-      "<",
-    );
-
-  // const bannerSection = document.querySelector("#section_2.banner");
-  // const bannerImg = bannerSection.querySelector(".banner__img-wrap img");
-
-  // // 1. АНІМАЦІЯ ВІДДАЛЕННЯ (Scale 1.2 -> 1)
-  // // Використовуємо fromTo, щоб гарантувати старт з 1.2
-  // gsap.fromTo(
-  //   bannerImg,
-  //   { scale: 1.2 },
-  //   {
-  //     scale: 1,
-  //     ease: "none",
-  //     scrollTrigger: {
-  //       trigger: bannerSection,
-  //       start: "top bottom",
-  //       end: "bottom top",
-  //       scrub: true,
-  //     },
-  //   },
-  // );
-
-  // Заголовок: поява знизу з легким нахилом
-
-  const selectors = [
-    ".home-advantages>h2",
-    ".home-advantages>p",
-    ".about-comfort>h2",
-    ".section-title",
-    ".home-location__subblock h2",
-    ".slogan__img-wrap ",
-    ".slogan__text",
-    ".home-location__img-wrap img",
-    ".home-location__text-wrap p",
-
-    ".about-comfort__text-wrap>h3",
-    ".about-comfort__text-wrap>p",
-    ".about-infra__list li",
-    ".about-commercial h2",
-
-    ".about-commercial__text-wrap>h3",
-    ".about-commercial__text-wrap>p",
-    ".swiper__counter",
-    ".home-gallery__subblock h2",
-    ".home-progress__title-wrap h2",
-    ".home-progress__descr-wrap p",
-    ".home-progress__descr-wrap .general-btn",
-    ".home-progress__title-wrap h2",
-  ];
-
-  selectors.forEach((selector) => {
-    const elements = document.querySelectorAll(selector);
-
-    elements.forEach((el) => {
-      // Анімація через clip-path (імітація overflow: hidden)
-      gsap.fromTo(
-        el,
-        {
-          yPercent: 100,
-          // Обрізаємо елемент знизу (маска закрита)
-          clipPath: "inset(0% 0% 100% 0%)",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
         },
-        {
-          yPercent: 0,
-          clipPath: "inset(0% 0% 0% 0%)", // Маска повністю відкрита
-          duration: 1,
+      },
+    );
+  }
+}
 
-          ease: "power3.out", // Більш плавний фініш для преміального вигляду
+function initAboutKeyAnimation() {
+  const section = document.querySelector(".about-key");
+  if (!section) return;
+
+  const startKey = section.querySelector(".start-key");
+  const startQuote = section.querySelector(".start-key__quote");
+  const middleKey = section.querySelector(".middle-key");
+  const firstImageWrap = section.querySelector(".about-key__img-wrap .key-img-wrap-1");
+
+  const secondImageSection = section.querySelector(".about-key__img-wrap-2");
+  const endQuote = section.querySelector(".end-key__quote");
+  const endQuoteTitle = section.querySelector(".end-key__quote .section-quote");
+  const cards = section.querySelectorAll(".about-key__cards-wrap .about-key-card");
+
+  const enterCutout = section.querySelector(".svg-key .keyhole-cutout");
+  const exitCutout = section.querySelector(".svg-key-oppend .keyhole-cutout");
+  const enterSvgLayer = section.querySelector(".svg-key");
+  const exitSvgLayer = section.querySelector(".svg-key-oppend");
+  const enterSvg = section.querySelector(".svg-key .keyhole-svg");
+  const exitSvg = section.querySelector(".svg-key-oppend .keyhole-svg");
+  const gradients = section.querySelectorAll(".gradient-key");
+
+  if (!startKey || !startQuote || !middleKey || !firstImageWrap || !secondImageSection || !endQuote) return;
+
+  if (enterCutout) {
+    gsap.set(enterCutout, {
+      transformBox: "view-box",
+      transformOrigin: "50% 50%",
+      svgOrigin: "960 540",
+      x: 0,
+      y: 0,
+      scale: 1,
+    });
+  }
+
+  if (enterSvg) {
+    gsap.set(enterSvg, {
+      scale: 1,
+      transformOrigin: "50% 50%",
+    });
+  }
+
+  if (exitCutout) {
+    gsap.set(exitCutout, {
+      transformBox: "view-box",
+      transformOrigin: "50% 50%",
+      scale: 15,
+    });
+  }
+
+  if (exitSvgLayer) {
+    gsap.set(exitSvgLayer, {
+      scale: 1.35,
+      autoAlpha: 1,
+      transformOrigin: "50% 50%",
+    });
+  }
+
+  if (exitSvg) {
+    gsap.set(exitSvg, {
+      scale: 1,
+      transformOrigin: "50% 50%",
+    });
+  }
+
+  gsap.set(startQuote, {
+    autoAlpha: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transformOrigin: "50% 50%",
+  });
+
+  if (endQuoteTitle) {
+    endQuoteTitle.style.setProperty("--end-key-progress", "0");
+  }
+
+  if (gradients.length) {
+    gsap.set(gradients, { autoAlpha: 0.8 });
+  }
+
+  if (cards.length) {
+    const firstCard = cards[0];
+    const secondCard = cards[1];
+
+    if (firstCard) {
+      gsap.fromTo(
+        firstCard,
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: "none",
           scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            toggleActions: "play none none none",
-            // will-change допомагає уникнути "мигтіння" при роботі з clip-path
-            onEnter: () => (el.style.willChange = "transform, clip-path"),
-            onComplete: () => (el.style.willChange = "auto"),
+            trigger: firstCard,
+            start: "top bottom",
+            end: "+=140%",
+            scrub: 1.2,
+            invalidateOnRefresh: true,
           },
         },
       );
-    });
-  });
-  const advantageItems = document.querySelectorAll(".advantages-item");
+    }
 
-  advantageItems.forEach((item, index) => {
-    // Фіксуємо початковий випадковий нахил для фази появи
-    const startRotation = gsap.utils.random(-8, 8);
-
-    // 1. ЕТАП: ПОЯВА (Intro)
-    // Закінчується, коли центр картки досягає 60% екрана
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: "top 95%", // Початок появи знизу
-          end: "top 40%", // Фініш появи на 60% висоти в'юпорту
-          scrub: 0.5, // М'яка прив'язка до скролу під час появи
-        },
-      })
-      .from(item, {
-        opacity: 0,
-        y: 120,
-        rotation: startRotation,
-        ease: "power2.out",
-      })
-      .from(
-        item.querySelector("img"),
+    if (secondCard) {
+      gsap.fromTo(
+        secondCard,
+        { yPercent: -16 },
         {
-          scale: 1.1,
+          yPercent: 16,
+          ease: "none",
+          scrollTrigger: {
+            trigger: secondCard,
+            start: "top bottom",
+            end: "+=90%",
+            scrub: 0.45,
+            invalidateOnRefresh: true,
+          },
         },
-        "<",
       );
-    const isEven = (index + 1) % 2 === 0;
-    // 2. ЕТАП: ПОСТІЙНИЙ ПЛИН ТА ПІДКРУЧУВАННЯ (Scrub Loop)
-    // Починається ПІСЛЯ того, як картка пройшла позначку 60%
+    }
+  }
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: "top 40%", // Початок фази плину (стикується з кінцем появи)
-          end: "bottom top", // До повного зникнення зверху
-          scrub: 0.5, // Більша інерція для ефекту "невагомості"
-        },
-      })
-      .to(item, {
-        // Продовжує плисти вгору
-        // Пливемо далі вгору
-        x: isEven ? 10 : -5,
+  const enterTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: startKey,
+      start: "bottom bottom",
+      end: "+=120%",
+      scrub: true,
+      pin: startQuote,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+    },
+  });
 
-        // rotation: isEven ? 2 : -2, // Легке додаткове підкручування
+  if (enterCutout) {
+    enterTimeline.to(
+      enterCutout,
+      {
+        x: 0,
+        y: 0,
+        scale: 15,
+        svgOrigin: "960 540",
         ease: "none",
-      })
-      .to(
-        item.querySelector("img"),
-        {
-          filter: "grayscale(30%)",
-        },
-        "<",
-      );
-  });
-  if (window.innerWidth > 1024) {
+      },
+      0,
+    );
+  }
+
+  if (enterSvg) {
+    enterTimeline.to(
+      enterSvg,
+      {
+        scale: 1.35,
+        ease: "none",
+      },
+      0,
+    );
+  }
+
+  enterTimeline.to(
+    startQuote,
+    {
+      autoAlpha: 0,
+      scale: 1.08,
+      filter: "blur(16px)",
+      ease: "none",
+    },
+    0,
+  );
+
+  if (gradients.length) {
+    enterTimeline.to(
+      gradients,
+      {
+        autoAlpha: 0,
+        ease: "none",
+      },
+      0,
+    );
+  }
+
+  if (enterSvgLayer) {
     ScrollTrigger.create({
-      trigger: ".about-comfort",
-      start: "bottom bottom", // Закріплюємо, коли верх секції торкнувся верху екрана
-      pin: true, // Секція застигає
-      pinSpacing: false, // Важливо: наступна секція буде ігнорувати простір і наповзати
-      end: "bottom top",
-      // Тримаємо, поки наступна секція повністю не перекриє
+      trigger: startKey,
+      start: "bottom bottom",
+      end: "+=120%",
+      pin: enterSvgLayer,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
     });
   }
+
   ScrollTrigger.create({
-    trigger: ".about-commercial",
-    start: "bottom bottom", // Закріплюємо, коли верх секції торкнувся верху екрана
-    pin: true, // Секція застигає
-    pinSpacing: false, // Важливо: наступна секція буде ігнорувати простір і наповзати
-    end: "bottom top",
-    // Тримаємо, поки наступна секція повністю не перекриє
+    trigger: firstImageWrap,
+    start: "top top",
+    endTrigger: middleKey,
+    end: "top top",
+    pin: true,
+    pinSpacing: false,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
   });
 
-  const animDir = window.innerWidth > 1024 ? { yPercent: 50 } : { xPercent: 50 };
-  gsap.from(".swiper-commercial .swiper-slide", {
-    opacity: 0, // Починаємо з позорості
-    ...animDir, // Починаємо зміщеними вниз на 100% своєї висоти
-    duration: 1.2, // Трохи довша тривалість для плавності
-    stagger: 0.15, // Каскадна поява (один за одним)
-    ease: "power2.out", // Плавне сповільнення в кінці
+  const exitTimeline = gsap.timeline({
     scrollTrigger: {
-      trigger: ".swiper-commercial", // Тригер — увесь список
-      start: "top 85%", // Починаємо, коли верх списку на 85% висоти екрана
-      toggleActions: "play none none none", // Програти один раз
-      // will-change для оптимізації продуктивності під час руху
+      trigger: secondImageSection,
+      start: "top top+=1",
+      end: "+=110%",
+      scrub: 0.9,
+      pin: secondImageSection,
+      anticipatePin: 3,
+      pinReparent: true,
+      pinType: "transform",
+      preventOverlaps: true,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        if (!endQuoteTitle) return;
+        endQuoteTitle.style.setProperty("--end-key-progress", self.progress.toFixed(4));
+      },
     },
   });
-  gsap.from(".swiper-comfort>.swiper-wrapper>.swiper-slide", {
-    opacity: 0, // Починаємо з позорості
-    ...animDir, // Починаємо зміщеними вниз на 100% своєї висоти
-    duration: 1.2, // Трохи довша тривалість для плавності
-    stagger: 0.15, // Каскадна поява (один за одним)
-    ease: "power2.out", // Плавне сповільнення в кінці
-    scrollTrigger: {
-      trigger: ".swiper-comfort", // Тригер — увесь список
-      start: "top 85%", // Починаємо, коли верх списку на 85% висоти екрана
-      toggleActions: "play none none none", // Програти один раз
-      // will-change для оптимізації продуктивності під час руху
-    },
-  });
-});
+
+  if (exitCutout) {
+    exitTimeline.to(
+      exitCutout,
+      {
+        scale: 1,
+        ease: "none",
+      },
+      0,
+    );
+  }
+
+  if (exitSvgLayer) {
+    exitTimeline.to(
+      exitSvgLayer,
+      {
+        scale: 1,
+        autoAlpha: 1,
+        ease: "none",
+      },
+      0,
+    );
+  }
+
+  if (gradients.length) {
+    exitTimeline.to(
+      gradients,
+      {
+        autoAlpha: 0.8,
+        ease: "none",
+      },
+      0,
+    );
+  }
+}

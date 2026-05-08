@@ -1,71 +1,39 @@
 import "./single-news.scss";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { whenLoaderReveals } from "../../shared/scripts/loader-sync.js";
 
 gsap.registerPlugin(ScrollTrigger);
 document.addEventListener("DOMContentLoaded", () => {
-  // Реєструємо ScrollTrigger, якщо він знадобиться для інших блоків
+  // Pre-hide hero elements immediately so they're invisible behind the loader
+  gsap.set(".header", { y: -100, opacity: 0 });
+  gsap.set(".btn-back", { y: -50, scale: 1.1, opacity: 0 });
+  gsap.set("h1", { y: 30, opacity: 0, clipPath: "inset(0% 0% 100% 0%)" });
+  gsap.set(".single-news__date-wrap", { y: 40, opacity: 0 });
 
   const tl = gsap.timeline({
+    paused: true,
     defaults: {
-      ease: "power2.out", // Плавне сповільнення в кінці
+      ease: "power2.out",
       duration: 1,
     },
-  });
-
-  // Робимо елементи видимими перед початком
-  tl.set(".header, .btn-back, h1, .single-news__date-wrap", {
-    visibility: "visible",
   });
 
   // 1. Анімація Header (зверху вниз)
-  tl.from(
-    ".header",
-    {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-    },
-    0,
-  ); // Починаємо в 0 секунд
+  tl.to(".header", { y: 0, opacity: 1, duration: 1 }, 0);
 
-  // 2. Анімація головного зображення (зверху вниз + легкий scale)
-  tl.from(
-    ".btn-back",
-    {
-      y: -50,
-      scale: 1.1,
-      opacity: 0,
-      duration: 1,
-    },
-    "<",
-  ); // Починаємо з невеликою затримкою від старту
-  tl.from(
+  // 2. Кнопка "Назад" + заголовок
+  tl.to(".btn-back", { y: 0, scale: 1, opacity: 1, duration: 1 }, "<");
+  tl.to(
     "h1",
-    {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-
-      clipPath: "inset(0% 0% 100% 0%)",
-    },
+    { y: 0, opacity: 1, duration: 0.6, clipPath: "inset(0% 0% 0% 0%)", clearProps: "clipPath" },
     "-=0.6",
   );
 
-  // 3. Анімація лівого блоку (Заголовок та кнопка "Гортай")
-  // Використовуємо stagger: 0.2 для послідовної появи
-  tl.from(
-    ".single-news__date-wrap",
-    {
-      y: 40,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.2,
-    },
-    "-=0.8",
-  ); // Починаємо раніше, ніж закінчиться попередня анімація
+  // 3. Дата
+  tl.to(".single-news__date-wrap", { y: 0, opacity: 1, duration: 0.6, stagger: 0.2 }, "-=0.8");
 
-  // 4. Анімація правого блоку з текстом та декоративною іконкою
+  whenLoaderReveals().then(() => tl.play());
 
   ScrollTrigger.create({
     trigger: ".single-news",

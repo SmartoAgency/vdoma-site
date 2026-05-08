@@ -841,6 +841,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     h2 {
       @include super-title;
       color: $text-color;
+      text-align: center
     }
 
     .home-svg-to-write {
@@ -1292,22 +1293,22 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
         content: "";
         position: absolute;
         bottom: 15%;
-        left: 2px;
-        height: 70%;
-        width: 4px;
+        left: 3px;
+        height: 65%;
+        width: 5px;
         background-color: $text-color;
 
         @include tablet {
           bottom: 15%;
-          left: 4px;
-          height: 70%;
-          width: 5px;
+          left: 7px;
+          height: 65%;
+          width: 8px;
         }
 
         @include laptop {
           bottom: 15%;
           left: vw(9);
-          height: 70%;
+          height: 60%;
           width: vw(12);
         }
       }
@@ -1502,6 +1503,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     height: 34px;
     background: transparent;
     border-radius: 0;
+    touch-action: pan-x;
+    user-select: none;
   }
 
   &__scrollbar::before {
@@ -1550,12 +1553,19 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: .03em;
+    cursor: grab;
+    touch-action: none;
+  }
+
+  &__scrollbar .swiper-scrollbar-drag:active {
+    cursor: grabbing;
   }
 
   &__scrollbar .swiper-scrollbar-drag::before {
     content: "[ ПЕРЕТЯГНЯТЬ ДЛЯ ПЕРЕГЛЯДУ ]";
     white-space: nowrap;
     @include tiny-text;
+    pointer-events: none;
 
   }
 
@@ -1757,7 +1767,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 @media screen and (max-width: 1023px) {
   .home-progress-popup__panel {
-    inset: 0 0 0 40px;
+    inset: 0 0 0 80px;
   }
 
   .home-progress-popup__stage {

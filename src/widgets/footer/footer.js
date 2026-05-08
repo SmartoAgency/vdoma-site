@@ -1,4 +1,5 @@
 import "./footer.scss";
+import "../../features/footerSvg/footerSvg";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
