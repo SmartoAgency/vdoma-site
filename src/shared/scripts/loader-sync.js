@@ -10,16 +10,20 @@
  * @returns {Promise<void>}
  */
 export function whenLoaderReveals(safetyMs = 9000) {
-  if (!document.querySelector('.site-loader')) {
+  if (!document.querySelector(".site-loader")) {
     return Promise.resolve();
   }
 
   return new Promise((resolve) => {
     const timer = setTimeout(resolve, safetyMs);
 
-    window.addEventListener('loader:reveal', () => {
-      clearTimeout(timer);
-      resolve();
-    }, { once: true });
+    window.addEventListener(
+      "loader:reveal",
+      () => {
+        clearTimeout(timer);
+        resolve();
+      },
+      { once: true },
+    );
   });
 }

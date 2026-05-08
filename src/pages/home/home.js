@@ -29,7 +29,8 @@ function initHero() {
 
   gsap.set([title, subtitle, btn, mapCard], { opacity: 0, y: 30 });
 
-  const heroTl = gsap.timeline({ paused: true })
+  const heroTl = gsap
+    .timeline({ paused: true })
     .to(title, {
       opacity: 1,
       y: 0,
