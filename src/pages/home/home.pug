@@ -15,7 +15,7 @@ block header
 
 block content
   section.home-hero
-    video.home-hero__video(autoplay, muted, loop, playsinline, preload="metadata")
+    video.home-hero__video(muted="muted" autoplay="autoplay" playsinline="playsinline" loop="loop" preload="auto")
       source(src="/src/shared/images/hero.mp4", type="video/mp4")
       | Ваш браузер не підтримує відео
     .home-hero__overlay
@@ -293,7 +293,7 @@ block content
             .home-progress__photo
               img(src="/src/shared/images/progress-2.png", alt="Звіт 05")
               p.home-progress__date 01 БЕРЕЗНЯ 2026
-      .home-progress__scrollbar-wrap.container
+      .home-progress__scrollbar-wrap
         .home-progress__scrollbar
 
     .home-progress__reports(aria-hidden="true")

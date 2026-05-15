@@ -2,14 +2,14 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 .home-hero {
   position: relative;
-  height: 100vh;
+  height: 100svh;
 
   overflow: hidden;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   z-index: 1;
-  padding-top: 88px;
+  padding-top: 96px;
 
   @include tablet {
     padding-top: 20px;
@@ -91,6 +91,19 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   &__subtitle {
     @include block-subtitle;
     color: $wc;
+    width: 250px;
+
+    h1+& {
+      font-weight: 400;
+    }
+
+    @include tablet {
+      width: 100%;
+
+      h1+& {
+        font-weight: 700;
+      }
+    }
   }
 
   &__btn {
@@ -190,7 +203,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 
       @include tablet {
-        width: 100%;
+        width: auto;
         height: 150px;
       }
 
@@ -395,7 +408,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     position: sticky;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -552,6 +565,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     height: 420px;
     position: relative;
     margin-bottom: 40px;
+    position: sticky;
+    top: 96px;
 
     @include tablet {
       border-radius: 80px;
@@ -628,7 +643,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
       @include super-title;
       color: $text-color;
       margin-bottom: 12px;
-
+      text-align: center;
 
       @include tablet {
         text-align: end;
@@ -683,6 +698,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   @include tablet {
     padding: 60px 40px;
     top: 100px;
+    border-radius: 80px;
   }
 
   @include laptop {
@@ -780,10 +796,11 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     @include section-title;
     text-transform: none;
     color: $text-color;
+    margin-bottom: 12px;
 
     @include tablet {
       text-transform: uppercase;
-
+      margin-bottom: 20px;
     }
 
     @include laptop {
@@ -851,9 +868,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
       // paint-order: stroke fill;
       color: $accent-color;
       transform: rotate(-12deg);
-      margin-top: -35px;
+      margin-top: -105px;
       will-change: transform, opacity, clip-path;
       text-align: center;
+      line-height: 200%;
 
       span {
         display: inline-block;
@@ -862,6 +880,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
       @include tablet {
         margin-top: -60px;
+        line-height: 100%;
       }
 
       @include laptop {
@@ -946,6 +965,12 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
       will-change: transform, opacity;
 
+      .home-gallery__frame {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
       img {
         width: 100%;
         height: 100%;
@@ -957,6 +982,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
         @include super-title;
         color: $wc;
         position: absolute;
+        z-index: 2;
       }
 
       &:nth-child(1),
@@ -1072,8 +1098,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     top: 0;
     z-index: 6;
     width: 100%;
-    height: 100vh;
-    margin-top: -100vh;
+    height: 100svh;
+    margin-top: -100svh;
     display: flex;
     pointer-events: none;
     overflow: hidden;
@@ -1081,7 +1107,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   &__bottom-left,
   &__bottom-right {
-    width: 50%;
+    width: 54%;
     height: 100%;
     background-color: $accent-color;
     will-change: transform;
@@ -1222,7 +1248,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     }
 
     .map {
-      height: 80vh;
+      height: 60vh;
       width: 100%;
       border-radius: 40px;
       background-color: $accent-color;
@@ -1253,7 +1279,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     --progress-focus-width: calc((min(25vw, 380px) * 3) + 136px);
   }
 
-  background: linear-gradient(0deg, $accent-color 0%, $wc 100%);
+  background: linear-gradient(0deg, $accent-color 20%, $wc 100%);
   padding-top: 80px;
   padding-bottom: 90px;
   overflow: hidden;
@@ -1470,11 +1496,20 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     position: relative;
     aspect-ratio: 3 / 4;
 
+    cursor: pointer;
+
+    &:hover {
+      img {
+        transform: scale(1.05);
+      }
+    }
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.3s ease-in-out;
     }
   }
 
@@ -1488,6 +1523,9 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     background: $wc;
     color: $text-color;
 
+    @include laptop {
+      font-size: vw(16)
+    }
   }
 
   &__scrollbar-wrap {
@@ -1517,33 +1555,33 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     height: 18px;
     background:
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .62) 0,
-        rgba(39, 41, 43, .62) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px),
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .55) 0,
-        rgba(39, 41, 43, .55) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px),
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .55) 0,
-        rgba(39, 41, 43, .55) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px);
-    background-size: 48px 18px, 48px 12px, 48px 10px;
+    background-size: 40px 20px, 40px 10px, 40px 10px;
     background-position: 0 50%, 14px 50%, 24px 50%;
     background-repeat: repeat-x;
     mask: linear-gradient(90deg, transparent 0 1%, #000 6% 94%, transparent 99% 100%);
   }
 
   &__scrollbar .swiper-scrollbar-drag {
-    background: transparent;
+    background: $accent-color;
 
     height: 34px;
     border-radius: 10px;
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    // backdrop-filter: blur(40px);
+    // -webkit-backdrop-filter: blur(40px);
     top: 0;
     display: flex;
     align-items: center;
@@ -1659,6 +1697,16 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     }
   }
+
+  @include laptop {
+    width: vw(80);
+    height: vw(80);
+
+    svg {
+      width: vw(32);
+      height: vw(32);
+    }
+  }
 }
 
 @media (hover:hover) {
@@ -1720,6 +1768,16 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
       height: 32px;
     }
   }
+
+  @include laptop {
+    width: vw(80);
+    height: vw(80);
+
+    svg {
+      width: vw(32);
+      height: vw(32);
+    }
+  }
 }
 
 .home-progress-popup__counter {
@@ -1755,6 +1813,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   @include tablet {
     left: vw(70);
     bottom: vw(70);
+  }
+
+  @include laptop {
+    font-size: vw(16);
   }
 
 }

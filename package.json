@@ -12,6 +12,8 @@
     "icons": "script scripts/icons.ts"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.7.0",
     "autoprefixer": "^10.4.22",
     "glob": "^12.0.0",
     "gsap": "^3.13.0",

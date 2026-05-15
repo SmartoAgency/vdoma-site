@@ -15,7 +15,7 @@ block header
 block content
   section.home-progress
     .home-progress__head.container
-      h2.section-title(style="margin-left: auto; margin-right: auto;") Будівництво
+      h2.section-title Будівництво
     .home-progress__slider-wrap
       .swiper.home-progress__swiper
         .swiper-wrapper
@@ -39,7 +39,7 @@ block content
             .home-progress__photo
               img(src="/src/shared/images/progress-2.png", alt="Звіт 05")
               p.home-progress__date 01 БЕРЕЗНЯ 2026
-      .home-progress__scrollbar-wrap.container
+      .home-progress__scrollbar-wrap
         .home-progress__scrollbar
 
     .home-progress__reports(aria-hidden="true")
@@ -62,7 +62,7 @@ block content
       a.home-progress__report-link(data-report-id="report-5", href="./assets/images/progress-2.png", data-caption="Звіт 05")
       a.home-progress__report-link(data-report-id="report-5", href="./assets/images/gallery-1.jpg", data-caption="Звіт 05")
       a.home-progress__report-link(data-report-id="report-5", href="./assets/images/gallery-2.jpg", data-caption="Звіт 05")
-
+  +footerSvg
 block footer
   +footer()
 

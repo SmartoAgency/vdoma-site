@@ -160,6 +160,49 @@ function initTitleWrapAnimations() {
   document.querySelectorAll(".home-about__title-wrap").forEach(animateTitleWrap);
 }
 
+function initAdvantageItemsEqualHeight() {
+  const list = document.querySelector(".advantage-list");
+  if (!list) return;
+
+  const items = Array.from(list.querySelectorAll(".advantage-item"));
+  if (!items.length) return;
+
+  const syncHeights = () => {
+    items.forEach((item) => {
+      item.style.minHeight = "";
+    });
+
+    const maxHeight = items.reduce((max, item) => Math.max(max, item.offsetHeight), 0);
+    if (!maxHeight) return;
+
+    items.forEach((item) => {
+      item.style.minHeight = `${maxHeight}px`;
+    });
+
+    ScrollTrigger.refresh();
+  };
+
+  let resizeRaf = null;
+  const onResize = () => {
+    if (resizeRaf !== null) {
+      cancelAnimationFrame(resizeRaf);
+    }
+
+    resizeRaf = requestAnimationFrame(() => {
+      resizeRaf = null;
+      syncHeights();
+    });
+  };
+
+  syncHeights();
+  window.addEventListener("resize", onResize);
+  window.addEventListener("load", syncHeights, { once: true });
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(syncHeights);
+  }
+}
+
 function initHeroMapLiquidGlass() {
   const mapCard = document.querySelector(".home-hero__map");
   if (!mapCard) return;
@@ -179,11 +222,13 @@ function initHeroMapLiquidGlass() {
 function initAdvantageAnimations() {
   const advantageBlock = document.querySelector(".advantage-block");
   if (!advantageBlock) return;
+  const advantageTrigger = advantageBlock.closest(".advantage-section") || advantageBlock;
   const isWideDesktop = window.matchMedia("(min-width: 1600px)").matches;
+  const isMobileOrTablet = window.matchMedia("(max-width: 1023px)").matches;
 
   const blockTriggerRange = isWideDesktop
     ? { start: "top 94%", end: "top 40%" }
-    : { start: "top 88%", end: "top 36%" };
+    : { start: "top 100%", end: "top 36%" };
 
   gsap.set(advantageBlock, {
     scaleX: 0.86,
@@ -199,32 +244,82 @@ function initAdvantageAnimations() {
     borderRadius: "40px",
     ease: "none",
     scrollTrigger: {
-      trigger: advantageBlock,
+      trigger: advantageTrigger,
       start: blockTriggerRange.start,
       end: blockTriggerRange.end,
       scrub: 1,
     },
   });
 
+  const blockExitRange = isWideDesktop
+    ? { start: "bottom 88%", end: "bottom 46%" }
+    : { start: "bottom 92%", end: "bottom 50%" };
+
+  gsap.fromTo(
+    advantageBlock,
+    {
+      scaleX: 1,
+      yPercent: 0,
+      borderRadius: "40px",
+    },
+    {
+      scaleX: 0.86,
+      yPercent: -12,
+      borderRadius: "200px",
+
+      ease: "none",
+      overwrite: "auto",
+      scrollTrigger: {
+        trigger: advantageTrigger,
+        start: blockExitRange.start,
+        end: blockExitRange.end,
+        scrub: 1,
+      },
+    },
+  );
+
   const items = gsap.utils.toArray(".advantage-list .advantage-item");
   if (items.length < 2) return;
+  const advantageMain = advantageBlock.querySelector(".advantage-main");
   const coveredState = isWideDesktop
     ? {
         scale: 0.88,
         y: 38,
-        opacity: 0.62,
+
         filter: "brightness(0.58)",
       }
     : {
-        scale: 0.94,
+        scale: 0.8,
         y: 18,
-        opacity: 0.78,
-        filter: "brightness(0.75)",
+
+        filter: "brightness(0.58)",
       };
 
   const triggerRange = isWideDesktop
-    ? { start: "top 94%", end: "top 38%" }
-    : { start: "top 86%", end: "top 42%" };
+    ? { start: "top 98%", end: "top 34%" }
+    : { start: "top 92%", end: "top 38%" };
+
+  if (advantageMain && isMobileOrTablet) {
+    gsap.fromTo(
+      advantageMain,
+      {
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        filter: "brightness(1)",
+      },
+      {
+        ...coveredState,
+        ease: "none",
+        scrollTrigger: {
+          trigger: items[0],
+          start: triggerRange.start,
+          end: triggerRange.end,
+          scrub: 1,
+        },
+      },
+    );
+  }
 
   items.forEach((item, index) => {
     if (index === items.length - 1) return;
@@ -261,6 +356,9 @@ function initLocationAnimations() {
     const triggerRange = isWideDesktop
       ? { start: "top 94%", end: "top 40%" }
       : { start: "top 88%", end: "top 36%" };
+    const blockExitRange = isWideDesktop
+      ? { start: "bottom 88%", end: "bottom 46%" }
+      : { start: "bottom 92%", end: "bottom 50%" };
 
     gsap.set(locationContent, {
       scaleX: 0.86,
@@ -282,6 +380,28 @@ function initLocationAnimations() {
         scrub: 1,
       },
     });
+
+    gsap.fromTo(
+      locationContent,
+      {
+        scaleX: 1,
+        yPercent: 0,
+        borderRadius: "40px",
+      },
+      {
+        scaleX: 0.86,
+        yPercent: -12,
+        borderRadius: "200px",
+        ease: "none",
+        overwrite: "auto",
+        scrollTrigger: {
+          trigger: locationContent,
+          start: blockExitRange.start,
+          end: blockExitRange.end,
+          scrub: 1,
+        },
+      },
+    );
   }
 
   const locationDecor = document.querySelectorAll(".home-location .map-wrap > svg");
@@ -350,8 +470,8 @@ function initHomeGalleryAnimations() {
   const bottomLeft = gallery.querySelector(".home-gallery__bottom-left");
   const bottomRight = gallery.querySelector(".home-gallery__bottom-right");
 
-  if (heading) gsap.set(heading, { autoAlpha: 0, x: 200 });
-  if (decor) gsap.set(decor, { autoAlpha: 0, x: 220 });
+  if (heading) gsap.set(heading, { autoAlpha: 0, y: 90 });
+  if (decor) gsap.set(decor, { autoAlpha: 0, y: 110 });
   if (writeBlock) {
     gsap.set(writeBlock, {
       autoAlpha: 0,
@@ -371,7 +491,7 @@ function initHomeGalleryAnimations() {
   if (heading) {
     titleTl.to(heading, {
       autoAlpha: 1,
-      x: 0,
+      y: 0,
       ease: "none",
       duration: 0.45,
     });
@@ -382,7 +502,7 @@ function initHomeGalleryAnimations() {
       decor,
       {
         autoAlpha: 1,
-        x: 0,
+        y: 0,
         ease: "none",
         duration: 0.35,
       },
@@ -404,7 +524,7 @@ function initHomeGalleryAnimations() {
     );
 
     gsap.to(writeBlock, {
-      yPercent: 14,
+      yPercent: 7,
       ease: "none",
       scrollTrigger: {
         trigger: title,
@@ -445,7 +565,19 @@ function initHomeGalleryAnimations() {
   }
 
   photos.forEach((photo, index) => {
-    const img = photo.querySelector("img");
+    let img = photo.querySelector("img");
+    let frame = photo.querySelector(".home-gallery__frame");
+
+    if (img && !frame) {
+      frame = document.createElement("div");
+      frame.className = "home-gallery__frame";
+      img.parentNode.insertBefore(frame, img);
+      frame.appendChild(img);
+    }
+
+    if (frame) {
+      img = frame.querySelector("img");
+    }
 
     gsap.fromTo(
       photo,
@@ -471,20 +603,28 @@ function initHomeGalleryAnimations() {
     );
 
     if (img) {
-      const fromOffset = index % 2 === 0 ? -8 : -4;
-      const toOffset = index % 2 === 0 ? 10 : 6;
+      const fromYOffset = index % 2 === 0 ? -0.8 : -0.5;
+      const toYOffset = index % 2 === 0 ? 0.8 : 0.5;
+      const fromXOffset = index % 2 === 0 ? -2.6 : 2.6;
+      const toXOffset = index % 2 === 0 ? 2.6 : -2.6;
 
       gsap.fromTo(
         img,
-        { yPercent: fromOffset },
         {
-          yPercent: toOffset,
+          yPercent: fromYOffset,
+          xPercent: fromXOffset,
+          scale: 1.08,
+        },
+        {
+          yPercent: toYOffset,
+          xPercent: toXOffset,
+          scale: 1.08,
           ease: "none",
           scrollTrigger: {
             trigger: photo,
             start: "top bottom",
             end: "bottom top",
-            scrub: 1.2,
+            scrub: 1,
           },
         },
       );
@@ -496,24 +636,36 @@ function initHomeGalleryAnimations() {
     gsap.set(bottomLeft, { xPercent: -102 });
     gsap.set(bottomRight, { xPercent: 102 });
 
-    const curtainTrigger = {
-      trigger: photosWrap || gallery,
-      start: "90% 68%",
-      end: "90% 18%",
-      scrub: 1,
-    };
+    const curtainHoldDistance = () => Math.max(window.innerHeight * 0.85, 520);
 
-    gsap.to(bottomLeft, {
-      xPercent: 0,
-      ease: "none",
-      scrollTrigger: curtainTrigger,
+    const curtainTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: gallery,
+        start: "bottom bottom",
+        end: () => `+=${curtainHoldDistance()}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
     });
 
-    gsap.to(bottomRight, {
-      xPercent: 0,
+    curtainTl.to(bottomLeft, {
+      xPercent: 2,
       ease: "none",
-      scrollTrigger: curtainTrigger,
+      duration: 1,
     });
+
+    curtainTl.to(
+      bottomRight,
+      {
+        xPercent: -2,
+        ease: "none",
+        duration: 1,
+      },
+      0,
+    );
   }
 }
 
@@ -848,14 +1000,15 @@ function initHomeProgress() {
     watchSlidesProgress: true,
     simulateTouch: true,
     allowTouchMove: true,
-    touchStartPreventDefault: false,
-    touchStartForcePreventDefault: false,
-    passiveListeners: false,
+    touchStartPreventDefault: true,
+    touchStartForcePreventDefault: true,
+    passiveListeners: true,
     scrollbar: {
       el: progressScrollbar,
       draggable: true,
       dragSize: 220,
       snapOnRelease: false,
+      dragElastic: true,
     },
     breakpoints: {
       768: {
@@ -865,6 +1018,7 @@ function initHomeProgress() {
           draggable: true,
           dragSize: 280,
           snapOnRelease: false,
+          dragElastic: true,
         },
       },
       1200: {
@@ -874,6 +1028,7 @@ function initHomeProgress() {
           draggable: true,
           dragSize: 340,
           snapOnRelease: false,
+          dragElastic: true,
         },
       },
     },
@@ -1054,9 +1209,10 @@ function init() {
   initHeroMapLiquidGlass();
   initHomeAboutPin();
   initTitleWrapAnimations();
+  initAdvantageItemsEqualHeight();
   initAdvantageAnimations();
-  initLocationAnimations();
   initHomeGalleryAnimations();
+  initLocationAnimations();
   initHomeProgress();
   setCanvasSize();
   preloadImages();

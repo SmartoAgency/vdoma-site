@@ -13,7 +13,7 @@ mixin form(attr)
 						svg 
 							use(href="./icons.svg#Required")
 					//- .input-title Ім’я
-					input(type='text' name="name" placeholder="").form-field__input
+					input(type='text' name="name" placeholder=" ").form-field__input
 					.placeholder Ім’я
 					.input-message(data-input-message)
 				.form-field.form-field-input(data-field-input data-field-phone data-status="field--inactive")
@@ -21,7 +21,7 @@ mixin form(attr)
 						svg 
 							use(href="./icons.svg#Required")
 					//- .input-title Телефон
-					input(type='text' name="phone" placeholder="" ).form-field__input
+					input(type='text' name="phone" placeholder=" " ).form-field__input
 					.placeholder Телефон
 					.input-message(data-input-message)
 				//- .form-field.disabled.form-field-input(data-field-input data-field-email data-status="field--inactive")

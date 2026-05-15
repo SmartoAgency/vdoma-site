@@ -167,10 +167,6 @@
       @include laptop {
         transition: all 0.5s ease;
         padding-right: 40px;
-
-        &:hover {
-          // text-shadow: 0 0 10px #8a8a8a, 0 0 20px #8a8a8a, 0 0 30px #8a8a8a;
-        }
       }
     }
 
@@ -190,7 +186,7 @@
           left: 0;
           bottom: -2px;
           width: 100%;
-          height: 2px;
+          height: 1px;
           background-color: $text-color;
           transform: scaleX(0);
           transform-origin: left center;
@@ -246,12 +242,13 @@
 
 .footer__bottom-block {
 
-  padding-top: 20px;
+  // padding-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 36px;
   margin-top: auto;
   width: 100%;
+  pointer-events: none;
 
   @include tablet {
     padding-top: 28px;
@@ -300,6 +297,11 @@
     height: 64px;
   }
 
+  @include laptop {
+    width: vw(64);
+    height: vw(64);
+  }
+
   svg {
     position: relative;
     z-index: 3;
@@ -309,6 +311,11 @@
     @include tablet {
       width: 24px;
       height: 24px;
+    }
+
+    @include tablet {
+      width: vw(24);
+      height: vw(24);
     }
 
     path {
@@ -349,6 +356,7 @@
 
 .running-line {
   --running-line-gap: 14px;
+  --running-line-duration: 22s;
 
   display: flex;
   align-items: center;
@@ -366,8 +374,11 @@
     gap: var(--running-line-gap);
     width: max-content;
     flex-shrink: 0;
-    animation: running-line-marquee 22s linear infinite;
+    animation: running-line-marquee var(--running-line-duration) linear infinite;
     height: 100%;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 
     @media (hover: hover) {
       &:hover {
@@ -379,15 +390,17 @@
   span {
     @include super-title;
     color: $text-color;
-    font-size: 70px;
+    font-size: 100px;
     flex-shrink: 0;
+    text-transform: uppercase;
+    line-height: 80%;
 
     @include tablet {
-      font-size: 70px;
+      font-size: 100px;
     }
 
     @include laptop {
-      font-size: vw(200);
+      font-size: vw(290);
     }
   }
 
@@ -411,4 +424,8 @@
 
 .dev-logo {
   align-self: flex-end;
+}
+
+.running-line.running-line--lite {
+  --running-line-duration: 14s;
 }

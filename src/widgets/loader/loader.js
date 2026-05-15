@@ -1,3 +1,4 @@
+import gsap from "gsap";
 import "./loader.scss";
 
 const PROGRESS_CEILING = 92;
@@ -57,10 +58,26 @@ function initLoader() {
   if (!loader) return;
 
   const track = loader.querySelector(".loader-track");
+  const trackText = track?.querySelector(".track-text");
   const counter = loader.querySelector(".loader-counter");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   prepareTrack(track);
+
+  // Animate track-text with writing effect
+  if (trackText) {
+    gsap.set(trackText, {
+      clipPath: "inset(0 100% 0 0)",
+    });
+
+    gsap.to(trackText, {
+      clipPath: "inset(0 0% 0 0)",
+      duration: 1.25,
+      ease: "power2.out",
+      clearProps: "clipPath",
+      delay: 0.2,
+    });
+  }
 
   let progress = 0;
   let rafId = 0;

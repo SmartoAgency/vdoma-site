@@ -208,7 +208,7 @@ $screen-height: 720;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 120%;
+  line-height: 140%;
   text-transform: none;
   letter-spacing: -0.03em;
   text-decoration: none;
@@ -276,6 +276,7 @@ $screen-height: 720;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.03em;
+  word-spacing: -0.25em;
 
   @include tablet {
     font-size: 150px;

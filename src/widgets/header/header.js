@@ -158,6 +158,10 @@ function initMobileHeaderLiquidGlass() {
   const mobileHeaderBg = document.querySelector(".header-bg.mob-v");
   if (!mobileHeaderBg) return;
 
+  const ua = navigator.userAgent;
+  const isWebKitEngine = /AppleWebKit/i.test(ua) && !/Chrome|CriOS|Edg|EdgiOS|FxiOS|OPR/i.test(ua);
+  mobileHeaderBg.classList.toggle("is-webkit-glass", isWebKitEngine);
+
   const isMobileViewport = window.matchMedia("(max-width: 767px)");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const supportsBackdropFilter =
@@ -239,6 +243,12 @@ function initScrollTopButton() {
   const btn = document.querySelector("[data-btn-up]");
   if (!btn) return;
 
+  // The header uses transforms, so fixed positioning inside it can be trapped.
+  // Moving the button to <body> keeps it anchored to the viewport on mobile and desktop.
+  if (btn.parentElement !== document.body) {
+    document.body.appendChild(btn);
+  }
+
   const footer = document.querySelector(".footer");
   const socialsList = footer ? footer.querySelector(".socials-list") : null;
 
@@ -254,7 +264,7 @@ function initScrollTopButton() {
       return;
     }
 
-    const bottomOffset = window.innerWidth >= 768 ? 24 : 16;
+    const bottomOffset = window.innerWidth >= 768 ? 24 : 8;
     const minTopOffset = 12;
     const defaultTop = window.innerHeight - bottomOffset - btn.offsetHeight;
 
@@ -298,28 +308,82 @@ function initScrollTopButton() {
 initMobileHeaderLiquidGlass();
 initScrollTopButton();
 
-if (innerWidth < 768) {
-  let lastScroll = 0;
+// if (innerWidth < 768) {
+//   let lastScroll = 0;
+//   const header = document.querySelector(".header");
+//   const scrollThreshold = 10; // мінімальна зміна для реагування
+
+//   window.addEventListener("scroll", () => {
+//     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+//     // Якщо прокрутка незначна — нічого не робимо
+//     if (Math.abs(currentScroll - lastScroll) < scrollThreshold) return;
+
+//     if (currentScroll > lastScroll && currentScroll > header.offsetHeight) {
+//       // Користувач крутить вниз
+//       header.classList.add("hide");
+//     } else {
+//       // Користувач крутить вгору
+//       header.classList.remove("hide");
+//     }
+
+//     lastScroll = currentScroll;
+//   });
+// }
+
+// Hover menu opening for devices that support hover
+const supportsHover = window.matchMedia("(hover: hover)").matches;
+
+if (supportsHover) {
+  console.log("Hover interactions enabled for header menu");
   const header = document.querySelector(".header");
-  const scrollThreshold = 10; // мінімальна зміна для реагування
+  const btnMenuTarget = document.querySelector(".menu-block[data-menu-button]");
+  const menu = document.querySelector("[data-menu]");
+  const menuContainer = menu.querySelector(".menu-container");
 
-  window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  if (btnMenuTarget && menu) {
+    let openTimeout;
+    let closeTimeout;
+    console.log("menu");
+    const openMenu = () => {
+      console.log("openMenu");
+      if (closeTimeout) clearTimeout(closeTimeout);
+      if (openTimeout) return;
 
-    // Якщо прокрутка незначна — нічого не робимо
-    if (Math.abs(currentScroll - lastScroll) < scrollThreshold) return;
+      openTimeout = setTimeout(() => {
+        if (menu.classList.contains("hidden")) {
+          window.dispatchEvent(new Event("stop-scroll"));
+          header.classList.add("menu-is-open");
+          openMenuWithPixels(menu);
+        }
+        openTimeout = null;
+      }, 0);
+    };
 
-    if (currentScroll > lastScroll && currentScroll > header.offsetHeight) {
-      // Користувач крутить вниз
-      header.classList.add("hide");
-    } else {
-      // Користувач крутить вгору
-      header.classList.remove("hide");
-    }
+    const closeMenu = () => {
+      console.log("openMenu");
+      if (openTimeout) {
+        clearTimeout(openTimeout);
+        openTimeout = null;
+        return;
+      }
 
-    lastScroll = currentScroll;
-  });
+      closeTimeout = setTimeout(() => {
+        if (!menu.classList.contains("hidden")) {
+          window.dispatchEvent(new Event("start-scroll"));
+          header.classList.remove("menu-is-open");
+          closeMenuWithPixels(menu);
+        }
+      }, 150);
+    };
+
+    btnMenuTarget.addEventListener("mouseenter", openMenu);
+    btnMenuTarget.addEventListener("mouseleave", closeMenu);
+    menuContainer.addEventListener("mouseenter", openMenu);
+    menuContainer.addEventListener("mouseleave", closeMenu);
+  }
 }
+
 const header = document.querySelector(".header");
 document.body.addEventListener("click", function (evt) {
   const close = evt.target.closest("[data-call-us-modal-close]");
@@ -370,7 +434,9 @@ document.body.addEventListener("click", function (evt) {
     if (overflow.classList.contains("hidden")) {
       window.dispatchEvent(new Event("stop-scroll"));
       overflowMob.classList.add("hidden");
-
+      gsap.to("[data-call-us-modal]", {
+        opacity: 1,
+      });
       return overflow.classList.remove("hidden");
     }
     return;

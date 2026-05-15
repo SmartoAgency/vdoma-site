@@ -225,7 +225,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: $text-color;
+    background-color: rgba($accent-color, 0.16);
     z-index: 1;
     transform: translateY(104%);
     border-radius: 50%;
@@ -264,9 +264,9 @@
 
 
 
-      path {
-        fill: $accent-color;
-      }
+      // path {
+      //   fill: $accent-color;
+      // }
     }
   }
 }
@@ -302,13 +302,13 @@
 .about-complex {
 
   position: relative;
-  height: 120svh;
+  height: 100svh;
   padding: 100px 20px 0;
   overflow: hidden;
 
   @include tablet {
     padding: 100px 40px 0;
-
+    height: 100svh;
   }
 
 
@@ -640,20 +640,29 @@
   }
 }
 
-.middle-key {
-  background-color: $wc;
-}
+
 
 .start-key,
 .middle-key,
 .end-key__quote {
-  height: 100vh;
+  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 2;
   padding: 20px;
+}
+
+.middle-key {
+  background-color: $wc;
+  height: auto;
+  padding-top: 200px;
+  padding-bottom: 200px;
+
+  @include laptop {
+    height: 100svh;
+  }
 }
 
 .end-key__quote {
@@ -671,9 +680,14 @@
   }
 }
 
+.about-key__img-wrap-2 {
+  z-index: 2;
+}
+
 .about-key__img-wrap,
 .about-key__img-wrap-2 {
   position: relative;
+
 
   .svg-key,
   .svg-key-oppend {
@@ -681,7 +695,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     z-index: 2;
     pointer-events: none;
 
@@ -704,7 +718,7 @@
   .key-img-wrap-2 {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     top: 0;
     left: 0;
     z-index: 1;
@@ -730,8 +744,9 @@
 }
 
 .end-key__quote {
+  --end-key-progress: 0;
+
   .section-quote {
-    --end-key-progress: 0;
     background: linear-gradient(89deg,
         rgb(calc(255 - 216 * var(--end-key-progress)),
           calc(255 - 214 * var(--end-key-progress)),
@@ -742,5 +757,11 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .general-btn::before {
+    background-color: rgb(calc(244 - 57 * var(--end-key-progress)),
+        calc(241 - 88 * var(--end-key-progress)),
+        calc(234 - 103 * var(--end-key-progress)));
   }
 }

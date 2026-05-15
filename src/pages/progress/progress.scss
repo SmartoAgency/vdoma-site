@@ -13,8 +13,8 @@
     --progress-focus-width: calc((min(25vw, 380px) * 3) + 136px);
   }
 
-  background: linear-gradient(0deg, $accent-color 0%, $wc 100%);
-  padding-top: 80px;
+  background: linear-gradient(0deg, $accent-color 20%, $wc 100%);
+  padding-top: 96px;
   padding-bottom: 90px;
   overflow: hidden;
 
@@ -31,21 +31,21 @@
   &__head {
     margin-bottom: 55px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 
     @include tablet {
       margin-bottom: 120px;
     }
 
     @include laptop {
-      justify-content: center;
+      justify-content: flex-start;
       margin-bottom: vw(80);
     }
 
     .section-title {
       @include super-title;
       color: $text-color;
-      text-align: center;
+      // text-align: center;
       margin: 0;
       position: relative;
 
@@ -249,10 +249,10 @@
   }
 
   &__scrollbar-wrap {
-    margin-top: 46px;
+    margin-top: 66px;
 
     @include tablet {
-      margin-top: 58px;
+      margin-top: 78px;
     }
   }
 
@@ -275,32 +275,32 @@
     height: 18px;
     background:
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .62) 0,
-        rgba(39, 41, 43, .62) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px),
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .55) 0,
-        rgba(39, 41, 43, .55) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px),
       repeating-linear-gradient(90deg,
-        rgba(39, 41, 43, .55) 0,
-        rgba(39, 41, 43, .55) 1px,
+        rgba(39, 41, 43, 1) 0,
+        rgba(39, 41, 43, 1) 1px,
         transparent 1px,
         transparent 48px);
-    background-size: 48px 18px, 48px 12px, 48px 10px;
+    background-size: 40px 20px, 40px 10px, 40px 10px;
     background-position: 0 50%, 14px 50%, 24px 50%;
     background-repeat: repeat-x;
     mask: linear-gradient(90deg, transparent 0 1%, #000 6% 94%, transparent 99% 100%);
   }
 
   &__scrollbar .swiper-scrollbar-drag {
-    background: transparent;
+    background: $accent-color;
     height: 34px;
     border-radius: 10px;
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    // backdrop-filter: blur(40px);
+    // -webkit-backdrop-filter: blur(40px);
     top: 0;
     display: flex;
     align-items: center;
@@ -412,6 +412,16 @@
       height: 32px;
     }
   }
+
+  @include laptop {
+    width: vw(80);
+    height: vw(80);
+
+    svg {
+      width: vw(32);
+      height: vw(32);
+    }
+  }
 }
 
 @media (hover:hover) {
@@ -471,6 +481,16 @@
     svg {
       width: 32px;
       height: 32px;
+    }
+  }
+
+  @include laptop {
+    width: vw(80);
+    height: vw(80);
+
+    svg {
+      width: vw(32);
+      height: vw(32);
     }
   }
 }

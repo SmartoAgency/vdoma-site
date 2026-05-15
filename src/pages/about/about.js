@@ -7,6 +7,59 @@ import { whenLoaderReveals } from "../../shared/scripts/loader-sync.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function animateTitleWrap(titleWrap) {
+  const decor = titleWrap.querySelector(".title-decor-svg");
+  const quote = titleWrap.querySelector(".section-quote");
+  const writeBlock = titleWrap.querySelector(".home-svg-to-write");
+
+  const appearItems = [decor, quote].filter(Boolean);
+
+  if (writeBlock) {
+    gsap.set(writeBlock, {
+      opacity: 0,
+      y: 28,
+      clipPath: "inset(0 100% 0 0)",
+    });
+  }
+
+  if (appearItems.length) {
+    gsap.set(appearItems, { opacity: 0, y: 28 });
+  }
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: titleWrap,
+      start: "top 78%",
+      once: true,
+    },
+  });
+
+  if (appearItems.length) {
+    tl.to(appearItems, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power2.out",
+      stagger: 0.16,
+    });
+  }
+
+  if (writeBlock) {
+    tl.to(
+      writeBlock,
+      {
+        opacity: 1,
+        y: 0,
+        clipPath: "inset(0 0% 0 0)",
+        duration: 1.25,
+        ease: "power2.out",
+        clearProps: "clipPath",
+      },
+      "<0.08",
+    );
+  }
+}
+
 function initAboutHeroAnimation() {
   const hero = document.querySelector(".hero-template");
   if (!hero) return;
@@ -20,7 +73,13 @@ function initAboutHeroAnimation() {
   const title = hero.querySelector(".title-wrap h1");
   const handText = hero.querySelector(".title-wrap .home-svg-to-write");
   const downBtn = hero.querySelector(".btn-down");
-
+  const btnDown = document.querySelector(".hero-template .btn-down");
+  const advantageSection = document.querySelector(".about-complex__video");
+  if (btnDown && advantageSection) {
+    btnDown.addEventListener("click", () => {
+      advantageSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
   const edgeSvgs = [topSvg, bottomSvg].filter(Boolean);
   if (edgeSvgs.length) {
     gsap.set(edgeSvgs, { opacity: 0, scale: 1.08, transformOrigin: "50% 50%" });
@@ -172,8 +231,16 @@ function initAboutHeroAnimation() {
 }
 
 initAboutHeroAnimation();
+initAboutMiddleKeyTitleAnimation();
 initAboutComplexAnimations();
 initAboutKeyAnimation();
+
+function initAboutMiddleKeyTitleAnimation() {
+  const titleWrap = document.querySelector(".about-key .home-about__title-wrap.container.middle-key__quote");
+  if (!titleWrap) return;
+
+  animateTitleWrap(titleWrap);
+}
 
 function initAboutComplexAnimations() {
   const section = document.querySelector(".about-complex");
@@ -218,9 +285,9 @@ function initAboutComplexAnimations() {
   if (img) {
     gsap.fromTo(
       img,
-      { yPercent: -20 },
+      { yPercent: 20 },
       {
-        yPercent: 20,
+        yPercent: 0,
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -236,6 +303,27 @@ function initAboutComplexAnimations() {
 function initAboutKeyAnimation() {
   const section = document.querySelector(".about-key");
   if (!section) return;
+
+  const keyholeDesktopMedia = window.matchMedia("(min-width: 1024px)");
+
+  const applyResponsiveKeyholeGeometry = (isDesktop) => {
+    const cutoutGroups = section.querySelectorAll(".keyhole-cutout");
+
+    const circleRadius = isDesktop ? 150 : 100;
+    const trapezoidPath = isDesktop
+      ? "M900 388L1020 388L1115 820L805 820Z"
+      : "M920 408L1000 408L1060 708L860 708Z";
+
+    cutoutGroups.forEach((group) => {
+      const circle = group.querySelector("circle");
+      const path = group.querySelector("path");
+
+      if (circle) circle.setAttribute("r", String(circleRadius));
+      if (path) path.setAttribute("d", trapezoidPath);
+    });
+  };
+
+  applyResponsiveKeyholeGeometry(keyholeDesktopMedia.matches);
 
   const startKey = section.querySelector(".start-key");
   const startQuote = section.querySelector(".start-key__quote");
@@ -256,6 +344,17 @@ function initAboutKeyAnimation() {
   const gradients = section.querySelectorAll(".gradient-key");
 
   if (!startKey || !startQuote || !middleKey || !firstImageWrap || !secondImageSection || !endQuote) return;
+
+  const onKeyholeBreakpointChange = (event) => {
+    applyResponsiveKeyholeGeometry(event.matches);
+    ScrollTrigger.refresh();
+  };
+
+  if (keyholeDesktopMedia.addEventListener) {
+    keyholeDesktopMedia.addEventListener("change", onKeyholeBreakpointChange);
+  } else {
+    keyholeDesktopMedia.addListener(onKeyholeBreakpointChange);
+  }
 
   if (enterCutout) {
     gsap.set(enterCutout, {
@@ -305,9 +404,7 @@ function initAboutKeyAnimation() {
     transformOrigin: "50% 50%",
   });
 
-  if (endQuoteTitle) {
-    endQuoteTitle.style.setProperty("--end-key-progress", "0");
-  }
+  endQuote.style.setProperty("--end-key-progress", "0");
 
   if (gradients.length) {
     gsap.set(gradients, { autoAlpha: 0.8 });
@@ -317,7 +414,7 @@ function initAboutKeyAnimation() {
     const firstCard = cards[0];
     const secondCard = cards[1];
 
-    if (firstCard) {
+    if (firstCard && window.matchMedia("(min-width: 1024px)").matches) {
       gsap.fromTo(
         firstCard,
         { yPercent: -8 },
@@ -335,12 +432,12 @@ function initAboutKeyAnimation() {
       );
     }
 
-    if (secondCard) {
+    if (secondCard && window.matchMedia("(min-width: 1024px)").matches) {
       gsap.fromTo(
         secondCard,
-        { yPercent: -16 },
+        { yPercent: -20 },
         {
-          yPercent: 16,
+          yPercent: 20,
           ease: "none",
           scrollTrigger: {
             trigger: secondCard,
@@ -439,18 +536,16 @@ function initAboutKeyAnimation() {
   const exitTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: secondImageSection,
-      start: "top top+=1",
+      start: "top top",
       end: "+=110%",
-      scrub: 0.9,
+      scrub: true,
       pin: secondImageSection,
-      anticipatePin: 3,
-      pinReparent: true,
-      pinType: "transform",
-      preventOverlaps: true,
+      anticipatePin: 1,
+      pinType: "fixed",
+      fastScrollEnd: true,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        if (!endQuoteTitle) return;
-        endQuoteTitle.style.setProperty("--end-key-progress", self.progress.toFixed(4));
+        endQuote.style.setProperty("--end-key-progress", self.progress.toFixed(4));
       },
     },
   });

@@ -337,14 +337,15 @@ function initHomeProgress() {
     watchSlidesProgress: true,
     simulateTouch: true,
     allowTouchMove: true,
-    touchStartPreventDefault: false,
-    touchStartForcePreventDefault: false,
-    passiveListeners: false,
+    touchStartPreventDefault: true,
+    touchStartForcePreventDefault: true,
+    passiveListeners: true,
     scrollbar: {
       el: progressScrollbar,
       draggable: true,
       dragSize: 220,
       snapOnRelease: false,
+      dragElastic: true,
     },
     breakpoints: {
       768: {
@@ -354,6 +355,7 @@ function initHomeProgress() {
           draggable: true,
           dragSize: 280,
           snapOnRelease: false,
+          dragElastic: true,
         },
       },
       1200: {
@@ -363,6 +365,7 @@ function initHomeProgress() {
           draggable: true,
           dragSize: 340,
           snapOnRelease: false,
+          dragElastic: true,
         },
       },
     },

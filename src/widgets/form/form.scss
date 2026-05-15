@@ -1,7 +1,7 @@
 .overflow {
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-color: #27292bc7;
   top: 0;
   z-index: 1000;
@@ -184,7 +184,7 @@
   transform: translateY(-50%);
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 400px;
   background: linear-gradient(180deg, $accent-color 50%, #ffffff00);
   z-index: -1;
   will-change: transform, opacity;
@@ -200,7 +200,7 @@
   }
 
   @include tablet {
-    height: 400px;
+    height: 600px;
   }
 
   @include laptop {

@@ -8,6 +8,7 @@ function initAdvantages() {
 
   initAboutHeroAnimation();
   initTitleWrapAnimations();
+  initAdvantageItemsEqualHeight();
   initAdvantageAnimations();
 
   const btnDown = document.querySelector(".hero-template .btn-down");
@@ -16,6 +17,49 @@ function initAdvantages() {
     btnDown.addEventListener("click", () => {
       advantageSection.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  }
+}
+
+function initAdvantageItemsEqualHeight() {
+  const list = document.querySelector(".advantage-list");
+  if (!list) return;
+
+  const items = Array.from(list.querySelectorAll(".advantage-item"));
+  if (!items.length) return;
+
+  const syncHeights = () => {
+    items.forEach((item) => {
+      item.style.minHeight = "";
+    });
+
+    const maxHeight = items.reduce((max, item) => Math.max(max, item.offsetHeight), 0);
+    if (!maxHeight) return;
+
+    items.forEach((item) => {
+      item.style.minHeight = `${maxHeight}px`;
+    });
+
+    ScrollTrigger.refresh();
+  };
+
+  let resizeRaf = null;
+  const onResize = () => {
+    if (resizeRaf !== null) {
+      cancelAnimationFrame(resizeRaf);
+    }
+
+    resizeRaf = requestAnimationFrame(() => {
+      resizeRaf = null;
+      syncHeights();
+    });
+  };
+
+  syncHeights();
+  window.addEventListener("resize", onResize);
+  window.addEventListener("load", syncHeights, { once: true });
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(syncHeights);
   }
 }
 
@@ -251,11 +295,13 @@ function initTitleWrapAnimations() {
 function initAdvantageAnimations() {
   const advantageBlock = document.querySelector(".advantage-block");
   if (!advantageBlock) return;
+  const advantageTrigger = advantageBlock.closest(".advantage-section") || advantageBlock;
   const isWideDesktop = window.matchMedia("(min-width: 1600px)").matches;
+  const isMobileOrTablet = window.matchMedia("(max-width: 1023px)").matches;
 
   const blockTriggerRange = isWideDesktop
     ? { start: "top 94%", end: "top 40%" }
-    : { start: "top 88%", end: "top 36%" };
+    : { start: "top 100%", end: "top 36%" };
 
   gsap.set(advantageBlock, {
     scaleX: 0.86,
@@ -271,33 +317,83 @@ function initAdvantageAnimations() {
     borderRadius: "40px",
     ease: "none",
     scrollTrigger: {
-      trigger: advantageBlock,
+      trigger: advantageTrigger,
       start: blockTriggerRange.start,
       end: blockTriggerRange.end,
       scrub: 1,
     },
   });
 
+  const blockExitRange = isWideDesktop
+    ? { start: "bottom 88%", end: "bottom 46%" }
+    : { start: "bottom 92%", end: "bottom 50%" };
+
+  gsap.fromTo(
+    advantageBlock,
+    {
+      scaleX: 1,
+      yPercent: 0,
+      borderRadius: "40px",
+    },
+    {
+      scaleX: 0.86,
+      yPercent: -12,
+      borderRadius: "200px",
+
+      ease: "none",
+      overwrite: "auto",
+      scrollTrigger: {
+        trigger: advantageTrigger,
+        start: blockExitRange.start,
+        end: blockExitRange.end,
+        scrub: 1,
+      },
+    },
+  );
+
   const items = gsap.utils.toArray(".advantage-list .advantage-item");
   if (items.length < 2) return;
+  const advantageMain = advantageBlock.querySelector(".advantage-main");
 
   const coveredState = isWideDesktop
     ? {
         scale: 0.88,
         y: 38,
-        opacity: 0.62,
+
         filter: "brightness(0.58)",
       }
     : {
-        scale: 0.94,
+        scale: 0.8,
         y: 18,
-        opacity: 0.78,
-        filter: "brightness(0.75)",
+
+        filter: "brightness(0.58)",
       };
 
   const triggerRange = isWideDesktop
     ? { start: "top 94%", end: "top 38%" }
-    : { start: "top 86%", end: "top 42%" };
+    : { start: "top 70%", end: "top 10%" };
+
+  if (advantageMain && isMobileOrTablet) {
+    gsap.fromTo(
+      advantageMain,
+      {
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        filter: "brightness(1)",
+      },
+      {
+        ...coveredState,
+        ease: "none",
+        scrollTrigger: {
+          trigger: advantageMain,
+          start: "bottom 74%",
+          end: "bottom 10%",
+          scrub: 1,
+        },
+      },
+    );
+  }
 
   items.forEach((item, index) => {
     if (index === items.length - 1) return;
