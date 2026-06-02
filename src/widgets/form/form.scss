@@ -101,16 +101,21 @@
       transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.45s ease,
       filter 0.45s ease;
+
   }
 
   .form-title {
     transform: translate3d(0, 0, 0);
     transition-delay: 0.18s;
+    position: relative;
+    z-index: 2;
   }
 
   .form-descr {
     transform: translate3d(0, 0, 0);
     transition-delay: 0.25s;
+    position: relative;
+    z-index: 2;
   }
 
   .form-field {
@@ -164,6 +169,8 @@
   .form-wrapper {
     width: 80%;
     margin-left: auto;
+    position: relative;
+    z-index: 2;
 
     .general-btn {
       width: 100%;
@@ -186,7 +193,7 @@
   width: 100%;
   height: 400px;
   background: linear-gradient(180deg, $accent-color 50%, #ffffff00);
-  z-index: -1;
+  z-index: 1;
   will-change: transform, opacity;
   backface-visibility: hidden;
   opacity: 1;
@@ -223,7 +230,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: -1;
   will-change: transform, opacity;
   backface-visibility: hidden;
   opacity: 1;
@@ -253,7 +260,7 @@
 
 .form-title {
   @include super-title;
-  color: $text-color;
+  color: $wc;
   text-align: start;
   margin-bottom: 20px;
   width: 100%;
@@ -265,7 +272,7 @@
 
 .form-descr {
   @include subtitle-text;
-  color: $text-color;
+  color: $wc;
   text-align: start;
   width: 100%;
   margin-bottom: 40px;
@@ -328,6 +335,10 @@
     transition: transform 0.3s ease;
     width: 24px;
     height: 24px;
+
+    path {
+      fill: $wc;
+    }
   }
 
   @include laptop {
@@ -393,7 +404,7 @@
 
 .input-title {
   @include block-subtitle;
-  color: $text-color;
+  color: $wc;
 }
 
 .form-field {
@@ -489,15 +500,17 @@
     right: 0;
     width: 24px;
     height: 24px;
-    color: $text-color;
+    color: $wc;
+    font-size: 30px;
+    font-weight: 400;
 
     svg {
       width: 100%;
       height: 100%;
-      fill: $text-color;
+      fill: $wc;
 
       use {
-        fill: $text-color;
+        fill: $wc;
       }
     }
   }
@@ -554,7 +567,7 @@
 
     &__text {
       @include general-text;
-      color: $text-color;
+      color: $wc;
     }
 
     &__icon {
@@ -568,7 +581,7 @@
       svg {
         width: 16px;
         height: 16px;
-        color: $text-color;
+        color: $wc;
       }
     }
   }
@@ -600,10 +613,10 @@
   @include subtitle-text;
   width: 100%;
   padding: 23px 0;
-  color: $text-color;
+  color: $wc;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid $text-color;
+  border-bottom: 1px solid $wc;
   position: relative;
 
   @include tablet {
@@ -612,7 +625,7 @@
 
   &::placeholder {
     @include general-text;
-    color: $text-color;
+    color: $wc;
 
   }
 
@@ -633,7 +646,7 @@
 .placeholder {
   @include block-subtitle;
   text-transform: none;
-  color: $text-color;
+  color: $wc;
   transition: all 0.3s ease-in-out;
   position: absolute;
   top: 50%;
@@ -670,6 +683,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.footer form {
+  .form-field__required {
+    color: $text-color;
+  }
+
+  .form-field__input {
+    color: $text-color;
+    border-bottom: 1px solid $text-color;
+  }
+
+  .placeholder {
+    color: $text-color;
+  }
+
+  .general-btn {
+    background-color: $bg-color;
+    border-color: $text-color;
+
+    span {
+      color: $wc;
+    }
+
+    &::before {
+      background-color: $accent-color;
+    }
+
+    @media (hover:hover) {
+
+      &:hover span {
+        color: $text-color;
+      }
+    }
+  }
 }
 
 .submit-btn__text {}

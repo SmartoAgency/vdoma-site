@@ -1,251 +1,186 @@
-// Styles for the 404 page
-.notFound {
+@use "../../app/styles/vars.scss" as *;
+@use "../../app/styles/mixins.scss" as *;
+
+.page-404 {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 60px;
-  padding-top: 88px;
-  padding-bottom: 40px;
-  position: relative;
-  z-index: 2;
-  height: 100vh;
-
-
-
-  .bg-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-    }
-
-    z-index: -1;
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.8;
-      background: linear-gradient(180deg, rgba(16, 24, 32, 0.80), rgba(16, 24, 32, 0.20) 50%, rgba(16, 24, 32, 0.80) 100%);
-    }
-
-  }
-
-  @include tablet {
-    gap: 80px;
-    padding-top: 60px;
-
-    padding-bottom: 40px;
-    padding-top: 120px;
-
-  }
+  height: 100svh;
 
   @include laptop {
-
-
-    gap: 0;
     flex-direction: row;
-    align-items: stretch;
-    height: 100svh
   }
 
-  &__block {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-
-    @include tablet {
-      gap: 80px;
-    }
+  // ── Photo side ──────────────────────────────────────────────────────────────
+  &__photo {
+    position: relative;
+    overflow: hidden;
+    flex: 1 1 55%;
 
     @include laptop {
       width: 50%;
-      gap: 120px;
-      padding-top: 40px;
-      padding-bottom: 40px;
-
-
+      flex: none;
     }
 
-    .section-title {
-      @include super-title;
-      color: white;
-
-      @include laptop {
-        transform: translateX(100%)
-      }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-
-
   }
 
-  &__subblock {
-    display: flex;
-    justify-content: space-between;
-
-    @include tablet {
-      width: 84%;
-    }
+  &__number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: $default-font;
+    font-size: clamp(100px, 42vw, 200px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: rgba(246, 244, 235, 0.18);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 1;
 
     @include laptop {
-      width: 76%;
+      font-size: clamp(140px, 20vw, 260px);
+    }
+  }
+
+  &__circle-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: $wc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-family: $default-font;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $accent-color;
+    line-height: 1.5;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    @include tablet {
+      width: 92px;
+      height: 92px;
+      font-size: 11px;
+      top: 20px;
+      right: 20px;
     }
 
-    h1,
-    &>h2 {
-      @include general-text;
-      color: white;
-      margin-top: 88px;
-
-      @include tablet {
-        margin-top: 140px;
-      }
-    }
-
-    .slogan__img-wrap {
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    &:hover {
       background-color: $accent-color;
-      margin-bottom: 24px;
-
-      svg {
-        width: 44.976px;
-        height: 47.36px;
-      }
-
-      @include tablet {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 40px;
-
-        svg {
-          width: 70px;
-          height: 74px;
-        }
-      }
-    }
-
-    .slogan__text {
-      width: 206px;
-      @include general-text;
-      color: white;
-
-      @include tablet {
-        width: 240px;
-      }
-
-      @include laptop {
-        width: 210px;
-      }
-
+      color: $wc;
     }
   }
 
-  &__img-block {
-    width: 100%;
-
-
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    @include tablet {}
-
-    @include laptop {
-      height: 100%;
-      width: 50%;
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-
-      @include laptop {}
-    }
-  }
-
-  &__text-wrap {
+  // ── Info side ───────────────────────────────────────────────────────────────
+  &__info {
+    background-color: $wc;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 110px;
+
 
     @include tablet {
-      gap: 20px;
-      flex-direction: row;
+      padding: 40px;
     }
 
     @include laptop {
-      gap: 40px;
-    }
-
-    p {
-      @include general-text;
-      color: $text-color;
-      flex: 1;
+      width: 50%;
+      flex: none;
+      padding: vw(100);
     }
   }
 
-  &__text-block {
-    display: flex;
-    justify-content: space-between;
-    gap: 28px;
+  &__info-inner {
+
+    width: 100%;
+  }
+
+  &__subtitle {
+    @include general-text;
+    color: $grey-color;
+    margin-bottom: 12px;
+
+    @include tablet {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__title {
+    @include section-title;
+    background: linear-gradient(89deg, #27292B 0%, #BB9983 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 24px;
 
-    svg {
-      flex-shrink: 0;
-      width: 16px;
-      height: 16px;
-
-      @include tablet {
-        width: 24px;
-        height: 24px;
-      }
+    @include tablet {
+      margin-bottom: 40px;
     }
 
     @include tablet {
-      gap: 80px;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
     }
 
-    p {
-      @include subtitle-text;
-      color: white;
+
+  }
+
+  // ── Buttons ─────────────────────────────────────────────────────────────────
+  &__btns {
+    display: flex;
+    gap: 8px;
+
+    @include tablet {
+      gap: 12px;
     }
   }
 
-  &__btns-wrap {
+  &__btn {
+    flex: 1;
     display: flex;
-    gap: 8px;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    background-color: $accent-color;
+    border-radius: 100px;
+    border: 1px solid $accent-color;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     @include tablet {
-      gap: 20px;
+      flex: none;
+      padding: 18px 40px;
     }
 
-    .general-btn {
-      background-color: $accent-color;
-      flex: 1;
+    span {
+      @include tiny-text;
+      color: $wc;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      span {
+        color: $accent-color;
+      }
     }
   }
 }

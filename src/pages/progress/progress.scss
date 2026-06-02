@@ -13,7 +13,7 @@
     --progress-focus-width: calc((min(25vw, 380px) * 3) + 136px);
   }
 
-  background: linear-gradient(0deg, $accent-color 20%, $wc 100%);
+  background: linear-gradient(0deg, $wood-color 20%, $wc 100%);
   padding-top: 96px;
   padding-bottom: 90px;
   overflow: hidden;
@@ -44,7 +44,7 @@
 
     .section-title {
       @include super-title;
-      color: $text-color;
+      color: $accent-color;
       // text-align: center;
       margin: 0;
       position: relative;
@@ -296,7 +296,7 @@
   }
 
   &__scrollbar .swiper-scrollbar-drag {
-    background: $accent-color;
+    background: $wood-color;
     height: 34px;
     border-radius: 10px;
     // backdrop-filter: blur(40px);

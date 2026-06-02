@@ -221,7 +221,7 @@ $screen-height: 720;
     font-size: 16px;
     font-size: clamp(14px,
         calc(14px + (16 - 14) * ((100vw - 1024px) / (1920 - 1024))),
-        14px);
+        16px);
   }
 }
 

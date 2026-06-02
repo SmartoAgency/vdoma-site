@@ -158,6 +158,10 @@
       svg {
         width: 20px;
         height: 20px;
+
+        path {
+          fill: $wc;
+        }
       }
     }
   }
@@ -245,6 +249,10 @@
     .header-call-btn {
       width: 80px;
       height: 80px;
+
+      svg path {
+        fill: $wc;
+      }
 
       @include laptop {
         width: vw(80);
@@ -599,7 +607,7 @@
 }
 
 .menu-container {
-  width: 317px;
+  width: fit-content;
   height: 100dvh;
   position: relative;
   // padding-bottom: calc(100vh - 100svh);
@@ -1056,7 +1064,7 @@
     }
 
     &::before {
-      background-color: $text-color;
+      background-color: $accent-color;
     }
 
     @media (hover:hover) {
@@ -1153,7 +1161,7 @@ section {
   overflow: hidden;
 
   @include tablet {
-    max-width: calc(100vw - 80px);
+    max-width: calc(100vw - vw(80));
 
   }
 }

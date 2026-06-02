@@ -1,36 +1,21 @@
 // Styles for the single-news page
 .single-news {
-  padding-top: 92px;
-  padding-bottom: 60px;
+  padding-top: 80px;
+  padding-bottom: 100px;
   position: relative;
 
 
   @include tablet {
-    padding-top: 108px;
-    padding-bottom: 80px;
+    padding-top: 40px;
+    padding-bottom: 170px;
   }
 
   @include laptop {
     overflow: visible;
-    padding-top: 128px;
-    padding-bottom: vw(120);
+    padding-top: vw(40);
+    padding-bottom: vw(200);
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(50%);
-      width: 1px;
-      background-image: linear-gradient(to top, rgba(105, 139, 164, 0.40) 50%, rgba(255, 255, 255, 0) 0%);
-      background-position: bottom;
-      background-size: 1px 20px;
-      /* 15px — це загальна довжина (риска + проміжок) */
-      background-repeat: repeat-y;
 
-      height: 100%;
-      z-index: 1;
-    }
   }
 
   &__container {
@@ -44,9 +29,16 @@
     }
 
     .sticky-wrap {
+      margin-bottom: 20px;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
       @include laptop {
+        margin-bottom: 0;
         position: sticky;
-        top: 128px;
+        top: 40px;
         flex: 1;
 
       }
@@ -56,33 +48,75 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
 
       @include laptop {
         margin-bottom: 40px;
       }
 
       &__svg-wrap {
-        width: 32px;
-        height: 32px;
-        border: 1px solid #9AACBB;
+        width: 48px;
+        height: 48px;
+        border: 1px solid $accent-color;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
+        position: relative;
+
+        &::after {
+          position: absolute;
+          content: "";
+          top: 0;
+          left: 0;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          transform: translateY(100%);
+          background-color: $text-color;
+          transition: transform 0.3s ease-in-out;
+        }
 
         svg {
-          width: 12px;
-          height: 12px;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          z-index: 2;
+
+          path {
+            fill: $text-color;
+            transition: fill 0.3s ease-in-out;
+          }
         }
 
         @include tablet {
-          width: 48px;
-          height: 48px;
+          width: 56px;
+          height: 56px;
 
           svg {
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        @include laptop {
+          width: vw(56);
+          height: vw(56);
+        }
+
+
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          .btn-back__svg-wrap::after {
+            transform: translateY(0);
+          }
+
+          svg path {
+            fill: $wood-color;
           }
         }
       }
@@ -91,21 +125,25 @@
         @include tiny-text;
         color: $accent-color;
         text-transform: uppercase;
-
       }
 
       @include laptop {
         flex: 1;
-        padding-bottom: 20px;
-        border-bottom: 1px solid rgba(105, 139, 164, 0.40);
-
       }
     }
 
     & h1 {
       @include section-title;
-      color: $accent-color;
-      margin-bottom: 80px;
+      background: linear-gradient(89deg, #27292B 0%, #BB9983 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 28px;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
 
       &.title-laptop {
         display: none;
@@ -126,24 +164,14 @@
       }
     }
 
-
-
     .single-news__date-wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(105, 139, 164, 0.40);
-
-      @include tablet {
-        padding-bottom: 20px;
-      }
 
       @include laptop {
         flex: 1;
         height: 69px;
-
-
       }
 
       &>p {
@@ -166,23 +194,25 @@
 
   &__content-wrap {
     @include laptop {
-
       flex: 1;
     }
   }
 
   &__content {
     width: 100%;
-    padding-top: 40px;
+    padding-top: 20px;
 
     @include tablet {
       padding-top: 40px;
     }
 
-    @include laptop {}
+    @include tablet {
+      padding-top: 20px;
+    }
 
     img {
       width: 100%;
+      height: auto;
       margin-bottom: 40px
     }
 
@@ -191,7 +221,7 @@
     h4,
     h5 {
       @include subtitle-text;
-      color: $accent-color;
+      color: $text-color;
       font-weight: 700;
       margin-bottom: 12px;
 
@@ -199,8 +229,6 @@
         margin-bottom: 20px;
       }
     }
-
-
 
     ul {
       list-style-type: disc;
@@ -233,6 +261,7 @@
     /* Зміна типу маркера для вкладених списків (як у браузері за замовчуванням) */
     ul ul {
       list-style-type: circle;
+
       /* Порожня точка */
     }
 
@@ -245,6 +274,7 @@
     li {
       margin-bottom: 0.5rem;
       line-height: 1.5;
+      list-style-type: circle;
     }
 
     p,
@@ -271,6 +301,359 @@
       aspect-ratio: 351 / 200;
       width: 100%;
       margin-bottom: 40px;
+    }
+  }
+}
+
+.news-slider {
+  width: 100%;
+  margin-bottom: 40px;
+  position: relative;
+
+  @include tablet {
+    margin-bottom: 60px;
+  }
+
+  @include laptop {
+    margin-bottom: vw(60);
+  }
+
+  &__track-wrap {
+    width: 100%;
+    aspect-ratio: 798 / 454;
+    overflow: hidden;
+
+
+  }
+
+  &__track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+  }
+
+  &__slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__controls {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 2px;
+    border-radius: 999px;
+    background: rgba(20, 27, 36, 0.52);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    @include tablet {
+      gap: 12px;
+      padding: 8px;
+    }
+  }
+
+  &__nav {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 0;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $wc;
+    color: $text-color;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+
+    @include tablet {
+      width: 52px;
+      height: 52px;
+    }
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        transform: scale(0.94);
+        background: $accent-color-2;
+        color: $wc;
+      }
+    }
+  }
+
+  &__counter {
+    font-family: $default-font;
+    color: $wc;
+    font-size: 16px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-align: center;
+    min-width: 56px;
+
+    @include tablet {
+      font-size: 18px;
+    }
+  }
+
+  &__counter-current,
+  &__counter-total {
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__counter-divider {
+    margin: 0 4px;
+    color: rgba(246, 244, 235, 0.55);
+  }
+}
+
+// ─── Latest news section ──────────────────────────────────────────────────────
+.latest-news {
+  padding-bottom: 100px;
+
+  @include tablet {
+    padding-bottom: 170px;
+  }
+
+  @include laptop {
+    padding-bottom: vw(200);
+  }
+
+  &__title {
+    @include super-title;
+    color: $accent-color;
+    margin-bottom: 40px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+// ─── News card (shared with news page) ───────────────────────────────────────
+.news-card {
+  width: 100%;
+  padding: 20px 0;
+  aspect-ratio: 575 / 600;
+  display: block;
+  border: 1px solid rgba(39, 41, 43, 0.20);
+  position: relative;
+  border-radius: 12px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    width: calc(50% - 10px);
+  }
+
+  @include laptop {
+    width: calc((100% - 40px) / 3);
+  }
+
+  &__corner {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: $accent-color;
+    border-radius: 50%;
+
+    &--tl {
+      top: 8px;
+      left: 8px;
+    }
+
+    &--tr {
+      top: 8px;
+      right: 8px;
+    }
+
+    &--bl {
+      bottom: 8px;
+      left: 8px;
+    }
+
+    &--br {
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+
+  &__title-text {
+    @include general-text;
+    font-weight: 700;
+    color: $accent-color;
+    margin-bottom: 16px;
+    padding: 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-transform: uppercase;
+
+    @include tablet {
+      font-size: 15px;
+      margin-bottom: 20px;
+      width: 50%;
+    }
+
+    @include laptop {
+      font-size: vw(15);
+      margin-bottom: vw(20);
+    }
+  }
+
+  &__img-wrap {
+    aspect-ratio: 16 / 8;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    // @include tablet {
+    //   margin-top: 80px;
+    //   margin-bottom: 80px;
+    // }
+
+    // @include laptop {
+    //   margin-top: vw(85);
+    //   margin-bottom: vw(85);
+
+    // }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+  }
+
+  &:hover &__img-wrap img {
+    transform: scale(1.04);
+  }
+
+  &__magnetic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  &__btn {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    background-color: $accent-color;
+    color: $text-color-light;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include laptop {
+      padding: vw(13) vw(20);
+      gap: vw(10);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $wc;
+      transform: translateY(101%);
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    &-text,
+    &-icon {
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease;
+    }
+
+    &-text {
+      font-family: $default-font;
+
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      @include laptop {
+        font-size: vw(11);
+      }
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+    }
+  }
+
+  &__magnetic:hover &__btn {
+    color: $text-color;
+
+    &::before {
+      transform: translateY(0);
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  &__date {
+    @include general-text;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $text-color;
+    text-transform: uppercase;
+
+    @include laptop {}
+
+    svg {
+      flex-shrink: 0;
+      color: $text-color;
     }
   }
 }

@@ -12,6 +12,7 @@ import "./news.scss";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { whenLoaderReveals } from "../../shared/scripts/loader-sync.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,7 @@ const newsFunctional = () => {
 
   if (!newsList || cards.length === 0 || !loadMoreBtn) return;
 
-  const getStep = () => (window.innerWidth >= 1024 ? 9 : 6);
+  const getStep = () => (window.innerWidth >= 1024 ? 3 : 3);
   let currentShown = getStep();
 
   const checkBtnPersistence = () => {
@@ -42,12 +43,18 @@ const newsFunctional = () => {
     cards.forEach((card, index) => {
       if (index < currentShown) {
         if (card.style.display === "none" || isInitial) {
-          card.style.display = "block";
+          card.style.display = "flex";
           if (!isInitial) newlyAdded.push(card);
         }
       } else {
         card.style.display = "none";
       }
+    });
+
+    // Lenis кешує висоту сторінки — після зміни display примусово перерахувати
+    requestAnimationFrame(() => {
+      window.lenis?.resize();
+      ScrollTrigger.refresh(true);
     });
 
     if (newlyAdded.length > 0) {
@@ -67,9 +74,11 @@ const newsFunctional = () => {
 
     if (currentShown >= cards.length) {
       btnText.textContent = "Згорнути";
+      document.querySelector(".load-more-btn svg").style.transform = "rotate(180deg)";
       loadMoreBtn.classList.add("is-full");
     } else {
       btnText.textContent = "Завантажити ще";
+      document.querySelector(".load-more-btn svg").style.transform = "rotate(0deg)";
       loadMoreBtn.classList.remove("is-full");
     }
   };
@@ -117,75 +126,154 @@ const newsFunctional = () => {
 };
 
 newsFunctional();
+initNewsHeroAnimation();
+initMagneticButtons();
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Реєструємо ScrollTrigger, якщо він знадобиться для інших блоків
+function initMagneticButtons() {
+  const magnetics = document.querySelectorAll(".news-card__magnetic");
 
+  magnetics.forEach((magnetic) => {
+    const btn = magnetic.querySelector(".news-card__btn");
+    if (!btn) return;
+
+    magnetic.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+      const dx = (e.clientX - btnCenterX) * 0.35;
+      const dy = (e.clientY - btnCenterY) * 0.35;
+      const maxOffset = 10;
+      const x = Math.max(-maxOffset, Math.min(maxOffset, dx));
+      const y = Math.max(-maxOffset, Math.min(maxOffset, dy));
+      gsap.to(btn, { x, y, duration: 0.35, ease: "power2.out" });
+    });
+
+    magnetic.addEventListener("mouseleave", () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.4)" });
+    });
+  });
+}
+
+function initNewsHeroAnimation() {
+  const hero = document.querySelector(".hero-template");
+  if (!hero) return;
+
+  const topSvg = hero.querySelector(".top-svg");
+  const bottomSvg = hero.querySelector(".bottom-svg");
+  const svgGroups = hero.querySelectorAll(".top-svg g, .bottom-svg g");
+  const videoInner = hero.querySelector(".svg-decor__video-wrap");
+  const shadowImg = hero.querySelector(".shadow-img");
+  const title = hero.querySelector(".title-wrap h1");
+  const handText = hero.querySelector(".title-wrap .home-svg-to-write");
+  const downBtn = hero.querySelector(".btn-down");
+
+  const btnDown = document.querySelector(".hero-template .btn-down");
+  const newsSection = document.querySelector(".news__list");
+  if (btnDown && newsSection) {
+    btnDown.addEventListener("click", () => {
+      newsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  const edgeSvgs = [topSvg, bottomSvg].filter(Boolean);
+  if (edgeSvgs.length) {
+    gsap.set(edgeSvgs, { opacity: 0, scale: 1.08, transformOrigin: "50% 50%" });
+  }
+
+  const targetGroupOpacity = Array.from(svgGroups, (group) => {
+    const attrOpacity = group.getAttribute("opacity");
+    if (attrOpacity !== null) {
+      const parsedAttr = Number.parseFloat(attrOpacity);
+      if (Number.isFinite(parsedAttr)) return parsedAttr;
+    }
+    const styleOpacity = group.style.opacity;
+    if (styleOpacity) {
+      const parsedStyle = Number.parseFloat(styleOpacity);
+      if (Number.isFinite(parsedStyle)) return parsedStyle;
+    }
+    const computed = Number.parseFloat(getComputedStyle(group).opacity);
+    return Number.isFinite(computed) ? computed : 1;
+  });
+
+  if (svgGroups.length) {
+    gsap.set(svgGroups, { opacity: 0 });
+  }
+
+  if (videoInner) {
+    gsap.set(videoInner, { opacity: 0, scale: 1.1, transformOrigin: "50% 55%" });
+  }
+
+  if (shadowImg) {
+    gsap.set(shadowImg, { opacity: 0, y: 18 });
+  }
+
+  if (title) {
+    gsap.set(title, { opacity: 0, y: 34, rotate: -2 });
+  }
+
+  if (handText) {
+    gsap.set(handText, {
+      opacity: 0,
+      y: 28,
+      clipPath: "inset(0 100% 0 0)",
+    });
+  }
+
+  if (downBtn) {
+    gsap.set(downBtn, { opacity: 0, y: 24 });
+  }
+
+  const endAt = 2;
   const tl = gsap.timeline({
-    defaults: {
-      ease: "power2.out", // Плавне сповільнення в кінці
-      duration: 1.2,
-    },
+    paused: true,
+    defaults: { ease: "power2.out" },
   });
 
-  // Робимо елементи видимими перед початком
-  tl.set(".header, .news__img, .news__list, .news__title-wrap", {
-    visibility: "visible",
-  });
+  whenLoaderReveals().then(() => tl.play());
 
-  // 1. Анімація Header (зверху вниз)
-  tl.from(
-    ".header",
-    {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-    },
-    0,
-  ); // Починаємо в 0 секунд
+  if (edgeSvgs.length) {
+    tl.to(edgeSvgs, { opacity: 1, scale: 1, duration: 1.45 }, endAt - 1.45);
+  }
 
-  // 2. Анімація головного зображення (зверху вниз + легкий scale)
-  tl.from(
-    ".news__img",
-    {
-      y: -50,
-      scale: 1.1,
-      opacity: 0,
-      duration: 1.5,
-    },
-    0.2,
-  ); // Починаємо з невеликою затримкою від старту
-  tl.from(
-    ".news__title-wrap",
-    {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      clipPath: "inset(0% 0% 100% 0%)",
-    },
-    "-=0.6",
-  );
-  // 3. Анімація лівого блоку (Заголовок та кнопка "Гортай")
-  // Використовуємо stagger: 0.2 для послідовної появи
-  tl.from(
-    ".news__list > *",
-    {
-      y: 40,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.2,
-    },
-    "-=0.8",
-  ); // Починаємо раніше, ніж закінчиться попередня анімація
+  if (svgGroups.length) {
+    tl.to(
+      svgGroups,
+      {
+        opacity: (index) => targetGroupOpacity[index],
+        duration: 1.2,
+        stagger: { each: 0.02, from: "start" },
+      },
+      endAt - 1.2,
+    );
+  }
 
-  // 4. Анімація правого блоку з текстом та декоративною іконкою
+  if (videoInner) {
+    tl.to(videoInner, { opacity: 1, scale: 1, duration: 1, clearProps: "transform" }, endAt - 1);
+  }
 
-  ScrollTrigger.create({
-    trigger: ".news",
-    start: "bottom bottom",
-    end: "bottom top",
-    pin: true, // "Приклеюємо" блок
-    pinSpacing: false, // Наступний блок ігнорує простір і наїжджає
-  });
-});
+  if (shadowImg) {
+    tl.to(shadowImg, { opacity: 1, y: 0, duration: 0.65 }, endAt - 0.72);
+  }
+
+  if (title) {
+    tl.to(title, { opacity: 1, y: 0, rotate: 0, duration: 0.8 }, endAt - 0.8);
+  }
+
+  if (handText) {
+    tl.to(
+      handText,
+      {
+        opacity: 1,
+        y: 0,
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.62,
+        clearProps: "clipPath",
+      },
+      endAt - 0.62,
+    );
+  }
+
+  if (downBtn) {
+    tl.to(downBtn, { opacity: 1, y: 0, duration: 0.55 }, endAt - 0.55);
+  }
+}

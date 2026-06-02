@@ -2,9 +2,9 @@
   position: relative;
   min-height: calc(100svh - 80px);
   overflow: hidden;
-  background-color: $bg-color;
+  background-color: $accent-color-2;
   padding: 90px 20px 60px;
-  background: linear-gradient(60deg, rgba(249, 243, 238, 1), rgba(227, 221, 217, 1));
+  background: linear-gradient(60deg, rgba(232, 226, 221, 1), rgba(229, 224, 218, 1));
 
   @include tablet {
     padding: 40px 40px 40px;
@@ -133,7 +133,7 @@
 
   h1 {
     @include super-title;
-    color: $text-color;
+    color: $accent-color;
     margin: 0;
 
     @include laptop {
@@ -367,7 +367,7 @@
 .advantage-block {
   margin-top: 40px;
   padding: 150px 20px;
-  background-color: $accent-color-2;
+  background-color: $accent-color;
   will-change: transform, border-radius;
   backface-visibility: hidden;
 
@@ -449,7 +449,7 @@
 
     h3 {
       @include super-title;
-      color: $text-color;
+      color: $accent-color;
       margin-bottom: 12px;
       text-align: center;
 
@@ -494,9 +494,9 @@
   padding: 40px 20px;
   position: sticky;
   top: 60px;
-  background-color: $accent-color-2;
+  background-color: $accent-color;
   border-radius: 40px;
-  border: 1px solid $text-color;
+  border: 1px solid rgba(244, 241, 234, 0.40);
   transform-origin: 50% 0%;
   will-change: transform, filter, opacity;
 
@@ -519,10 +519,10 @@
     transform: translate(-50%, -50%);
     width: 48px;
     height: 48px;
-    background-color: $accent-color-2;
+    background-color: $accent-color;
     z-index: 1;
     border-radius: 50%;
-    border: 1px solid $text-color;
+    border: 1px solid rgba(244, 241, 234, 0.40);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -530,6 +530,10 @@
     svg {
       width: 14px;
       height: 14px;
+
+      path {
+        fill: $text-color-light;
+      }
     }
 
     @include tablet {
@@ -568,7 +572,7 @@
 
     .home-svg-to-write {
       @include hand-text;
-      color: $accent-color;
+      color: $wood-color;
       position: absolute;
       bottom: 0;
       left: 50%;
@@ -587,7 +591,7 @@
   &-title {
     @include section-title;
     text-transform: none;
-    color: $text-color;
+    color: $text-color-light;
     margin-bottom: 12px;
     position: relative;
     z-index: 4;
@@ -605,7 +609,7 @@
 
   &-description {
     @include general-text;
-    color: $text-color;
+    color: $text-color-light;
     position: relative;
     z-index: 4;
 

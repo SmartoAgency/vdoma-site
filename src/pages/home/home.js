@@ -2,9 +2,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Swiper from "swiper";
 import { Navigation, Autoplay, Scrollbar } from "swiper/modules";
+import i18next from "i18next";
 import "@shared/scripts/liquid-glass-animation/liquid-glass-animation";
 import { whenLoaderReveals } from "@shared/scripts/loader-sync.js";
 import "./home.scss";
+import { initLazyMap } from "@/widgets/mapBox/mapInit";
+import mapBoxConfig from "@/widgets/mapBox/map-config.json";
 
 // Реєструємо плагін
 gsap.registerPlugin(ScrollTrigger);
@@ -15,6 +18,98 @@ ScrollTrigger.config({
   ignoreMobileResize: true,
   anticipatePin: 1,
 });
+
+const MAP_I18N_DICTIONARY = {
+  uk: {
+    "Map.location.type.main": "Головна локація",
+    "Map.location.type.poi": "Точка інтересу",
+    "Map.location.type.club": "Клуб",
+    "Map.location.type.terminal": "Пошта",
+    "Map.location.type.parking": "СТО та АЗС",
+    "Map.location.type.shop": "Магазин",
+    "Map.location.type.walking": "Пішохідна зона",
+    "Map.location.type.entertainment": "Розваги",
+    "Map.location.type.underground": "Громадський транспорт",
+    "Map.location.type.zoo": "Зоопарк",
+    "Map.location.type.street": "Вулиця",
+    "Map.location.type.ports": "Порти",
+    "Map.location.type.sport": "Спорт",
+    "Map.location.type.marinas": "Марини",
+    "Map.location.type.school": "Навчальні заклади",
+    "Map.location.type.lake": "Озеро",
+    "Map.location.type.workout": "Фітнес",
+    "Map.location.type.atm": "Банкомат",
+    "Map.location.type.tennis": "Теніс",
+    "Map.location.type.pharmacy": "Медичні заклади",
+    "Map.location.type.restaurant": "Ресторани",
+    "Map.location.showFilter": "Показати фільтр",
+    "Map.location.closeFilter": "Закрити фільтр",
+    "Map.location.enableZoom": "Увімкнути Zoom",
+    "Map.location.disableZoom": "Вимкнути Zoom",
+    "Map.location.reCenter": "До головної точки",
+    "Map.location.driving": "Авто",
+    "Map.location.cycling": "Велосипед",
+    "Map.location.walking": "Пішки",
+    "Map.location.openInGoogleMaps": "Відкрити в Google Maps",
+    "Map.location.noPhotos": "Фото відсутні",
+    "Map.location.hours": "год",
+    "Map.location.minutes": "хв",
+  },
+  en: {
+    "Map.location.type.main": "Main location",
+    "Map.location.type.poi": "Point of interest",
+    "Map.location.type.club": "Club",
+    "Map.location.type.terminal": "Post office",
+    "Map.location.type.parking": "Service stations",
+    "Map.location.type.shop": "Shop",
+    "Map.location.type.walking": "Walking area",
+    "Map.location.type.entertainment": "Entertainment",
+    "Map.location.type.underground": "Public transport",
+    "Map.location.type.zoo": "Zoo",
+    "Map.location.type.street": "Street",
+    "Map.location.type.ports": "Ports",
+    "Map.location.type.sport": "Sport",
+    "Map.location.type.marinas": "Marinas",
+    "Map.location.type.school": "Schools",
+    "Map.location.type.lake": "Lake",
+    "Map.location.type.workout": "Workout",
+    "Map.location.type.atm": "ATM",
+    "Map.location.type.tennis": "Tennis",
+    "Map.location.type.pharmacy": "Pharmacy",
+    "Map.location.type.restaurant": "Restaurant",
+    "Map.location.showFilter": "Show filter",
+    "Map.location.closeFilter": "Close filter",
+    "Map.location.enableZoom": "Enable zoom",
+    "Map.location.disableZoom": "Disable zoom",
+    "Map.location.reCenter": "Back to main point",
+    "Map.location.driving": "Driving",
+    "Map.location.cycling": "Cycling",
+    "Map.location.walking": "Walking",
+    "Map.location.openInGoogleMaps": "Open in Google Maps",
+    "Map.location.noPhotos": "No photos available",
+    "Map.location.hours": "h",
+    "Map.location.minutes": "min",
+  },
+};
+
+function createMapI18n() {
+  const htmlLang = document.documentElement.lang || "uk";
+  const i18nLang = i18next?.resolvedLanguage || i18next?.language || "";
+  const lang = (i18nLang || htmlLang).toLowerCase().startsWith("en") ? "en" : "uk";
+  const dictionary = MAP_I18N_DICTIONARY[lang];
+
+  return {
+    t(key) {
+      const external = typeof i18next?.t === "function" ? i18next.t(key, { defaultValue: "" }) : "";
+
+      if (typeof external === "string" && external && external !== key) {
+        return external;
+      }
+
+      return dictionary[key] || MAP_I18N_DICTIONARY.en[key] || key;
+    },
+  };
+}
 
 // ===== HERO СЕКЦІЯ =====
 function initHero() {
@@ -636,23 +731,21 @@ function initHomeGalleryAnimations() {
     gsap.set(bottomLeft, { xPercent: -102 });
     gsap.set(bottomRight, { xPercent: 102 });
 
-    const curtainHoldDistance = () => Math.max(window.innerHeight * 0.85, 520);
+    const lastPhoto = photos[photos.length - 1] || photosWrap || gallery;
 
     const curtainTl = gsap.timeline({
       scrollTrigger: {
-        trigger: gallery,
-        start: "bottom bottom",
-        end: () => `+=${curtainHoldDistance()}`,
-        pin: true,
-        pinSpacing: true,
+        trigger: lastPhoto,
+        start: "bottom top",
+        end: () => `+=${window.innerHeight * 0.2}`,
         scrub: 1,
-        anticipatePin: 1,
         invalidateOnRefresh: true,
+        ease: "none",
       },
     });
 
     curtainTl.to(bottomLeft, {
-      xPercent: 2,
+      xPercent: 0,
       ease: "none",
       duration: 1,
     });
@@ -660,7 +753,7 @@ function initHomeGalleryAnimations() {
     curtainTl.to(
       bottomRight,
       {
-        xPercent: -2,
+        xPercent: 0,
         ease: "none",
         duration: 1,
       },
@@ -1235,3 +1328,22 @@ function init() {
 }
 
 init();
+
+const mapInfo = mapBoxConfig?.map;
+
+initLazyMap({
+  selector: "#map",
+  accessToken: mapInfo?.mapbox_access_token,
+  i18n: createMapI18n(),
+  center: mapInfo?.default_coordinates,
+  zoom: mapInfo?.default_zoom,
+  markers: (mapInfo?.markers || []).map((marker) => ({
+    type: marker.type,
+    title: marker.title,
+    description: marker.description,
+    images: marker.images,
+    coordinates: marker.coordinates,
+    lng: marker.coordinates[1],
+    lat: marker.coordinates[0],
+  })),
+});

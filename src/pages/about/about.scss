@@ -4,7 +4,7 @@
   overflow: hidden;
   background-color: $bg-color;
   padding: 90px 20px 60px;
-  background: linear-gradient(60deg, rgba(249, 243, 238, 1), rgba(227, 221, 217, 1));
+  background: linear-gradient(60deg, rgba(232, 226, 221, 1), rgba(229, 224, 218, 1));
 
   @include tablet {
     padding: 40px 40px 40px;
@@ -146,7 +146,7 @@
 
   h1 {
     @include super-title;
-    color: $text-color;
+    color: $accent-color;
     margin: 0;
 
 
@@ -557,10 +557,10 @@
     transform: translate(-50%, -50%);
     width: 48px;
     height: 48px;
-    background-color: $text-color ;
+    background-color: $accent-color ;
     z-index: 1;
     border-radius: 50%;
-    border: 1px solid $text-color;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -625,7 +625,7 @@
 
   &__write {
     @include hand-text;
-    color: $accent-color;
+    color: $wood-color;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -636,6 +636,7 @@
     @include subtitle-text;
     color: $wc;
     position: relative;
+    font-weight: 400;
     z-index: 4;
   }
 }
@@ -760,8 +761,14 @@
   }
 
   .general-btn::before {
-    background-color: rgb(calc(244 - 57 * var(--end-key-progress)),
-        calc(241 - 88 * var(--end-key-progress)),
-        calc(234 - 103 * var(--end-key-progress)));
+    background-color: rgb(calc(244 - 190 * var(--end-key-progress)),
+        calc(241 - 179 * var(--end-key-progress)),
+        calc(234 - 149 * var(--end-key-progress)));
+  }
+
+  .general-btn span {
+    color: rgb(calc(39 + 200 * var(--end-key-progress)),
+        calc(41 + 187 * var(--end-key-progress)),
+        calc(43 + 178 * var(--end-key-progress)));
   }
 }

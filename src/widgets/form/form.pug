@@ -9,17 +9,15 @@ mixin form(attr)
 			//- .form-description.text-style-body Залишіть контактні дані і ми обов'язково зв'яжемося з вами
 			.inputs-wrapper
 				.form-field.form-field-input(data-field-input data-field-name data-status="field--inactive").first-offset
-					.form-field__required 
-						svg 
-							use(href="./icons.svg#Required")
+					.form-field__required *
+						
 					//- .input-title Ім’я
 					input(type='text' name="name" placeholder=" ").form-field__input
 					.placeholder Ім’я
 					.input-message(data-input-message)
 				.form-field.form-field-input(data-field-input data-field-phone data-status="field--inactive")
-					.form-field__required 
-						svg 
-							use(href="./icons.svg#Required")
+					.form-field__required *
+						
 					//- .input-title Телефон
 					input(type='text' name="phone" placeholder=" " ).form-field__input
 					.placeholder Телефон
@@ -34,5 +32,5 @@ mixin form(attr)
 				
 
 			.form__button-wrapper
-				button( type="submit" data-btn-submit).general-btn.general-btn--dark
+				button( type="submit" data-btn-submit).general-btn
 					span.submit-btn__text(data-btn-submit-text) Надіслати повідомлення

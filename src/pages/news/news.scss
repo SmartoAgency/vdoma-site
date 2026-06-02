@@ -1,7 +1,304 @@
 // Styles for the news page
 
+.hero-template {
+  position: relative;
+  min-height: calc(100svh - 80px);
+  overflow: hidden;
+  background-color: $bg-color;
+  padding: 90px 20px 60px;
+  background: linear-gradient(60deg, rgba(232, 226, 221, 1), rgba(229, 224, 218, 1));
+
+  @include tablet {
+    padding: 40px 40px 40px;
+  }
+
+  @include laptop {
+    padding: vw(142) vw(140) vw(50);
+    display: flex;
+    align-items: center;
+  }
+
+  .top-svg,
+  .bottom-svg {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .top-svg {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+
+
+
+    @include laptop {
+      width: vw(661);
+    }
+  }
+
+  .bottom-svg {
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: auto;
+
+
+
+    @include laptop {
+      width: vw(335);
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: block;
+
+  }
+
+  @include laptop {
+    &__content {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+      gap: vw(155);
+    }
+  }
+}
+
+.svg-decor__video {
+
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+
+  @include tablet {
+    width: 70%;
+  }
+
+  @include laptop {
+    width: vw(612);
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .svg-decor__video-wrap {
+    position: relative;
+  }
+
+  .home-hero__video {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mask-image: url("/src/shared/images/figure-video.png");
+    -webkit-mask-image: url("/src/shared/images/figure-video.png");
+
+    /* Якщо потрібно, щоб маска масштабувалася разом із відео */
+    -webkit-mask-size: contain;
+    /* або 'cover', щоб маска розтягувалася */
+    mask-size: contain;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-position: center;
+    mask-position: center;
+    z-index: 1;
+  }
+
+  .svg-frame {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .shadow-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: -6%;
+    z-index: 0;
+    position: relative;
+    pointer-events: none;
+  }
+}
+
+.title-wrap {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include tablet {
+    margin-top: 28px;
+  }
+
+  @include laptop {
+    margin-top: 0;
+    margin-bottom: vw(40);
+  }
+
+  h1 {
+    @include super-title;
+    color: $accent-color;
+    margin: 0;
+
+
+    @include laptop {
+      max-width: vw(779);
+      align-self: flex-start;
+    }
+  }
+
+  .home-svg-to-write {
+    @include hand-text;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: $wc;
+    paint-order: stroke fill;
+    color: $accent-color;
+    margin: -35px 0 0;
+    transform: rotate(-12deg);
+    line-height: .9;
+    white-space: nowrap;
+
+
+
+    @include tablet {
+      margin-top: -55px;
+    }
+
+    @include laptop {
+      margin-top: calc(vw(-150) / 2);
+      margin-left: 60px;
+      -webkit-text-stroke-width: 4px;
+    }
+  }
+}
+
+.btn-down {
+  position: absolute;
+  z-index: 3;
+  bottom: 32px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid $accent-color;
+  background: rgba(246, 244, 235, .08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color .3s ease, border-color .3s ease;
+
+  @include tablet {
+    display: flex;
+    margin-top: 18px;
+  }
+
+  @include laptop {
+    width: vw(72);
+    height: vw(72);
+    margin-top: 0;
+
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($accent-color, 0.16);
+    z-index: 1;
+    transform: translateY(104%);
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+  }
+
+  svg {
+    position: absolute;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+    animation: about-arrow-drop 2s infinite;
+
+    @include laptop {
+      width: vw(28);
+      height: vw(28);
+    }
+
+    path {
+      transition: fill .3s ease;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 1s;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      &::before {
+        transform: translateY(0);
+      }
+
+
+
+      // path {
+      //   fill: $accent-color;
+      // }
+    }
+  }
+}
+
+@keyframes about-arrow-drop {
+  0% {
+    transform: translate(-50%, -200%);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  52% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translate(-50%, 80%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 80%);
+    opacity: 0;
+  }
+}
+
+
 .news {
   padding-bottom: 60px;
+  padding-top: 80px;
 
   @include tablet {
     padding-bottom: 80px;
@@ -9,77 +306,6 @@
 
   @include laptop {
     padding-bottom: vw(120);
-  }
-
-  &__img {
-    width: 100%;
-    height: 231px;
-    object-fit: cover;
-
-    @include tablet {
-      height: 321px;
-    }
-
-    @include laptop {
-      height: 295px;
-    }
-  }
-
-  &__title-wrap {
-    margin-top: 28px;
-    margin-bottom: 28px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(105, 139, 164, 0.40);
-    display: flex;
-    justify-content: space-between;
-
-    @include tablet {
-      margin-top: 40px;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-    }
-
-    @include laptop {
-      padding-bottom: 0;
-      border-bottom: none;
-      gap: 20px;
-      align-items: center;
-
-    }
-
-    h1 {
-      @include super-title;
-      color: $accent-color;
-
-    }
-
-    .news-decor-line {
-      display: none;
-
-      @include laptop {
-        flex: 1;
-        display: block;
-        height: 1px;
-        width: 100%;
-        background-color: rgba(105, 139, 164, 0.40);
-      }
-    }
-
-    svg {
-      width: 16px;
-      height: 16px;
-
-      @include tablet {
-        width: 24px;
-        height: 24px;
-      }
-
-      @include laptop {
-        path {
-          fill: rgba(105, 139, 164, 0.40);
-        }
-      }
-    }
   }
 
   &__list {
@@ -91,19 +317,14 @@
 
 
     @include tablet {
-      column-gap: 20px;
-      row-gap: 40px;
       flex-direction: row;
       flex-wrap: wrap;
       align-items: stretch;
       padding-bottom: 80px;
-
     }
 
     @include laptop {
-      column-gap: vw(40);
-      row-gap: vw(40);
-      padding-left: vw(540);
+
       padding-bottom: vw(120);
     }
   }
@@ -111,114 +332,209 @@
 
 .news-card {
   width: 100%;
-  padding: 10px 10px 24px;
-  background-color: $wc;
+  padding: 20px 0;
+  aspect-ratio: 575 / 600;
   display: block;
-  width: 100%;
-  border: 1px solid #EFDCCB;
-
+  border: 1px solid rgba(39, 41, 43, 0.20);
+  position: relative;
+  border-radius: 12px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 
   @include tablet {
     width: calc(50% - 10px);
-    padding-bottom: 40px;
   }
 
   @include laptop {
-    width: calc((100% - vw(80))/ 3);
+    width: calc((100% - 40px) / 3);
+  }
 
-    padding-bottom: vw(50);
+  &__corner {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: $accent-color;
+    border-radius: 50%;
+
+    &--tl {
+      top: 8px;
+      left: 8px;
+    }
+
+    &--tr {
+      top: 8px;
+      right: 8px;
+    }
+
+    &--bl {
+      bottom: 8px;
+      left: 8px;
+    }
+
+    &--br {
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+
+  &__title-text {
+    @include general-text;
+    font-weight: 700;
+    color: $accent-color;
+    margin-bottom: 16px;
+    padding: 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-transform: uppercase;
+
+    @include tablet {
+      font-size: 15px;
+      margin-bottom: 20px;
+      width: 50%;
+    }
+
+    @include laptop {
+      font-size: vw(15);
+      margin-bottom: vw(20);
+    }
   }
 
   &__img-wrap {
-    aspect-ratio: 300 / 362;
+    aspect-ratio: 16 / 8;
     width: 100%;
-    margin-bottom: 24px;
     position: relative;
     overflow: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
 
-    @include tablet {
-      margin-bottom: 40px;
-    }
-
-    @include laptop {
-      margin-bottom: vw(40);
-    }
-
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   bottom: 0;
-    //   left: 0;
-    //   width: 100%;
-    //   height: 35%;
-    //   opacity: 0.8;
-    //   background: linear-gradient(180deg, rgba(16, 24, 32, 0.00) 0%, rgba(16, 24, 32, 0.80) 100%);
+    // @include tablet {
+    //   margin-top: 80px;
+    //   margin-bottom: 80px;
     // }
 
-    .news-label__wrap {
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
+    // @include laptop {
+    //   margin-top: vw(85);
+    //   margin-bottom: vw(85);
 
-      .news-label,
-      .news-date {
-        padding: 6px 12px;
-        height: fit-content;
-
-        span {
-          font-size: 12px;
-
-          @include tablet {
-            font-size: 14px;
-          }
-
-          @include laptop {
-            font-size: 12px;
-          }
-        }
-      }
-
-    }
-
-    @include tablet {
-      margin-bottom: 40px;
-    }
-
-    @include laptop {
-      margin-bottom: vw(40);
-    }
+    // }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-
+      transition: transform 0.6s ease;
     }
   }
 
-  &__text-wrap {
+  &:hover &__img-wrap img {
+    transform: scale(1.04);
+  }
+
+  &__magnetic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+  }
 
-    @include general-text;
-    color: $text-color;
+  &__btn {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    background-color: $accent-color;
+    color: $text-color-light;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
 
-    .news-card__month {
-      @include subtitle-text;
-      font-weight: 700;
-      color: $accent-color;
+    @include laptop {
+      padding: vw(13) vw(20);
+      gap: vw(10);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $wc;
+      transform: translateY(101%);
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    &-text,
+    &-icon {
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease;
+    }
+
+    &-text {
+      font-family: $default-font;
+
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      @include laptop {
+        font-size: vw(11);
+      }
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
     }
   }
 
+  &__magnetic:hover &__btn {
+    color: $text-color;
+
+    &::before {
+      transform: translateY(0);
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  &__date {
+    @include general-text;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $text-color;
+    text-transform: uppercase;
+
+    @include laptop {}
+
+    svg {
+      flex-shrink: 0;
+      color: $text-color;
+    }
+  }
 }
 
 .load-more-btn-wrap {
@@ -226,20 +542,16 @@
   align-items: center;
   justify-content: center;
 
-  @include laptop {
-    padding-left: vw(540);
-  }
+
 }
 
 .load-more-btn {
   @include tiny-text;
-  color: $accent-color;
-  text-transform: uppercase;
+  color: $text-color;
   display: flex;
   align-items: center;
   gap: 8px;
   padding-bottom: 4px;
-  border-bottom: 1px solid rgba(105, 139, 164, 0.40);
   cursor: pointer;
   overflow: hidden;
   position: relative;
@@ -270,6 +582,7 @@
   svg {
     width: 16px;
     height: 16px;
+    transition: transform 0.3s ease-in-out;
 
     @include tablet {
       width: 20px;

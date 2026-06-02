@@ -16,23 +16,27 @@
   .general-btn {
     width: 80%;
     margin-left: auto;
+    position: relative;
+    z-index: 2;
   }
 
 }
 
 .thank-you-popup__title {
   @include super-title;
-  color: $text-color;
+  color: $wc;
   margin-bottom: 12px;
   margin-right: auto;
-
+  position: relative;
+  z-index: 2;
 
 }
 
 .thank-you-popup__subtitle {
   @include subtitle-text;
-  color: $text-color;
-
+  color: $wc;
+  position: relative;
+  z-index: 2;
 }
 
 .thank-you-popup__img {
@@ -40,5 +44,7 @@
   width: 80%;
   margin-left: auto;
   margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
 
 }

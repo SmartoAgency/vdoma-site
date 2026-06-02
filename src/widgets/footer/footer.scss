@@ -34,7 +34,7 @@
 
   .section-title {
     @include super-title;
-    color: $text-color;
+    color: $accent-color;
     margin-bottom: 40px;
   }
 
@@ -88,6 +88,10 @@
     margin-bottom: 0px;
     width: 700px;
     margin-top: 0;
+  }
+
+  @media screen and (min-width: 1366px) {
+    width: vw(800);
   }
 
   &__list {
@@ -269,7 +273,6 @@
       }
     }
   }
-
 }
 
 
@@ -280,7 +283,7 @@
   align-items: center;
 }
 
-.footer .socials-list__item {
+.socials-list__item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -313,7 +316,7 @@
       height: 24px;
     }
 
-    @include tablet {
+    @include laptop {
       width: vw(24);
       height: vw(24);
     }
@@ -347,7 +350,7 @@
 
       svg {
         path {
-          fill: $accent-color; // Колір стрілочки стає білим
+          fill: $wood-color; // Колір стрілочки стає білим
         }
       }
     }
@@ -389,7 +392,7 @@
 
   span {
     @include super-title;
-    color: $text-color;
+    color: $accent-color;
     font-size: 100px;
     flex-shrink: 0;
     text-transform: uppercase;

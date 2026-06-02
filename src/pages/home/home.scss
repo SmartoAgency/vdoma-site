@@ -539,7 +539,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 .advantage-block {
   margin-top: 40px;
   padding: 150px 20px;
-  background-color: $accent-color-2;
+  background-color: $accent-color;
   will-change: transform, border-radius;
   backface-visibility: hidden;
 
@@ -641,7 +641,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     h3 {
       @include super-title;
-      color: $text-color;
+      color: $accent-color;
       margin-bottom: 12px;
       text-align: center;
 
@@ -689,9 +689,9 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   padding: 40px 20px;
   position: sticky;
   top: 60px;
-  background-color: $accent-color-2;
+  background-color: $accent-color;
   border-radius: 40px;
-  border: 1px solid $text-color;
+  border: 1px solid rgba(244, 241, 234, 0.40);
   transform-origin: 50% 0%;
   will-change: transform, filter, opacity;
 
@@ -713,10 +713,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     transform: translate(-50%, -50%);
     width: 48px;
     height: 48px;
-    background-color: $accent-color-2;
+    background-color: $accent-color;
     z-index: 1;
     border-radius: 50%;
-    border: 1px solid $text-color;
+    border: 1px solid rgba(244, 241, 234, 0.40);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -724,6 +724,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     svg {
       width: 14px;
       height: 14px;
+
+      path {
+        fill: $text-color-light;
+      }
     }
 
     @include tablet {
@@ -773,7 +777,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     .home-svg-to-write {
       @include hand-text;
-      color: $accent-color;
+      color: $wood-color;
       position: absolute;
       bottom: 0;
       left: 50%;
@@ -795,7 +799,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   &-title {
     @include section-title;
     text-transform: none;
-    color: $text-color;
+    color: $text-color-light;
     margin-bottom: 12px;
 
     @include tablet {
@@ -811,7 +815,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   &-description {
     @include general-text;
-    color: $text-color;
+    color: $text-color-light;
 
     @include laptop {
       width: 45%;
@@ -823,6 +827,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 .home-gallery {
   // height: 100vh;
+
+
   position: relative;
   background-color: $wc;
   overflow: visible;
@@ -910,9 +916,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     p {
       @include block-subtitle;
-      color: $text-color;
+      color: #EFE4DD;
       position: relative;
       z-index: 3;
+      mix-blend-mode: difference;
     }
 
     .home-gallery__bar-progress {
@@ -944,19 +951,20 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   .home-gallery__photos-wrap {
     padding: 60px 20px;
-    background-color: #d1d9e1ee;
+    background-color: rgba($accent-color-2, 0.9);
     display: flex;
     flex-direction: column;
     gap: 60px;
     position: relative;
     z-index: 2;
     overflow: visible;
-    padding-bottom: 50vh;
+    padding-bottom: 150vh;
 
     @include laptop {
       padding: 60px 40px;
       gap: 0px;
-      padding-bottom: 50vh;
+      padding-bottom: 150vh;
+
 
     }
 
@@ -1096,10 +1104,11 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   &__bottom-wrap {
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 6;
     width: 100%;
-    height: 100svh;
-    margin-top: -100svh;
+    height: 150svh;
+    margin-top: -150svh;
     display: flex;
     pointer-events: none;
     overflow: hidden;
@@ -1107,7 +1116,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   &__bottom-left,
   &__bottom-right {
-    width: 54%;
+    width: 56%;
     height: 100%;
     background-color: $accent-color;
     will-change: transform;
@@ -1137,7 +1146,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   }
 
   &__content {
-    background-color: $accent-color-2;
+    background-color: $accent-color;
     padding: 150px 20px;
     overflow: hidden;
     will-change: transform, border-radius;
@@ -1162,7 +1171,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   .section-title {
     @include super-title;
-    color: $text-color;
+    color: $text-color-light;
     margin-bottom: 20px;
 
     @include tablet {
@@ -1187,7 +1196,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     h3 {
       @include block-subtitle;
-      color: $text-color;
+      color: $text-color-light;
       margin-bottom: 8px;
       text-align: center;
 
@@ -1199,7 +1208,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     p {
       @include general-text;
-      color: $text-color;
+      color: $accent-color-2;
       text-align: center;
       margin-bottom: 20px;
 
@@ -1224,10 +1233,17 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   .map-wrap {
     position: relative;
     margin-bottom: 60px;
+    border-radius: 20px;
+    overflow: hidden;
+
+    @include tablet {
+      border-radius: 40px;
+    }
 
     @include laptop {
       grid-area: map;
       margin-bottom: 0px;
+
     }
 
     &>svg {
@@ -1248,10 +1264,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     }
 
     .map {
-      height: 60vh;
+      height: 80svh;
       width: 100%;
       border-radius: 40px;
-      background-color: $accent-color;
+      background-color: $accent-color-2;
       position: relative;
       z-index: 2;
     }
@@ -1279,7 +1295,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
     --progress-focus-width: calc((min(25vw, 380px) * 3) + 136px);
   }
 
-  background: linear-gradient(0deg, $accent-color 20%, $wc 100%);
+  background: linear-gradient(0deg, rgba(164, 137, 113, 1) 20%, $wc 100%);
   padding-top: 80px;
   padding-bottom: 90px;
   overflow: hidden;
@@ -1310,7 +1326,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
     .section-title {
       @include super-title;
-      color: $text-color;
+      color: $accent-color;
       text-align: center;
       margin: 0;
       position: relative;
@@ -1576,7 +1592,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   }
 
   &__scrollbar .swiper-scrollbar-drag {
-    background: $accent-color;
+    background: rgba(164, 137, 113, 1);
 
     height: 34px;
     border-radius: 10px;

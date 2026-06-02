@@ -1,0 +1,449 @@
+{
+  "map": {
+    "mapbox_access_token": "key",
+    "default_coordinates": [
+      49.268085010618314,
+      28.509729302389204
+    ],
+    "default_zoom": 14,
+    "markers": [
+      {
+        "type": "main",
+        "coordinates": [
+          49.268085010618314,
+          28.509729302389204
+        ],
+        "title": "ЖК «Вдома»",
+        "description": "МИ НЕ ЧЕКАЄМО НА ЩАСЛИВЕ МАЙБУТНЄ — МИ ЙОГО БУДУЄМО",
+        "images": [
+          "/assets/images/gallery-1.jpg",
+          "/assets/images/gallery-2.jpg",
+          "/assets/images/gallery-3.jpg",
+          "/assets/images/gallery-4.jpg",
+          "/assets/images/gallery-5.jpg",
+          "/assets/images/gallery-6.jpg"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.26986279418453, 28.508186373595553
+        ],
+        "title": "ЦПТО №1 (КЗ «Вінницький індустріальний професійний коледж»)",
+        "description": "Вул. Сергія Зулінського, 27",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZDc87Be25mf8SFUHcEyrkqOL0p0D-SZ5eJVD1UxJ24vH-aEmVN_p_RkDhHq1oOSXcKo1tkZ3pi-5YSU_oe7H47Y6XlttUIAdh2RWZ9oNiAFacSwS-JG9dTPpnxs2J8h4PP0bnBQ"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.270140745348776, 28.509442418428055
+        ],
+        "title": "КІБІТ (Вінницька філія Київського інституту бізнесу та технологій)",
+        "description": "Вул. Сергія Зулінського, 31",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAG5Ae4TNXiw4Jp72z0sE7gLbPZzqoVX3cyfhFHC_4xdgnQiuF0lCx7lYJXWXRQk7OVpU7o-sI1cCmjf5FE2t87A_v2ocLi8hj4R8kza6CADawNR4U3yvtLr7GFJcvPG4063kTHb"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.263968823323864, 28.474901845625627
+        ],
+        "title": "ДНЗ №26 (Дошкільний навчальний заклад №26)",
+        "description": "Вул. Київська, 144",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBZVKdQe-S9M9WnIRF5HJHWO58JB7lrNZaxgpF6KK3wfijnHQw6zpY09d_jH-MnFpQegJ96432rXELvneoZnZ6DMpkejKiwHh7JoSdhqbF-6UdRC2IofwyNDEB4mXgVUI1RfU7"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.26148814349459, 28.510209653181015
+        ],
+        "title": "ВНЗ «Вінницький навчально-науковий інститут економіки Західноукраїнського національного університету»",
+        "description": "Вул. Гонти, 37",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGFDYMZsXLrkwqU5XxmKtE2EBqjZZCAhAOUJIhhjReChx1B_uy1xVlIkbfyEvmnmO-kxoJYsprtTqth9wAcL-61k4WWdluUBMTD0-naWP6VCyAcepdjgG2m7TpRTRjetkam4Fck8Q"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.2614506194575, 28.47212961545392
+        ],
+        "title": "Комунальний заклад «Вінницький ліцей №29»",
+        "description": "Вул. Київська, 149",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHoyiu6BcLolMpwe2hT7I33Mto1JBqXiD-6IvVR_Riigpak7ivryvCx3aOaf439CLWlmzYWmT-mHi4worLmzrFk9qaa8otRewojde4boqsNMopXLByjSwgt534V3reLpN6cEk02"
+        ]
+      },
+      {
+        "type": "school",
+        "coordinates": [
+          49.2604271902661, 28.473465481526304
+        ],
+        "title": "Державний навчальний заклад «Вище професійне училище №7 м. Вінниці»",
+        "description": "Вул. Київська, 118",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE8XVcsWK7YlQaSgo_74ANyqcuGc8QxjFDsmHST4cIZl2QcLleQ3T-4_wH_tPfFXjIng9swgLBK9r1_YG2oqSZksiWusg_P3226siS2xNm5b1scgOomQ48BGGyypbhEF64ih19m"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.27017234125887, 28.5109224185248
+        ],
+        "title": "Продовольчий магазин «На Замості»",
+        "description": "Вул. Сергія Зулінського, 35",
+        "images": [
+          "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=nlPU7YFnRnr3cq0Dyb_pZA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=337.39886&pitch=0&thumbfov=100"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.27082338255336, 28.51158760630393
+        ],
+        "title": "Супермаркет «Їжакmarket»",
+        "description": "Вул. Сергія Зулінського, 39",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEGHBAiCqCKIcHbjaaoeZdQiH0ooH34xD4G2PcasB_7uK_IIuO_sRTvPVvCyL-IbJTCknw5tjl2-FgLjTsxDT8RmPDKHb1GF8XoLBG2eLF4UBMtmjtC2hVAq1uxOyxubx9yml7yFA"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.26859015851478, 28.488479282333504
+        ],
+        "title": "Продовольчий магазин",
+        "description": "Вул. Сергія Зулінського, 34А",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEN0TsJuNXbfz9OsiAKeUnlxNP8NLUcyO-STr75A6K4rU2vaVZFL1AK_Ynj6qFmZ3UIWProwi01_wmUbGI_XJT7Us0-xRtcQ7FLeg6Q77MOMGIeghcilyQrzwbKUltMYdxkvowa"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.26951087208634, 28.482652380395006
+        ],
+        "title": "Зоомагазин \"Baskerville\"",
+        "description": "Вул. Сергія Зулінського, 20",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGOsvNsoYu-PDswD3s5TOnsgTz6OshUnqAylwKa3I4EzOA8omB9g63KpLh-aOJIXrDkAeufE8nAxc6qPmfXlCzbRIY7wir-yODXenzJL_TZL7QHikhWhaB27jlApTUBFToW9XWJWvsO2ME"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.26809510000001, 28.488854442426447
+        ],
+        "title": "Кондитерський фірмовий магазин «Вінницька цукерка»",
+        "description": "Вул. Сергія Зулінського, 26",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHlOzVJWPox6JUdOGs59ur5Wj8brx3S9RwuHErf5UL22yqWbEeUURgAdlKZwGAJVJ6jh6IAwtoKcHTtzZ5gWw5eWjpYjdxCXZcweNIM74JDv3diyyG-K5T0fvkkrLjeC9e1x_S2"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+         49.25702229176001, 28.47324254236196
+        ],
+        "title": "Супермаркет «ГРОШ»",
+        "description": "Вул. Київська, 108а",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGm8ZZ396CTjpn_4ufZz1Ay58ydaSKUweOW39Sg8SjfxaLeZj9ItjQSQ6ceNZSGJw8oWA26OIsrlA4Hstljyi62j8FYG3Aw6Df3o7Okea-iAfWH2TcMF6GU94e9Vsp7KxxE7bmeg7FxReA"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.25593822484273, 28.47336081725112
+        ],
+        "title": "Супермаркет «АТБ - маркет»",
+        "description": "Вул. Київська, 104",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGt64DZX_8-qrB-_lFRFA-f2293XePfVML5rfTBdUeyqDtp5fxvXxkQ_slkio9zp8Nc3R2VrgpEmyAvH3dd2zEXA84UjysGHB03waM8NdwRM3-MhSZKS9-4joMAdPbiVz39jKVZ"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.25683809488238, 28.47323043552136
+        ],
+        "title": "Магазин побутової хімії та товарів для дому «Я - господиня»",
+        "description": "Вул. Київська, 108а",
+        "images": [
+          "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=NEwF1gIYDUyB4iA1qNwpgw&cb_client=search.gws-prod.gps&w=408&h=240&yaw=92.00889&pitch=0&thumbfov=100"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.25764332500717, 28.473474514115278
+        ],
+        "title": "Дитячий магазин «Пузя»",
+        "description": "Вул. Київська, 110",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAE2q_nutElgR4Cd8yDUz1RdVBbLnKHPsBALhiKRm_0lT_-ZOqTR4knCw9LuXoaUPJQGAHNPHU_otXuHcXf3Xpy1GXNWdxeLwgWnmBC1vy9iB_OVYYo6ZJiErYAYO44tv9vM0ftp=w408-h306-k-no","https://lh3.googleusercontent.com/gps-cs/ACgwaOvSbnp_jnyxKTwMT62HqCodHolAu7XhuQ8nX0_sPWuvYWXnBzUwBgJ48cqdqDjNTsu28A5XWV0B4T147wcKko0mVpWTx06LNwDu4bPQY11NR7FDpb5Zv-Ai2pB2Z9OE1LVlXiWD"
+        ]
+      },
+      {
+        "type": "shop",
+        "coordinates": [
+          49.26467274762219, 28.47361817667759
+        ],
+        "title": "Магазин «М’ясний майстер»",
+        "description": "Вул. Київська, 146",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs/ACgwaOvsMsPYkVQs7gmQqUMAupv5cMO0EZbULrpWBo9BOTkJj79UfFD7EqwoDHMBu7BrT3QflliOXnDez1rx4mqdZr_6UY_IfcEQvMuF2bdWt7U7Z_51bAmzsFXUiLwVQ9LqR0VZ8N9-6w=w600-h650-p-k-no", "https://lh3.googleusercontent.com/gps-cs/ACgwaOttQwOej2liSZqs6CDWCQ17zS3EfubNDLMi5QCl--Guh5M5wMPBgmzun3JjbXlmu5bFfE76bBe2ZuQqlMBkOSUGSrR0r4ohUeLQwvo7Izd5PcTzF8KybvxQHVO02fyoaf1EhygC"
+        ]
+      },
+      {
+        "type": "restaurant",
+        "coordinates": [
+          49.26819649265581, 28.50428000584116
+        ],
+        "title": "Ресторан «Мандрівник»",
+        "description": "Вул. Сергія Зулінського, 46В",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs/ACgwaOugzqRhBa-Omvn9jXcIFMyOb5K5dh6wU3eEuKMhbTDZFAUqAraTEsHpCIEyn51DT9M8ZgsFwQ_bu99DAXVs3xrx5EqIc7AkXv10DnyzYsytdghrUp7I2UiW4EOsyLF-8yenkyixyhfz4RXW",
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHu37Z2bM3zMh28j_tdXRVF44CkM1Q8l-t4xNCtuTJV2QBgt5Qf1SktKbTYesYquzIYwowap7zNuyoJeTdh_M-DtF4b7PUiVfqs4hbwt9IXRXG1YwJ5WglpKX2qyB02CoWfCosfTspEx8c"
+        ]
+      },
+      {
+        "type": "restaurant",
+        "coordinates": [
+          49.27147892446553, 28.515799043056806
+        ],
+        "title": "Ресторан «Модрина»",
+        "description": "Вул. Сергія Зулінського, 57",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs/ACgwaOshc5_rfNfypXE8VMHFh55gDDh4uYG2f8-o_4JTthrsoZ8CTgKvMdtFlfhyn-nPr6UKaTOpiybB437oZwINqGmg57YUYeD-5CcAwSjdf-RQ16holfnFzeiEsFcQzOhPq9KIKjyo6Q",
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFerNiegYtN_idM8kVLNHWr9xjBbKAsOTqf9XCnRXg8efO38hhrs9lcB8XepMOa0Srm6hVnzVThjArjUR9Dy_xvYeQVvunqblTlpij_SxnnR3m2FqEvKTm6enlJ5swSXT4Igwor"
+        ]
+      },
+      {
+        "type": "restaurant",
+        "coordinates": [
+          49.2678037869062, 28.494240563208383
+        ],
+        "title": "Ресторанно-готельний комплекс «Drive Club»",
+        "description": "Вул. Сергія Зулінського, 42а",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHAQbln1krqlvyzNIp9oGNUmTw1B5H8Du_-a82t5Bc_YETxKPh4KfQvvI1svhWHljKSkigqYkb6UNYIN7SUAxqvr17K7yYddc_M9JgL_-BJbynytQX4jjbTB2_7mMuaQQIxEhrcvg"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.262390408781094, 28.473537133099555
+        ],
+        "title": "Аптека «Бажаємо здоров’я»",
+        "description": "Вул. Київська, 126",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAF0Lp06c6vA4e_0-V01zu0jF3eK8RMCq2xMsc4hz2XcOhotZ-Y82EsrpAZa76prO0CooI3O0zW9Eybrb6SpHDQPfhAD4INXUop2NNYLF4n-SL7azosvjmvcQ1WmcYw25hs5kcYm8MWwHG9P"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.26348264542099, 28.473944828835148
+        ],
+        "title": "Аптека «Конекс»",
+        "description": "Вул. Київська, 134",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHcqwi_aOvT75fTUsSumgzlX2b7UbVI9p5WUMbpILuB1UPB0kIgrfZZ6SXlJSoEuYyLTYJqdSjufc-enLLZP8-Gj4zOMRs4bEWMcyu6QYUuwdmXUfaQ9RS7Mqs66zd0XuMTcOtf3g"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.2510578992427, 28.473898387908122
+        ],
+        "title": "Медична лабораторія «DILA»",
+        "description": "Вул. Київська, 51",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFr9lW8v6DFxGYm-azxiqRxZFy0C1tyOIW9fHnaamaY9Aq2QtVzhnHgV94Ob3clYayG90oc88uJYkfGnXStyvnWcAOaJn1MQRVuyBIzM4mS3ucnq6RAvbxAjOJGrvzN_EyPW5dzlworf5Q"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.24933506675665, 28.47735308192668
+        ],
+        "title": "Вінницька міська клінічна лікарня швидкої медичної допомоги",
+        "description": "Вул. Київська, 68",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEavuyD9h1i8bk5HeSfrmaIEl826cgvA4KUoqtsNsOC2Q597V_uRj3-Y4qGydMk9A5rLTwHN59KgrdMw-z73m3fvwdDCi6Zi5kvXkpDGjL_EwBQPs_zJZGbdh9_r0mWybJcCI4x"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.25002141564297, 28.476816549270474
+        ],
+        "title": "Вінницька обласна клінічна дитяча інфекційна лікарня",
+        "description": "Вул. Київська, 68",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHeDA6p77k6U2gRf3FmPRArbg8OtNzhY4u8RlcKhp3dw75AFEwCET1Ga8k5icVLSlXg0uDLPMiA-M8RiZEIWWswmRnYGuAeiB_Y1m4gCky8UobS8hYGMzgt4zndmoV_CmZauUWm"
+        ]
+      },
+      {
+        "type": "pharmacy",
+        "coordinates": [
+          49.24756394124327, 28.47767149813612
+        ],
+        "title": "Медична лабораторія «Synevo»",
+        "description": "Вул. Київська, 56",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAH9TDZVXMkXSvumZ96LGKc1Av4tjspKmBMn1MawfvH6dVAi28wOwCPAuCP0x2ZETuOCLWbKAicAFUDKJbt_4gCZxJg0xlbEEzqmWzDdqJCLSKmNy2NPe19qWPIzY3Vhsz6YAzrm"
+        ]
+      },
+      {
+        "type": "terminal",
+        "coordinates": [
+          49.27139771372331, 28.510909063039747
+        ],
+        "title": "Нова пошта, Поштомат №31343",
+        "description": "Вул. Сергія Зулінського, 37а",
+        "images": [
+          "https://site-assets.novapost.com/66d43de3-e91a-4abb-b13f-0a58241b6e2d.png"
+        ]
+      },
+      {
+        "type": "terminal",
+        "coordinates": [
+          49.27185359334331, 28.509855742361957
+        ],
+        "title": "Нова пошта, Поштомат №49140",
+        "description": "Вул. Сергія Зулінського, 37д",
+        "images": [
+          "https://site-assets.novapost.com/66d43de3-e91a-4abb-b13f-0a58241b6e2d.png"
+        ]
+      },
+      {
+        "type": "terminal",
+        "coordinates": [
+          49.26400867021479, 28.522613188424103
+        ],
+        "title": "Нова пошта, Поштомат №45492",
+        "description": "Вул. Гонти",
+        "images": [
+          "https://site-assets.novapost.com/66d43de3-e91a-4abb-b13f-0a58241b6e2d.png"
+        ]
+      },
+      {
+        "type": "terminal",
+        "coordinates": [
+          49.26357852025818, 28.473867703627565
+        ],
+        "title": "Нова пошта. Поштове відділення №13",
+        "description": "Вул. Київська, 134",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFikBP2iqZlXGGAbws0QNNp3eIhzvBQOt8L6kiRtV1OirRFnvZJ3UvGg6hLKrc-jlkxlandOh9k4jjX05-jy6zu83PAJE2jhNHnfuMPUuBnn6VDUzW-lqXNhkQP_t0RVKKolJHF"
+        ]
+      },
+      {
+        "type": "sport",
+        "coordinates": [
+          49.27182242166898, 28.508616756590104
+        ],
+        "title": "Стадіон «Нива»",
+        "description": "Вул. Сергія Зулінського, 29",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFBE1feWzVdmGe1MfqCvgAWV82taI1V71cieexp8aMwgByAnph6Yo7NkzfxAiSyT4Xy7PqKRPX7zDyIEz6LD-pIA0h-KC9EUJokEjZ-2giqKEmX_TdLQAMbkGfi4k4Pw4CFmloNVs9fB9-H"
+        ]
+      },
+      {
+        "type": "zoo",
+        "coordinates": [
+         49.27145126337364, 28.4757105923409
+        ],
+        "title": "Подільський зоопарк",
+        "description": "Вул. Сергія Зулінського, 9",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFGy0tTpfuid5qRBA_B0KXcM1O2CX20bUk2OcZ1e4ha9JPLKQZIm6DD20_lAVYamP8lu4aOiHHRNv9Q-HZ5lb3N1YDu2zI398uJl2XDTL1zpVQcoEylr3_SP06H2WkKxMAgimHP"
+        ]
+      },
+      {
+        "type": "zoo",
+        "coordinates": [
+          49.270450674354066, 28.474448665691263
+        ],
+        "title": "Вінницький парк динозаврів «Dino park»",
+        "description": "Вул. Київська, 178а (територія Зоопарку)",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAGUFzsWvGynEoShrn11qR3HedYjQ1n1TBrUX78pe8awWMH7cGEoB8d1s6RRiKo3GQctiFyDT0P_nxvcY502MxCb-ETtH51efvRZOgP7NddncqQbluhq3TvealRTfWqZ1c7I0u2CZQ"
+        ]
+      },
+      {
+        "type": "parking",
+        "coordinates": [
+          49.270663701054346, 28.514486358274894
+        ],
+        "title": "Станція зарядки електромобілів",
+        "description": "Вул. Сергія Зулінського, 46",
+        "images": [
+          "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=VuvgzywhO_zBCuPdf5i7qw&cb_client=search.gws-prod.gps&w=408&h=240&yaw=163.38275&pitch=0&thumbfov=100"
+        ]
+      },
+      {
+        "type": "parking",
+        "coordinates": [
+          49.26779544007042, 28.49576958707779
+        ],
+        "title": "Ремонт і обслуговування автомобілів «Автосервіс СТО Liqui Moly»",
+        "description": "Вул. Сергія Зулінського, 42",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFEtReryMsXznZmt38i9eMQk-Xknzke86lN_2OseatqQSXwAh2xaeeyzOrVHlzDV7tWHQIycNAZQVWAD41VcHeJNEWWO0LEIA3q86aFmKv4EDsN2fy8e88hd56ZP6SUwCOk6pmbpg"
+        ]
+      },
+      {
+        "type": "parking",
+        "coordinates": [
+          49.269857351176604, 28.483805378448974
+        ],
+        "title": "АЗС «Avantage7»",
+        "description": "Вул. Сергія Зулінського, 21В",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHe42lBYQ4eCmE2vN0edHC2KLD67_1wVLpvBBshdIpQNLPfebrhHDh0cBRoLLepKRfc0gllSfEfxhbA8jOTL6udVX85M5TYiUar1EyNf7cCJNAosO2gRh5tAYEd47ZU98KqdfU"
+        ]
+      },
+      {
+        "type": "parking",
+        "coordinates": [
+          49.267560455560556, 28.49761271553408
+        ],
+        "title": "Мийка самообслуговування «EHRLE»",
+        "description": "Вул. Сергія Зулінського, 44А",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEnA3mJlNh6cQBdTqK4iKe4odzphl4Rwiq3EprzQ8ECL5SBElonGr6gkdedvqxJFlj23lcZeA9weqJOCrXZbPTRzBOgyxx2UhYmilLdTmCjhDgZzflSzNDUl1j4aiCKMlLG3lm0bA"
+        ]
+      },
+      {
+        "type": "underground",
+        "coordinates": [
+          49.26934661866582, 28.508322438920974
+        ],
+        "title": "Зупинка «ЦПТО№1» (тролейбуси, автобуси, маршрутні таксі)",
+        "description": "Вул. Сергія Зулінського",
+        "images": [
+          "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=v6BfZ25scmWbZB49p55Qyg&cb_client=search.gws-prod.gps&w=408&h=240&yaw=123.10971&pitch=0&thumbfov=100"
+        ]
+      },
+      {
+        "type": "underground",
+        "coordinates": [
+          49.27054698005552, 28.51365863420353
+        ],
+        "title": "Тролейбусна зупинка «ВПЗ»",
+        "description": "Вул. Сергія Зулінського, кінцева",
+        "images": [
+          "https://lh3.googleusercontent.com/gps-cs-s/APNQkAExyb1pVkutM6gRM3YyKSbAkvDWgm8OeoqbsX1heFSBDjApLas4lDn_n6Senz2k6vaTthfqD2eLK2UdcOPoUxTir98FltZCVIKFpmBmp7MyEZgetGj2bztc2XRsGeuiHIS9AqQ"
+        ]
+      }
+    ]
+  }
+}
