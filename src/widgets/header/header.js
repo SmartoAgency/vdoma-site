@@ -399,7 +399,6 @@ document.body.addEventListener("click", function (evt) {
   const btnMenuClose = evt.target.closest("[data-menu-close]");
   const menu = document.querySelector("[data-menu]");
   const menuItem = evt.target.closest(".menu-main-link");
-  const submitBtn = evt.target.closest("[data-btn-submit]");
   const tyPopup = document.querySelector("[data-ty-popup]");
   if (btnMenuTarget) {
     const isHidden = menu.classList.contains("hidden");
@@ -440,9 +439,6 @@ document.body.addEventListener("click", function (evt) {
       return overflow.classList.remove("hidden");
     }
     return;
-  }
-  if (submitBtn) {
-    window.dispatchEvent(new Event("succesFormSend"));
   }
   if (close) {
     window.dispatchEvent(new Event("start-scroll"));

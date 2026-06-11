@@ -167,10 +167,14 @@
   }
 
   .form-wrapper {
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     position: relative;
     z-index: 2;
+
+    @include tablet {
+      width: 80%;
+    }
 
     .general-btn {
       width: 100%;

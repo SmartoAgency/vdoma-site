@@ -44,8 +44,9 @@ const MAP_I18N_DICTIONARY = {
     "Map.location.type.restaurant": "Ресторани",
     "Map.location.showFilter": "Показати фільтр",
     "Map.location.closeFilter": "Закрити фільтр",
-    "Map.location.enableZoom": "Увімкнути Zoom",
-    "Map.location.disableZoom": "Вимкнути Zoom",
+    "Map.location.enableZoom": "Розблокувати",
+    "Map.location.disableZoom": "Заблокувати",
+    "Map.location.zoomDesktop": "Zoom",
     "Map.location.reCenter": "До головної точки",
     "Map.location.driving": "Авто",
     "Map.location.cycling": "Велосипед",
@@ -79,8 +80,9 @@ const MAP_I18N_DICTIONARY = {
     "Map.location.type.restaurant": "Restaurant",
     "Map.location.showFilter": "Show filter",
     "Map.location.closeFilter": "Close filter",
-    "Map.location.enableZoom": "Enable zoom",
-    "Map.location.disableZoom": "Disable zoom",
+    "Map.location.enableZoom": "Enable",
+    "Map.location.disableZoom": "Disable",
+    "Map.location.zoomDesktop": "Zoom",
     "Map.location.reCenter": "Back to main point",
     "Map.location.driving": "Driving",
     "Map.location.cycling": "Cycling",
@@ -674,32 +676,30 @@ function initHomeGalleryAnimations() {
       img = frame.querySelector("img");
     }
 
-    gsap.fromTo(
-      photo,
-      {
-        autoAlpha: 0,
-        y: 90,
-        scale: 0.92,
-        rotate: index % 2 === 0 ? -1.8 : 1.8,
-      },
-      {
-        autoAlpha: 1,
-        y: 0,
-        scale: 1,
-        rotate: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: photo,
-          start: "top 90%",
-          end: "top 56%",
-          scrub: 1,
-        },
-      },
-    );
+    // gsap.fromTo(
+    //   photo,
+    //   {
+    //     y: 90,
+    //     scale: 0.92,
+    //     rotate: index % 2 === 0 ? -1.8 : 1.8,
+    //   },
+    //   {
+    //     y: 0,
+    //     scale: 1,
+    //     rotate: 0,
+    //     ease: "none",
+    //     scrollTrigger: {
+    //       trigger: photo,
+    //       start: "top 90%",
+    //       end: "top 56%",
+    //       scrub: 1,
+    //     },
+    //   },
+    // );
 
     if (img) {
-      const fromYOffset = index % 2 === 0 ? -0.8 : -0.5;
-      const toYOffset = index % 2 === 0 ? 0.8 : 0.5;
+      const fromYOffset = index % 2 === 0 ? -8 : -5;
+      const toYOffset = index % 2 === 0 ? 8 : 5;
       const fromXOffset = index % 2 === 0 ? -2.6 : 2.6;
       const toXOffset = index % 2 === 0 ? 2.6 : -2.6;
 

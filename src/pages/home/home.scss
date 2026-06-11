@@ -1233,8 +1233,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   .map-wrap {
     position: relative;
     margin-bottom: 60px;
-    border-radius: 20px;
-    overflow: hidden;
+
 
     @include tablet {
       border-radius: 40px;
@@ -1259,7 +1258,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
       @include laptop {
         width: 40%;
         left: 20%;
-        bottom: 90%;
+        bottom: 98%;
       }
     }
 
@@ -1270,6 +1269,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
       background-color: $accent-color-2;
       position: relative;
       z-index: 2;
+      border-radius: 20px;
+      overflow: hidden;
     }
   }
 
@@ -1338,7 +1339,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
         left: 3px;
         height: 65%;
         width: 5px;
-        background-color: $text-color;
+        background-color: $accent-color;
 
         @include tablet {
           bottom: 15%;

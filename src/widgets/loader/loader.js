@@ -1,15 +1,16 @@
 import gsap from "gsap";
 import "./loader.scss";
 
-const PROGRESS_CEILING = 92;
+const PROGRESS_CEILING = 100;
 const MIN_VISIBLE_MS = 900;
-const FALLBACK_COMPLETE_MS = 7000;
+const FALLBACK_COMPLETE_MS = 3000;
 const REVEAL_DURATION_MS = 1100;
 
 function formatCounter(value) {
   const clamped = Math.max(0, Math.min(100, Math.round(value)));
 
   if (clamped < 10) return `0${clamped}%`;
+
   return `${clamped}%`;
 }
 

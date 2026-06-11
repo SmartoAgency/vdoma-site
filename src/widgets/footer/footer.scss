@@ -352,6 +352,10 @@
         path {
           fill: $wood-color; // Колір стрілочки стає білим
         }
+         use {
+          fill: $wood-color; // Колір стрілочки стає білим
+          stroke: $wood-color;
+        }
       }
     }
   }

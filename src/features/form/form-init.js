@@ -92,28 +92,28 @@ const configureForm = (formRef, onSuccess) => {
           valid: false,
           error: [],
         },
-        goal: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-goal]"),
-            $input: formRef.querySelector("[data-select-input]"),
-          }),
-          rule: yup.string().required(i18next.t("required")),
-          valid: false,
-          error: [],
-        },
-        agreement: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-checkbox]"),
-            typeInput: "checkbox",
-          }),
-          // Змінюємо правило тут:
-          rule: yup
-            .mixed()
-            .nullable()
-            .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
-        },
+        // goal: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-goal]"),
+        //     $input: formRef.querySelector("[data-select-input]"),
+        //   }),
+        //   rule: yup.string().required(i18next.t("required")),
+        //   valid: false,
+        //   error: [],
+        // },
+        // agreement: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-checkbox]"),
+        //     typeInput: "checkbox",
+        //   }),
+        //   // Змінюємо правило тут:
+        //   rule: yup
+        //     .mixed()
+        //     .nullable()
+        //     .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
+        // },
       },
     },
   });
@@ -159,18 +159,18 @@ const configureFormFooter = (formRef, onSuccess) => {
           error: [],
         },
 
-        agreement: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-checkbox]"),
-            typeInput: "checkbox",
-          }),
-          // Змінюємо правило тут:
-          rule: yup
-            .mixed()
-            .nullable()
-            .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
-        },
+        // agreement: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-checkbox]"),
+        //     typeInput: "checkbox",
+        //   }),
+        //   // Змінюємо правило тут:
+        //   rule: yup
+        //     .mixed()
+        //     .nullable()
+        //     .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
+        // },
       },
     },
   });
@@ -216,37 +216,37 @@ const configurePartnershipForm = (formRef, onSuccess) => {
           valid: false,
           error: [],
         },
-        theme: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-theme]"),
-            typeInput: "text",
-          }),
-          rule: yup.string().trim(),
-          valid: true,
-          error: [],
-        },
-        comment: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-comment]"),
-            typeInput: "text",
-          }),
-          rule: yup.string().trim(),
-          valid: true,
-          error: [],
-        },
-        agreement: {
-          inputWrapper: new SexyInput({
-            animation: "none",
-            $field: formRef.querySelector("[data-field-checkbox]"),
-            typeInput: "checkbox",
-          }),
-          rule: yup
-            .mixed()
-            .nullable()
-            .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
-        },
+        // theme: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-theme]"),
+        //     typeInput: "text",
+        //   }),
+        //   rule: yup.string().trim(),
+        //   valid: true,
+        //   error: [],
+        // },
+        // comment: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-comment]"),
+        //     typeInput: "text",
+        //   }),
+        //   rule: yup.string().trim(),
+        //   valid: true,
+        //   error: [],
+        // },
+        // agreement: {
+        //   inputWrapper: new SexyInput({
+        //     animation: "none",
+        //     $field: formRef.querySelector("[data-field-checkbox]"),
+        //     typeInput: "checkbox",
+        //   }),
+        //   rule: yup
+        //     .mixed()
+        //     .nullable()
+        //     .test("is-checked", i18next.t("required"), (value) => value === true || value === "on"),
+        // },
       },
     },
   });

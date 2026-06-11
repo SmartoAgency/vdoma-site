@@ -136,8 +136,12 @@ export default class MapboxBlock {
   render() {
     const filterOpenLabel = this.i18n.t("Map.location.showFilter") || "Show filter";
     const filterCloseLabel = this.i18n.t("Map.location.closeFilter") || "Close filter";
-    const enableZoom = this.i18n.t("Map.location.enableZoom") || "Click to Zoom";
-    const disableZoom = this.i18n.t("Map.location.disableZoom") || "Stop Zoom";
+    const enableZoom =
+      this.i18n.t("Map.location.enableZoom") +
+        (window.innerWidth > 768 ? ` ${this.i18n.t("Map.location.zoomDesktop")}` : "") || "Click to Zoom";
+    const disableZoom =
+      this.i18n.t("Map.location.disableZoom") +
+        (window.innerWidth > 768 ? ` ${this.i18n.t("Map.location.zoomDesktop")}` : "") || "Stop Zoom";
     // Filter out 'main' marker type from buttons
     const filterButtons = [...new Set(this.markers.map((marker) => marker.type))]
       .filter((type) => type !== "main")
@@ -231,8 +235,8 @@ export default class MapboxBlock {
             </button>
 
             <div class="mapbox-block__zoom-reset-buttons">
-              <button type="button" class="mapbox-block__zoom-toggle-btn" aria-label="Toggle scroll zoom" aria-pressed="false" data-label-open="${enableZoom}" data-label-close="${disableZoom}">
-                ${enableZoom}
+              <button type="button" class="mapbox-block__zoom-toggle-btn active" aria-label="Toggle scroll zoom" aria-pressed="false" data-label-open="${enableZoom}" data-label-close="${disableZoom}">
+                ${enableZoom} ${window.innerWidth > 768 ? this.i18n.t("Map.location.zoomDesktop") : ""}
               </button>
               <button type="button" class="mapbox-block__reset-btn" aria-label="Return to main location">
                 ${this.i18n.t("Map.location.reCenter") || "Re-center"}
@@ -398,7 +402,7 @@ export default class MapboxBlock {
         }
 
         zoomToggleBtn.setAttribute("aria-pressed", String(isEnabled));
-        zoomToggleBtn.classList.toggle("active", isEnabled);
+        zoomToggleBtn.classList.toggle("active", !isEnabled);
         zoomToggleBtn.textContent = isEnabled ? labelClose : labelOpen;
       };
 
@@ -421,7 +425,7 @@ export default class MapboxBlock {
 
     this.map.on("load", () => {
       this.addTerrainAndSky();
-      // this.add3DBuildings();
+      this.add3DBuildings();
       this.addRouteSource();
       this.addMarkers();
       this.initCameraOrbit();
@@ -679,11 +683,11 @@ export default class MapboxBlock {
           "source-layer": "building",
           filter: ["==", "extrude", "true"],
           type: "fill-extrusion",
-          minzoom: 15,
+          minzoom: 14,
           paint: {
             "fill-extrusion-color": "#d2b48c",
-            "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "height"]],
-            "fill-extrusion-base": ["interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "min_height"]],
+            "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 14, 0, 14.05, ["get", "height"]],
+            "fill-extrusion-base": ["interpolate", ["linear"], ["zoom"], 14, 0, 14.05, ["get", "min_height"]],
             "fill-extrusion-opacity": 1.0,
           },
         },

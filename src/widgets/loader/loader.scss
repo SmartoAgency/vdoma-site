@@ -10,7 +10,7 @@
   align-content: stretch;
   justify-items: center;
   gap: 0;
-  padding: 60px 24px;
+  padding: 60px 0px;
   min-height: 100dvh;
   opacity: 1;
   visibility: visible;
@@ -107,14 +107,17 @@
   }
 
   .loader-track {
-    width: 100%;
+    width: 105%;
+
     position: relative;
     display: grid;
-    justify-items: center;
+    justify-items: flex-end;
     gap: 10px;
     margin: 0;
+    margin-left: -2.5%;
     align-self: center;
     transition: opacity 0.5s ease, filter 0.7s ease, transform 0.7s ease;
+
 
     .track-text {
       margin: 0;
@@ -213,7 +216,7 @@ body.is-loader-active {
 
     grid-template-rows: auto 1fr auto;
     gap: 18px;
-    padding: 36px 16px;
+    padding: 36px 0;
 
     .loader-logo,
     .menu-logo {
@@ -231,7 +234,8 @@ body.is-loader-active {
     }
 
     .loader-track {
-      width: 100%;
+      width: 110%;
+      margin-left: -5%;
       align-self: center;
 
       .track-text {
