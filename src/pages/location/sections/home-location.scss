@@ -1,0 +1,162 @@
+.home-location {
+  @media screen and (max-width: 767px) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  padding-top: 40px;
+
+  @include tablet {
+    padding-bottom: 80px;
+  }
+
+  @include laptop {
+    padding-top: 100px;
+    padding-bottom: 140px;
+  }
+
+  .home-about__title-wrap .section-quote {
+    width: 100%;
+    max-width: none;
+  }
+
+  &__content {
+    background-color: $accent-color;
+    padding: 150px 20px;
+    overflow: hidden;
+    will-change: transform, border-radius;
+    backface-visibility: hidden;
+
+    @include tablet {
+      padding: 220px 20px;
+    }
+
+    @include laptop {
+      padding: vw(220) vw(100);
+      display: grid;
+      grid-template-columns: 60% 1fr;
+      grid-template-areas:
+        "title text"
+        "map map";
+      column-gap: vw(100);
+      row-gap: vw(84);
+      align-items: start;
+    }
+  }
+
+  .section-title {
+    @include super-title;
+    color: $text-color-light;
+    margin-bottom: 20px;
+
+    @include tablet {
+      margin-bottom: 60px;
+    }
+
+    @include laptop {
+      grid-area: title;
+      margin-bottom: 0;
+    }
+  }
+
+  &__text-wrap {
+
+
+
+
+    @include laptop {
+      grid-area: text;
+      margin-bottom: 0px;
+    }
+
+    h3 {
+      @include block-subtitle;
+      color: $text-color-light;
+      margin-bottom: 8px;
+      text-align: center;
+
+      @include tablet {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+    }
+
+    p {
+      @include general-text;
+      color: $accent-color-2;
+      text-align: center;
+      margin-bottom: 20px;
+
+      @include tablet {
+        text-align: left;
+        margin-bottom: 40px;
+      }
+    }
+
+    .general-btn {
+      margin-left: auto;
+      margin-right: auto;
+
+      @include tablet {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+  }
+
+  .map-wrap {
+    position: relative;
+    margin-bottom: 60px;
+
+
+    @include tablet {
+      border-radius: 40px;
+    }
+
+    @include laptop {
+      grid-area: map;
+      margin-bottom: 0px;
+
+    }
+
+    &>svg {
+      position: absolute;
+      bottom: 95%;
+      right: 0;
+      width: 100%;
+      height: auto;
+
+      z-index: 1;
+      will-change: opacity;
+
+      @include laptop {
+        width: 40%;
+        left: 20%;
+        bottom: 98%;
+      }
+    }
+
+    .map {
+      height: 80svh;
+      width: 100%;
+      border-radius: 40px;
+      background-color: $accent-color-2;
+      position: relative;
+      z-index: 2;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+  }
+
+  .home-loaction__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include laptop {
+      grid-area: list;
+    }
+  }
+}
+

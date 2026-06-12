@@ -1,0 +1,23 @@
+extends /../index.pug
+
+block variable
+  -
+    var title_page = 'location'
+    var id_page = 'id-page-location'
+
+block meta
+  title= title_page
+  meta(name='description', content='')
+
+block header
+  +header() 
+
+block content
+  include ./sections/hero-template.pug
+  include ./sections/home-location.pug
+
+block footer
+  +footer()
+
+block scripts
+  script(type="module" src="/src/pages/location/location.js")

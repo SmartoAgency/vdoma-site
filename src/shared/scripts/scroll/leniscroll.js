@@ -5,10 +5,41 @@ gsap.registerPlugin(ScrollTrigger);
 // Define a variable that will store the Lenis smooth scrolling object
 let lenis;
 
+// const isIOSDevice =
+//   /iP(ad|hone|od)/.test(window.navigator.userAgent) ||
+//   (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+// const isSafariEngine =
+//   /Safari/.test(window.navigator.userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(window.navigator.userAgent);
+// const isIOSSafari = isIOSDevice && isSafariEngine;
+
+// let isScrollLockedForNative = false;
+
+// const lockNativeScroll = () => {
+//   if (isScrollLockedForNative) return;
+//   // document.documentElement.style.overflow = "hidden";
+//   // document.body.style.overflow = "hidden";
+//   isScrollLockedForNative = true;
+// };
+
+// const unlockNativeScroll = () => {
+//   if (!isScrollLockedForNative) return;
+//   // document.documentElement.style.overflow = "";
+//   // document.body.style.overflow = "";
+//   isScrollLockedForNative = false;
+// };
+
 let isInited = false;
 export const initSmoothScrolling = () => {
   // Instantiate the Lenis object with specified properties
   if (isInited) return lenis;
+
+  // if (isIOSSafari) {
+  //   window.addEventListener("stop-scroll", lockNativeScroll);
+  //   window.addEventListener("start-scroll", unlockNativeScroll);
+  //   window.lenis = null;
+  //   isInited = true;
+  //   return null;
+  // }
 
   lenis = new Lenis({
     lerp: 0.1,
@@ -20,10 +51,10 @@ export const initSmoothScrolling = () => {
   lenis.on("scroll", () => ScrollTrigger.update());
   window.lenis = lenis;
   window.addEventListener("stop-scroll", () => {
-    lenis.stop();
+    lenis?.stop();
   });
   window.addEventListener("start-scroll", () => {
-    lenis.start();
+    lenis?.start();
   });
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {

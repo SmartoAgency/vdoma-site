@@ -9,14 +9,23 @@ import "./home.scss";
 import { initLazyMap } from "@/widgets/mapBox/mapInit";
 import mapBoxConfig from "@/widgets/mapBox/map-config.json";
 
+const isIOSDevice =
+  /iP(ad|hone|od)/.test(window.navigator.userAgent) ||
+  (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+const isSafariEngine =
+  /Safari/.test(window.navigator.userAgent) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(window.navigator.userAgent);
+const isIOSSafari = isIOSDevice && isSafariEngine;
+
 // Реєструємо плагін
 gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.normalizeScroll(true);
+if (!isIOSSafari) {
+  ScrollTrigger.normalizeScroll(true);
+}
 
 // Допомагає уникнути стрибків при закріпленні елементів
 ScrollTrigger.config({
   ignoreMobileResize: true,
-  anticipatePin: 1,
+  anticipatePin: isIOSSafari ? 0 : 1,
 });
 
 const MAP_I18N_DICTIONARY = {
@@ -279,6 +288,25 @@ function initAdvantageItemsEqualHeight() {
     ScrollTrigger.refresh();
   };
 
+  let lastViewportWidth = window.visualViewport?.width || window.innerWidth;
+  let lastViewportHeight = window.visualViewport?.height || window.innerHeight;
+
+  const shouldHandleResize = () => {
+    const nextViewportWidth = window.visualViewport?.width || window.innerWidth;
+    const nextViewportHeight = window.visualViewport?.height || window.innerHeight;
+
+    const widthChanged = Math.abs(nextViewportWidth - lastViewportWidth) > 2;
+    const significantHeightChanged = Math.abs(nextViewportHeight - lastViewportHeight) > 160;
+
+    if (!widthChanged && !significantHeightChanged) {
+      return false;
+    }
+
+    lastViewportWidth = nextViewportWidth;
+    lastViewportHeight = nextViewportHeight;
+    return true;
+  };
+
   let resizeRaf = null;
   const onResize = () => {
     if (resizeRaf !== null) {
@@ -287,6 +315,7 @@ function initAdvantageItemsEqualHeight() {
 
     resizeRaf = requestAnimationFrame(() => {
       resizeRaf = null;
+      if (!shouldHandleResize()) return;
       syncHeights();
     });
   };
@@ -311,7 +340,9 @@ function initHeroMapLiquidGlass() {
     document.getElementById("header-liquid-distort-strong");
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const shouldEnable = Boolean(supportsBackdropFilter && hasFilterDefs && !prefersReducedMotion);
+  const shouldEnable = Boolean(
+    supportsBackdropFilter && hasFilterDefs && !prefersReducedMotion && !isIOSSafari,
+  );
   mapCard.classList.toggle("is-liquid-ready", shouldEnable);
 }
 
@@ -378,70 +409,77 @@ function initAdvantageAnimations() {
   const items = gsap.utils.toArray(".advantage-list .advantage-item");
   if (items.length < 2) return;
   const advantageMain = advantageBlock.querySelector(".advantage-main");
+  const useFilterScrub = !isIOSSafari;
+
   const coveredState = isWideDesktop
     ? {
         scale: 0.88,
         y: 38,
 
-        filter: "brightness(0.58)",
+        backgroundColor: "#141927",
       }
     : {
         scale: 0.8,
         y: 18,
 
-        filter: "brightness(0.58)",
+        backgroundColor: "#141927",
       };
+
+  if (useFilterScrub) {
+    coveredState.filter = "brightness(0.58)";
+  }
 
   const triggerRange = isWideDesktop
     ? { start: "top 98%", end: "top 34%" }
     : { start: "top 92%", end: "top 38%" };
 
   if (advantageMain && isMobileOrTablet) {
-    gsap.fromTo(
-      advantageMain,
-      {
-        scale: 1,
-        y: 0,
-        opacity: 1,
-        filter: "brightness(1)",
+    const mainFromState = {
+      scale: 1,
+      y: 0,
+      opacity: 1,
+    };
+
+    if (useFilterScrub) {
+      mainFromState.filter = "brightness(1)";
+    }
+
+    gsap.fromTo(advantageMain, mainFromState, {
+      ...coveredState,
+      ease: "none",
+      scrollTrigger: {
+        trigger: items[0],
+        start: triggerRange.start,
+        end: triggerRange.end,
+        scrub: 1,
       },
-      {
-        ...coveredState,
-        ease: "none",
-        scrollTrigger: {
-          trigger: items[0],
-          start: triggerRange.start,
-          end: triggerRange.end,
-          scrub: 1,
-        },
-      },
-    );
+    });
   }
 
   items.forEach((item, index) => {
     if (index === items.length - 1) return;
 
     const nextItem = items[index + 1];
+    const itemFromState = {
+      scale: 1,
+      y: 0,
+      opacity: 1,
+    };
 
-    gsap.fromTo(
-      item,
-      {
-        scale: 1,
-        y: 0,
-        opacity: 1,
-        filter: "brightness(1)",
+    if (useFilterScrub) {
+      itemFromState.filter = "brightness(1)";
+    }
+
+    gsap.fromTo(item, itemFromState, {
+      ...coveredState,
+      ease: "none",
+      scrollTrigger: {
+        trigger: nextItem,
+        start: triggerRange.start,
+        end: triggerRange.end,
+        scrub: 1,
       },
-      {
-        ...coveredState,
-        ease: "none",
-        scrollTrigger: {
-          trigger: nextItem,
-          start: triggerRange.start,
-          end: triggerRange.end,
-          scrub: 1,
-        },
-      },
-    );
+    });
   });
 }
 
@@ -1311,14 +1349,30 @@ function init() {
   preloadImages();
 
   // Синхронізація з Lenis
-  if (typeof lenis !== "undefined") {
-    lenis.on("scroll", handleScroll);
+  const lenisInstance = window.lenis;
+  if (lenisInstance?.on) {
+    lenisInstance.on("scroll", handleScroll);
   } else {
     // Якщо Lenis не знайдено, використовуємо нативний скрол
     window.addEventListener("scroll", handleScroll, { passive: true });
   }
 
+  let lastCanvasViewportWidth = window.visualViewport?.width || window.innerWidth;
+  let lastCanvasViewportHeight = window.visualViewport?.height || window.innerHeight;
+
   window.addEventListener("resize", () => {
+    const nextViewportWidth = window.visualViewport?.width || window.innerWidth;
+    const nextViewportHeight = window.visualViewport?.height || window.innerHeight;
+    const widthChanged = Math.abs(nextViewportWidth - lastCanvasViewportWidth) > 2;
+    const significantHeightChanged = Math.abs(nextViewportHeight - lastCanvasViewportHeight) > 160;
+
+    if (!widthChanged && !significantHeightChanged) {
+      return;
+    }
+
+    lastCanvasViewportWidth = nextViewportWidth;
+    lastCanvasViewportHeight = nextViewportHeight;
+
     setCanvasSize();
     handleScroll();
   });
