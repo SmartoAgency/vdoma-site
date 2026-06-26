@@ -428,7 +428,6 @@ export default class MapboxBlock {
       this.add3DBuildings();
       this.addRouteSource();
       this.addMarkers();
-      this.initCameraOrbit();
       this.fitToMarkers();
       this.initThemeButtons();
       this.initFilterButtons();

@@ -115,7 +115,7 @@ mixin header
       span ВГОРУ
 
 
-    .overflow(data-call-us__overflow ).hidden
+    .overflow(data-call-us__overflow data-lenis-prevent).hidden
       .modal-form(data-call-us-modal)
         .form-gradient 
         picture.form-pattern 
@@ -136,7 +136,7 @@ mixin header
 
 
 
-    .menu-overlay.hidden(data-menu)
+    .menu-overlay.hidden(data-menu data-lenis-prevent)
       .close-btn(data-menu-close)
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M0.928711 2.34375L8.58496 10.001L0.928711 17.6592L2.34277 19.0732L9.99902 11.415L17.6562 19.0732L18.3643 18.3662L19.0713 17.6592L11.4131 10.001L19.0713 2.34375L18.3643 1.63672L17.6562 0.929688L9.99902 8.58691L2.34277 0.929688L0.928711 2.34375Z" fill="#27292B"/>
@@ -214,7 +214,7 @@ mixin header
           button(type="button" data-call-us-btn).general-btn.general-btn--dark
             span Замовити дзвінок
         
-    .overflow(data-mob-call__overflow).container.hidden
+    .overflow(data-mob-call__overflow data-lenis-prevent).container.hidden
       a.general-btn(href="tel:+380777077040") 
         span Виклик +38 (077) 707 70 40
       button.general-btn(data-call-us-btn)

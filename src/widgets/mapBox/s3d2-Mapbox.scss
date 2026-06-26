@@ -362,8 +362,13 @@
 
 .mapbox-filter-button__icon {
     display: inline-flex;
-    width: 38px;
-    height: 38px;
+    width: 24px;
+    height: 24px;
+
+    @include tablet {
+        width: 38px;
+        height: 38px;
+    }
 }
 
 .mapbox-filter-button__icon img {
@@ -836,6 +841,11 @@
 }
 
 @media screen and (max-width: 600px) {
+    .mapbox-block__info-gallery img {
+        height: 140px;
+        border-radius: 12px;
+    }
+
     .mapbox-drive-route-btn {
         grid-area: button;
         min-height: 38px;

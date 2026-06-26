@@ -848,6 +848,11 @@ function initHomeProgress() {
   const popupPrev = popupRoot.querySelector(".home-progress-popup__nav--prev");
   const popupNext = popupRoot.querySelector(".home-progress-popup__nav--next");
 
+  const setHomeNormalizeScroll = (enabled) => {
+    if (isIOSSafari) return;
+    ScrollTrigger.normalizeScroll(enabled);
+  };
+
   let currentReportImages = [];
   let currentReportDate = "";
   let currentReportIndex = 0;
@@ -991,6 +996,8 @@ function initHomeProgress() {
 
     popupRoot.classList.remove("is-open");
     document.body.classList.remove("progress-popup-open");
+    setHomeNormalizeScroll(true);
+    window.dispatchEvent(new Event("start-scroll"));
 
     gsap.to(popupBackdrop, {
       opacity: 0,
@@ -1046,6 +1053,8 @@ function initHomeProgress() {
 
     popupRoot.classList.add("is-open");
     document.body.classList.add("progress-popup-open");
+    setHomeNormalizeScroll(false);
+    window.dispatchEvent(new Event("stop-scroll"));
 
     if (!originPhoto) {
       gsap.to(popupBackdrop, {
@@ -1249,7 +1258,7 @@ const ctx = canvas.getContext("2d", { alpha: false });
 const config = {
   frameCount: 80,
   path: (i) => `/comp/${i}.jpg`, // Шлях до фото в public/
-  lerpAmount: 0.1, // Плавність догону (0.05 - дуже м'яко, 0.2 - різко)
+  lerpAmount: 1, // Плавність догону (0.05 - дуже м'яко, 0.2 - різко)
 };
 
 let images = [];
@@ -1401,3 +1410,30 @@ initLazyMap({
     lat: marker.coordinates[0],
   })),
 });
+
+initMagneticButtons();
+
+function initMagneticButtons() {
+  const magnetics = document.querySelectorAll(".news-card__magnetic");
+
+  magnetics.forEach((magnetic) => {
+    const btn = magnetic.querySelector(".news-card__btn");
+    if (!btn) return;
+
+    magnetic.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+      const dx = (e.clientX - btnCenterX) * 0.35;
+      const dy = (e.clientY - btnCenterY) * 0.35;
+      const maxOffset = 10;
+      const x = Math.max(-maxOffset, Math.min(maxOffset, dx));
+      const y = Math.max(-maxOffset, Math.min(maxOffset, dy));
+      gsap.to(btn, { x, y, duration: 0.35, ease: "power2.out" });
+    });
+
+    magnetic.addEventListener("mouseleave", () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.4)" });
+    });
+  });
+}

@@ -319,7 +319,7 @@
   }
 
   &__scrollbar .swiper-scrollbar-drag::before {
-    content: "[ ПЕРЕТЯГНЯТЬ ДЛЯ ПЕРЕГЛЯДУ ]";
+    content: "[ ПЕРЕТЯГНІТЬ ДЛЯ ПЕРЕГЛЯДУ ]";
     white-space: nowrap;
     @include tiny-text;
     pointer-events: none;

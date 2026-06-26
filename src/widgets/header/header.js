@@ -352,7 +352,9 @@ if (supportsHover) {
 
       openTimeout = setTimeout(() => {
         if (menu.classList.contains("hidden")) {
-          window.dispatchEvent(new Event("stop-scroll"));
+          if (window.innerWidth < 768) {
+            window.dispatchEvent(new Event("stop-scroll"));
+          }
           header.classList.add("menu-is-open");
           openMenuWithPixels(menu);
         }
@@ -370,7 +372,9 @@ if (supportsHover) {
 
       closeTimeout = setTimeout(() => {
         if (!menu.classList.contains("hidden")) {
-          window.dispatchEvent(new Event("start-scroll"));
+          if (window.innerWidth < 768) {
+            window.dispatchEvent(new Event("start-scroll"));
+          }
           header.classList.remove("menu-is-open");
           closeMenuWithPixels(menu);
         }
@@ -404,11 +408,15 @@ document.body.addEventListener("click", function (evt) {
     const isHidden = menu.classList.contains("hidden");
 
     if (isHidden) {
-      window.dispatchEvent(new Event("stop-scroll"));
+      if (window.innerWidth < 768) {
+        window.dispatchEvent(new Event("stop-scroll"));
+      }
       header.classList.add("menu-is-open");
       openMenuWithPixels(menu);
     } else {
-      window.dispatchEvent(new Event("start-scroll"));
+      if (window.innerWidth < 768) {
+        window.dispatchEvent(new Event("start-scroll"));
+      }
       header.classList.remove("menu-is-open");
       closeMenuWithPixels(menu);
     }
@@ -416,13 +424,17 @@ document.body.addEventListener("click", function (evt) {
     return;
   }
   if (menuItem && !menu.classList.contains("hidden")) {
-    window.dispatchEvent(new Event("start-scroll"));
+    if (window.innerWidth < 768) {
+      window.dispatchEvent(new Event("start-scroll"));
+    }
     header.classList.remove("menu-is-open");
     closeMenuWithPixels(menu);
     return;
   }
   if (btnMenuClose || evt.target === menu) {
-    window.dispatchEvent(new Event("start-scroll"));
+    if (window.innerWidth < 768) {
+      window.dispatchEvent(new Event("start-scroll"));
+    }
     header.classList.remove("menu-is-open");
     closeMenuWithPixels(menu);
   }

@@ -335,6 +335,13 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 .home-about {
   overflow: visible;
 
+  .laptop-mode {
+    display: none;
+
+    @include laptop {
+      display: inline;
+    }
+  }
 }
 
 .home-about__title-wrap {
@@ -353,6 +360,8 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   }
 
   .section-quote {
+    padding-top: 10px;
+
     @include tablet {
       width: 600px;
     }
@@ -365,12 +374,12 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   .title-decor-svg {
     width: 40px;
     height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     @include tablet {
       width: 60px;
       height: 54px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
   }
 
@@ -622,15 +631,10 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
       object-fit: cover;
       z-index: 1;
-      // border-radius: 40px;
 
-      // @include tablet {
-      //   border-radius: 80px;
-      // }
-
-      // @include laptop {
-      //   border-radius: 80px;
-      // }
+      @include tablet {
+        bottom: -40px;
+      }
     }
 
   }
@@ -1617,7 +1621,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
   }
 
   &__scrollbar .swiper-scrollbar-drag::before {
-    content: "[ ПЕРЕТЯГНЯТЬ ДЛЯ ПЕРЕГЛЯДУ ]";
+    content: "[ ПЕРЕТЯГНІТЬ ДЛЯ ПЕРЕГЛЯДУ ]";
     white-space: nowrap;
     @include tiny-text;
     pointer-events: none;
@@ -1651,7 +1655,7 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
 .home-progress-popup__panel {
   position: absolute;
-  inset: 0 0 0 80px;
+  inset: 0 0 0 vw(80);
   display: block;
   padding: 0;
   box-sizing: border-box;
@@ -1889,5 +1893,297 @@ $sequence-height: 300vh; // Чим більше, тим повільніший �
 
   .home-progress-popup__stage {
     border-radius: 0;
+  }
+}
+
+.home-news {
+  padding-top: 40px;
+  padding-bottom: 76px;
+  background-color: $accent-color-2;
+  display: grid;
+  gap: 24px; // Відступи між елементами (наклей свої)
+
+  // Мобільні та планшети (початкові стилі): все в одну колонку
+  // Задаємо порядок: спочатку title, потім news, в кінці btn
+  grid-template-areas:
+    "title"
+    "news"
+    "btn";
+
+  // Розподіляємо елементи по зонах
+  .section-title {
+    grid-area: title;
+  }
+
+  .news {
+    grid-area: news;
+  }
+
+  .general-btn {
+    grid-area: btn;
+
+  }
+
+  @include tablet {
+
+    padding-bottom: 100px;
+  }
+
+  // Лептопи та десктопи
+  @include laptop {
+    padding-bottom: vw(160);
+    gap: 40px; // Збільшуємо відступи для десктопу
+
+    // Робимо 2 колонки: 
+    // 1 рядок: тайтл зліва, кнопка справа
+    // 2 рядок: news розтягується на обидві колонки під ними
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "title btn"
+      "news  news";
+
+    .general-btn {
+      justify-self: end; // Притискаємо кнопку до правого краю
+      align-self: center; // Центруємо вертикально відносно тайтлу
+    }
+  }
+
+  .home-news__title-wrap {}
+
+  h2 {
+    @include super-title;
+    color: $accent-color;
+
+  }
+}
+
+
+.news {
+
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+
+
+
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+    }
+
+
+  }
+}
+
+.news-card {
+  width: 100%;
+  padding: 20px 0;
+  aspect-ratio: 575 / 600;
+  display: block;
+  border: 1px solid rgba(39, 41, 43, 0.20);
+  position: relative;
+  border-radius: 12px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    width: calc(50% - 10px);
+  }
+
+  @include laptop {
+    width: calc((100% - 40px) / 3);
+  }
+
+  &__corner {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: $accent-color;
+    border-radius: 50%;
+
+    &--tl {
+      top: 8px;
+      left: 8px;
+    }
+
+    &--tr {
+      top: 8px;
+      right: 8px;
+    }
+
+    &--bl {
+      bottom: 8px;
+      left: 8px;
+    }
+
+    &--br {
+      bottom: 8px;
+      right: 8px;
+    }
+  }
+
+  &__title-text {
+    @include general-text;
+    font-weight: 700;
+    color: $accent-color;
+    margin-bottom: 16px;
+    padding: 0 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-transform: uppercase;
+
+    @include tablet {
+      font-size: 15px;
+      margin-bottom: 20px;
+
+    }
+
+    @include laptop {
+      font-size: vw(15);
+      margin-bottom: vw(20);
+      width: 50%;
+    }
+  }
+
+  &__img-wrap {
+    aspect-ratio: 16 / 8;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    // @include tablet {
+    //   margin-top: 80px;
+    //   margin-bottom: 80px;
+    // }
+
+    // @include laptop {
+    //   margin-top: vw(85);
+    //   margin-bottom: vw(85);
+
+    // }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+  }
+
+  &:hover &__img-wrap img {
+    transform: scale(1.04);
+  }
+
+  &__magnetic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  &__btn {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 20px;
+    background-color: $accent-color;
+    color: $text-color-light;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include laptop {
+      padding: vw(13) vw(20);
+      gap: vw(10);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $wc;
+      transform: translateY(101%);
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    &-text,
+    &-icon {
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease;
+    }
+
+    &-text {
+      font-family: $default-font;
+
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+
+      @include laptop {
+        font-size: vw(11);
+      }
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+    }
+  }
+
+  &__magnetic:hover &__btn {
+    color: $text-color;
+
+    &::before {
+      transform: translateY(0);
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  &__date {
+    @include general-text;
+    font-weight: 700;
+    display: flex;
+    // align-items: center;
+    gap: 4px;
+    color: $text-color;
+    text-transform: uppercase;
+
+    @include laptop {}
+
+    svg {
+      flex-shrink: 0;
+      color: $text-color;
+    }
   }
 }

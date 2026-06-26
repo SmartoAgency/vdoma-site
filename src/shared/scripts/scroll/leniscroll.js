@@ -4,6 +4,7 @@ import { gsap, ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 // Define a variable that will store the Lenis smooth scrolling object
 let lenis;
+// let scrollLockCount = 0;
 
 // const isIOSDevice =
 //   /iP(ad|hone|od)/.test(window.navigator.userAgent) ||
@@ -50,12 +51,59 @@ export const initSmoothScrolling = () => {
   // Update ScrollTrigger each time the user scrolls
   lenis.on("scroll", () => ScrollTrigger.update());
   window.lenis = lenis;
-  window.addEventListener("stop-scroll", () => {
+
+  const freezeGestures = (e) => {
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+    e.stopPropagation();
+  };
+
+  const freezeKeyboardScroll = (e) => {
+    const blockedKeys = ["Space", "PageUp", "PageDown", "End", "Home", "ArrowUp", "ArrowDown"];
+    if (!blockedKeys.includes(e.code)) return;
+
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+    e.stopPropagation();
+  };
+
+  const lockScroll = () => {
+    // if (scrollLockCount === 0) {
     lenis?.stop();
-  });
-  window.addEventListener("start-scroll", () => {
+
+    window.addEventListener("wheel", freezeGestures, { passive: false, capture: true });
+    window.addEventListener("touchmove", freezeGestures, { passive: false, capture: true });
+    window.addEventListener("pointermove", freezeGestures, { passive: false, capture: true });
+    window.addEventListener("keydown", freezeKeyboardScroll, { passive: false, capture: true });
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    // }
+
+    // scrollLockCount += 1;
+  };
+
+  const unlockScroll = () => {
+    // if (scrollLockCount === 0) return;
+
+    // scrollLockCount -= 1;
+    // if (scrollLockCount > 0) return;
+
     lenis?.start();
-  });
+
+    window.removeEventListener("wheel", freezeGestures, { capture: true });
+    window.removeEventListener("touchmove", freezeGestures, { capture: true });
+    window.removeEventListener("pointermove", freezeGestures, { capture: true });
+    window.removeEventListener("keydown", freezeKeyboardScroll, { capture: true });
+
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+  };
+
+  window.addEventListener("stop-scroll", lockScroll);
+  window.addEventListener("start-scroll", unlockScroll);
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {

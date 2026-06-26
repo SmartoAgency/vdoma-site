@@ -147,13 +147,14 @@
     -webkit-text-stroke-color: $wc;
     paint-order: stroke fill;
     color: $accent-color;
-    margin: -35px 0 0;
+    margin: -35px 0 0 -25px;
     transform: rotate(-12deg);
     line-height: 0.9;
     white-space: nowrap;
 
     @include tablet {
       margin-top: -55px;
+      margin-left: 0;
     }
 
     @include laptop {
@@ -297,6 +298,8 @@
   }
 
   .section-quote {
+    padding-top: 10px;
+
     @include tablet {
       width: 600px;
     }
@@ -309,12 +312,12 @@
   .title-decor-svg {
     width: 40px;
     height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     @include tablet {
       width: 60px;
       height: 54px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
   }
 
@@ -440,6 +443,10 @@
       width: 100%;
       object-fit: cover;
       z-index: 1;
+
+      @include tablet {
+        bottom: -100px;
+      }
     }
   }
 
@@ -449,7 +456,7 @@
 
     h3 {
       @include super-title;
-      color: $accent-color;
+      color: $text-color;
       margin-bottom: 12px;
       text-align: center;
 
