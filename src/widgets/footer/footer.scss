@@ -252,7 +252,7 @@
   gap: 36px;
   margin-top: auto;
   width: 100%;
-  pointer-events: none;
+
 
   @include tablet {
     padding-top: 28px;
@@ -350,11 +350,12 @@
 
       svg {
         path {
-          fill: $wood-color; // Колір стрілочки стає білим
+          fill: $wc; // Колір стрілочки стає білим
         }
-         use {
-          fill: $wood-color; // Колір стрілочки стає білим
-          stroke: $wood-color;
+
+        use {
+          fill: $wc; // Колір стрілочки стає білим
+          stroke: $wc;
         }
       }
     }
@@ -364,7 +365,7 @@
 .running-line {
   --running-line-gap: 14px;
   --running-line-duration: 22s;
-
+  pointer-events: none;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -381,17 +382,10 @@
     gap: var(--running-line-gap);
     width: max-content;
     flex-shrink: 0;
-    animation: running-line-marquee var(--running-line-duration) linear infinite;
     height: 100%;
     will-change: transform;
-    transform: translate3d(0, 0, 0);
+    transform: matrix(1, 0, 0, 1, 0, 0);
     backface-visibility: hidden;
-
-    @media (hover: hover) {
-      &:hover {
-        animation-play-state: paused;
-      }
-    }
   }
 
   span {
@@ -416,16 +410,6 @@
     width: auto;
     flex-shrink: 0;
     object-fit: cover;
-  }
-}
-
-@keyframes running-line-marquee {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
   }
 }
 

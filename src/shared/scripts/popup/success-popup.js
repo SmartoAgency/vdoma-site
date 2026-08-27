@@ -18,8 +18,10 @@ const overlay = document.querySelector(".overlay");
 overlay.addEventListener("click", function (evt) {
   if (evt.target === overlay) {
     successPopup.close();
+    window.dispatchEvent(new Event("start-scroll"));
   }
 });
 closeAllBtnRef.addEventListener("click", () => {
   successPopup.close();
+  window.dispatchEvent(new Event("start-scroll"));
 });

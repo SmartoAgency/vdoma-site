@@ -362,8 +362,13 @@
 
 .mapbox-filter-button__icon {
     display: inline-flex;
-    width: 38px;
-    height: 38px;
+    width: 24px;
+    height: 24px;
+
+    @include tablet {
+        width: 38px;
+        height: 38px;
+    }
 }
 
 .mapbox-filter-button__icon img {
@@ -409,6 +414,11 @@
     @include tablet {
         bottom: 20px;
         max-height: calc(92% - 100px);
+    }
+
+    @include laptop {
+        bottom: 20px;
+        max-height: calc(100% - 50px);
     }
 }
 
@@ -478,6 +488,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-word;
+
+    @include laptop {
+        margin-bottom: vw(20);
+    }
+
 }
 
 .mapbox-block__info-gallery {
@@ -485,6 +500,10 @@
     min-height: 170px;
     margin-bottom: 20px;
     position: relative;
+
+    @include laptop {
+        margin-bottom: vw(20);
+    }
 }
 
 .mapbox-info__swiper-prev,
@@ -541,7 +560,7 @@
 
 .mapbox-block__info-gallery img {
     width: 100%;
-    height: 230px;
+    height: 180px;
     object-fit: cover;
     border-radius: 16px;
 }
@@ -571,6 +590,10 @@
     flex-direction: column;
     gap: 6px;
     align-items: center;
+
+    @include laptop {
+        padding: vw(14) vw(14);
+    }
 }
 
 .mapbox-block__travel-head {
@@ -836,6 +859,11 @@
 }
 
 @media screen and (max-width: 600px) {
+    .mapbox-block__info-gallery img {
+        height: 140px;
+        border-radius: 12px;
+    }
+
     .mapbox-drive-route-btn {
         grid-area: button;
         min-height: 38px;

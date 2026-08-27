@@ -624,29 +624,34 @@
 .nav-link {
   overflow: hidden;
   position: relative;
+  // Own stacking context + compositing layer per link so Safari can't
+  // merge/mis-clip the absolutely positioned .fake span with a sibling
+  // link's layer (was showing other menu items' fake text on hover).
+  isolation: isolate;
+  transform: translateZ(0);
 
   .fake {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(-105%);
-    transition: all 0.4s ease-in-out;
+    transform: translateY(-105%) translateZ(0);
+    transition: transform 0.4s ease-in-out;
     color: $accent-color-2;
   }
 
   .real {
     display: block;
-    transition: all 0.4s ease-in-out;
-    transform: translateY(0%);
+    transition: transform 0.4s ease-in-out;
+    transform: translateY(0%) translateZ(0);
   }
 
   &:hover {
     .fake {
-      transform: translateY(0%);
+      transform: translateY(0%) translateZ(0);
     }
 
     .real {
-      transform: translateY(105%);
+      transform: translateY(105%) translateZ(0);
     }
   }
 }

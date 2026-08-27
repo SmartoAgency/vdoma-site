@@ -61,12 +61,17 @@ function revealMenuContent(menu) {
 
   gsap.killTweensOf([logo, ...links, contacts]);
 
+  // clearProps removes the inline filter/transform once the tween finishes.
+  // Safari keeps `filter` as a new containing block for as long as it's set
+  // inline, which breaks the overflow:hidden clip on .nav-link's absolutely
+  // positioned .fake span (menu items were leaking each other's hover text).
   gsap.to(logo, {
     autoAlpha: 1,
     y: 0,
     filter: "blur(0px)",
     duration: 0.42,
     ease: "power3.out",
+    clearProps: "filter,transform",
   });
 
   gsap.to(links, {
@@ -77,6 +82,7 @@ function revealMenuContent(menu) {
     ease: "power3.out",
     stagger: 0.045,
     delay: 0.05,
+    clearProps: "filter,transform",
   });
 
   gsap.to(contacts, {
@@ -86,6 +92,7 @@ function revealMenuContent(menu) {
     duration: 0.4,
     ease: "power3.out",
     delay: 0.18,
+    clearProps: "filter,transform",
   });
 }
 
@@ -352,7 +359,9 @@ if (supportsHover) {
 
       openTimeout = setTimeout(() => {
         if (menu.classList.contains("hidden")) {
-          window.dispatchEvent(new Event("stop-scroll"));
+          if (window.innerWidth < 768) {
+            window.dispatchEvent(new Event("stop-scroll"));
+          }
           header.classList.add("menu-is-open");
           openMenuWithPixels(menu);
         }
@@ -370,7 +379,9 @@ if (supportsHover) {
 
       closeTimeout = setTimeout(() => {
         if (!menu.classList.contains("hidden")) {
-          window.dispatchEvent(new Event("start-scroll"));
+          if (window.innerWidth < 768) {
+            window.dispatchEvent(new Event("start-scroll"));
+          }
           header.classList.remove("menu-is-open");
           closeMenuWithPixels(menu);
         }
@@ -404,11 +415,15 @@ document.body.addEventListener("click", function (evt) {
     const isHidden = menu.classList.contains("hidden");
 
     if (isHidden) {
-      window.dispatchEvent(new Event("stop-scroll"));
+      if (window.innerWidth < 768) {
+        window.dispatchEvent(new Event("stop-scroll"));
+      }
       header.classList.add("menu-is-open");
       openMenuWithPixels(menu);
     } else {
-      window.dispatchEvent(new Event("start-scroll"));
+      if (window.innerWidth < 768) {
+        window.dispatchEvent(new Event("start-scroll"));
+      }
       header.classList.remove("menu-is-open");
       closeMenuWithPixels(menu);
     }
@@ -416,13 +431,17 @@ document.body.addEventListener("click", function (evt) {
     return;
   }
   if (menuItem && !menu.classList.contains("hidden")) {
-    window.dispatchEvent(new Event("start-scroll"));
+    if (window.innerWidth < 768) {
+      window.dispatchEvent(new Event("start-scroll"));
+    }
     header.classList.remove("menu-is-open");
     closeMenuWithPixels(menu);
     return;
   }
   if (btnMenuClose || evt.target === menu) {
-    window.dispatchEvent(new Event("start-scroll"));
+    if (window.innerWidth < 768) {
+      window.dispatchEvent(new Event("start-scroll"));
+    }
     header.classList.remove("menu-is-open");
     closeMenuWithPixels(menu);
   }

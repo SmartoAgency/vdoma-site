@@ -313,6 +313,7 @@
 
 
   .section-quote {
+    padding-top: 10px;
     @include section-title;
     background: linear-gradient(89deg, #27292B 0%, #BB9983 100%);
     background-clip: text;
@@ -355,6 +356,10 @@
     bottom: 0;
     right: 0;
     z-index: 1;
+
+    @include tablet {
+      width: 70%;
+    }
 
     @include laptop {
       width: 60%;
@@ -444,6 +449,7 @@
   position: relative;
 
   .section-quote {
+    padding-top: 10px;
     @include section-title;
     background: linear-gradient(89deg, #27292B 0%, #BB9983 100%);
     background-clip: text;
@@ -472,12 +478,12 @@
     .title-decor-svg {
       width: 40px;
       height: 36px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
 
       @include tablet {
         width: 60px;
         height: 54px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
       }
     }
 
@@ -728,7 +734,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 70% center;
 
+      @include laptop {
+        object-position: 50% center;
+      }
     }
 
     .gradient-key {
@@ -742,6 +752,14 @@
       z-index: 2;
     }
   }
+
+  .key-img-wrap-2 img {
+    object-position: 80% center;
+
+    @include tablet {
+      object-position: 50% center;
+    }
+  }
 }
 
 .end-key__quote {
@@ -749,26 +767,30 @@
 
   .section-quote {
     background: linear-gradient(89deg,
-        rgb(calc(255 - 216 * var(--end-key-progress)),
-          calc(255 - 214 * var(--end-key-progress)),
-          calc(255 - 212 * var(--end-key-progress))) 0%,
-        rgb(calc(255 - 68 * var(--end-key-progress)),
-          calc(255 - 102 * var(--end-key-progress)),
-          calc(255 - 124 * var(--end-key-progress))) 100%);
+        rgb(calc(239 - 200 * var(--end-key-progress)),
+          calc(228 - 187 * var(--end-key-progress)),
+          calc(221 - 178 * var(--end-key-progress))) 0%,
+        rgb(calc(239 - 52 * var(--end-key-progress)),
+          calc(228 - 75 * var(--end-key-progress)),
+          calc(221 - 90 * var(--end-key-progress))) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   .general-btn::before {
-    background-color: rgb(calc(244 - 190 * var(--end-key-progress)),
-        calc(241 - 179 * var(--end-key-progress)),
-        calc(234 - 149 * var(--end-key-progress)));
+    background-color: rgb(calc(239 - 185 * var(--end-key-progress)),
+        calc(228 - 166 * var(--end-key-progress)),
+        calc(221 - 136 * var(--end-key-progress)));
   }
 
   .general-btn span {
     color: rgb(calc(39 + 200 * var(--end-key-progress)),
         calc(41 + 187 * var(--end-key-progress)),
         calc(43 + 178 * var(--end-key-progress)));
+  }
+
+  .general-btn {
+    background-color: $wood-color;
   }
 }

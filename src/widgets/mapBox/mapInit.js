@@ -36,24 +36,39 @@ export const initLazyMap = ({
         i18n,
         zoom,
       });
+
+      // IntersectionObserver для анімації обльоту камери
+      const orbitObserver = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0].isIntersecting) return;
+          orbitObserver.disconnect();
+          if (currentMap.map.loaded()) {
+            currentMap.initCameraOrbit();
+          } else {
+            currentMap.map.once("load", () => currentMap.initCameraOrbit());
+          }
+        },
+        { threshold: 0.2 },
+      );
+      orbitObserver.observe(el);
     });
   };
 
   // Якщо елемент вже у viewport — ініціалізуємо одразу, без observer
-  const rect = el.getBoundingClientRect();
-  if (rect.top < window.innerHeight + 400) {
-    init();
-    return;
-  }
+  // const rect = el.getBoundingClientRect();
+  // if (rect.top < window.innerHeight + 400) {
+  //   init();
+  //   return;
+  // }
+  init();
+  // const observer = new IntersectionObserver(
+  //   (entries) => {
+  //     if (!entries[0].isIntersecting) return;
+  //     observer.disconnect();
+  // init();
+  //   },
+  //   { rootMargin: "400px" },
+  // );
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (!entries[0].isIntersecting) return;
-      observer.disconnect();
-      init();
-    },
-    { rootMargin: "400px" },
-  );
-
-  observer.observe(el);
+  // observer.observe(el);
 };

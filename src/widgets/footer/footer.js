@@ -38,6 +38,52 @@ selectors.forEach((selector) => {
   });
 });
 
+function startMarqueeAnimation(container, track) {
+  let halfWidth = track.scrollWidth / 2;
+  let durationSeconds = parseFloat(getComputedStyle(container).getPropertyValue("--running-line-duration")) || 22;
+
+  let offset = 0;
+  let lastTimestamp = null;
+  let paused = false;
+  const hoverCapable = window.matchMedia("(hover: hover)").matches;
+
+  const recalc = () => {
+    halfWidth = track.scrollWidth / 2;
+    durationSeconds = parseFloat(getComputedStyle(container).getPropertyValue("--running-line-duration")) || 22;
+  };
+
+  const tick = (timestamp) => {
+    if (lastTimestamp === null) lastTimestamp = timestamp;
+    const deltaSeconds = (timestamp - lastTimestamp) / 1000;
+    lastTimestamp = timestamp;
+
+    if (!paused && halfWidth > 0 && durationSeconds > 0) {
+      offset += (halfWidth / durationSeconds) * deltaSeconds;
+      if (offset >= halfWidth) offset -= halfWidth;
+
+      // matrix(a, b, c, d, tx, ty) — plain translation, avoids Safari's
+      // keyframe-interpolation jank with translateX() on wide tracks.
+      track.style.transform = `matrix(1, 0, 0, 1, ${-offset}, 0)`;
+    }
+
+    requestAnimationFrame(tick);
+  };
+
+  if (hoverCapable) {
+    container.addEventListener("mouseenter", () => {
+      paused = true;
+    });
+    container.addEventListener("mouseleave", () => {
+      paused = false;
+      lastTimestamp = null;
+    });
+  }
+
+  window.addEventListener("resize", recalc);
+
+  requestAnimationFrame(tick);
+}
+
 function initRunningLine() {
   const track = document.querySelector(".running-line__track");
   const container = document.querySelector(".running-line");
@@ -54,11 +100,13 @@ function initRunningLine() {
     safety += 1;
   }
 
-  // Duplicate the full first half once so translateX(-50%) loops seamlessly.
+  // Duplicate the full first half once so a shift by halfWidth loops seamlessly.
   const firstHalfMarkup = track.innerHTML;
   track.insertAdjacentHTML("beforeend", firstHalfMarkup);
 
   track.dataset.marqueeReady = "true";
+
+  startMarqueeAnimation(container, track);
 }
 
 const runningLineVideos = document.querySelectorAll(".running-line video");

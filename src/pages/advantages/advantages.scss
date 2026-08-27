@@ -147,13 +147,14 @@
     -webkit-text-stroke-color: $wc;
     paint-order: stroke fill;
     color: $accent-color;
-    margin: -35px 0 0;
+    margin: -35px 0 0 -25px;
     transform: rotate(-12deg);
     line-height: 0.9;
     white-space: nowrap;
 
     @include tablet {
       margin-top: -55px;
+      margin-left: 0;
     }
 
     @include laptop {
@@ -297,6 +298,8 @@
   }
 
   .section-quote {
+    padding-top: 10px;
+
     @include tablet {
       width: 600px;
     }
@@ -309,12 +312,12 @@
   .title-decor-svg {
     width: 40px;
     height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     @include tablet {
       width: 60px;
       height: 54px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
   }
 
@@ -400,6 +403,7 @@
       padding: 40px;
       height: 645px;
       margin-bottom: 80px;
+      top: 60px;
     }
 
     @include laptop {
@@ -408,7 +412,7 @@
       height: 892px;
       max-height: 80vh;
       position: sticky;
-      top: vw(100);
+      top: vw(60);
       margin-bottom: 0;
     }
 
@@ -440,6 +444,13 @@
       width: 100%;
       object-fit: cover;
       z-index: 1;
+
+      @include tablet {
+        bottom: auto;
+        top: 5svh
+      }
+
+
     }
   }
 
@@ -449,7 +460,7 @@
 
     h3 {
       @include super-title;
-      color: $accent-color;
+      color: $text-color;
       margin-bottom: 12px;
       text-align: center;
 
@@ -502,13 +513,13 @@
 
   @include tablet {
     padding: 60px 40px;
-    top: 100px;
+    top: 60px;
     border-radius: 80px;
   }
 
   @include laptop {
     padding: 60px vw(40) vw(60);
-    top: vw(100);
+    top: vw(60);
 
   }
 
@@ -566,7 +577,7 @@
       }
 
       @include laptop {
-        aspect-ratio: 724 / 504;
+        aspect-ratio: 724 / 404;
       }
     }
 

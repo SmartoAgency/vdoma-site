@@ -196,7 +196,7 @@ $screen-height: 720;
 
   @include laptop {
 
-    font-size: clamp(24px,
+    font-size: clamp(20px,
         calc(20px + (24 - 20) * ((100vw - 1024px) / (1920 - 1024))),
         24px);
   }

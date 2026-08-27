@@ -297,6 +297,8 @@
   }
 
   .section-quote {
+    padding-top: 10px;
+
     @include tablet {
       width: 600px;
     }
@@ -309,12 +311,12 @@
   .title-decor-svg {
     width: 40px;
     height: 36px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     @include tablet {
       width: 60px;
       height: 54px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
   }
 
@@ -338,4 +340,3 @@
     }
   }
 }
-
