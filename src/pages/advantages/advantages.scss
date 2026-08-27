@@ -446,6 +446,10 @@
       z-index: 1;
 
       @include tablet {
+        bottom: -100px;
+      }
+
+      @include laptop {
         bottom: auto;
         top: 5svh
       }
